@@ -1,27 +1,25 @@
 import React from "react";
-import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
-import Header from "./features/header/Header";
-import LoadingComponent from "./components/LoadingComponent";
-// import AppRoutes from "./routes/AppRoutes";
+import Header from "../features/header/Header";
+import LoadingComponent from "../components/LoadingComponent";
 
-const Login = React.lazy(() => import("./features/login/Login"));
-const Dashboard = React.lazy(() => import("./features/dashboard/Dashboard"));
+const Login = React.lazy(() => import("../features/login/Login"));
+const Dashboard = React.lazy(() => import("../features/dashboard/Dashboard"));
 
-function App() {
+const AppRoutes = () => {
   const location = useLocation();
   const isExcludedRouteForHeader = !["/"].some(
     (route) => location.pathname === route
   );
-  // const [sidebarOpen, setSideBarOpen] = React.useState(false);
+  const [sidebarOpen, setSideBarOpen] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState(location.pathname);
-  console.log("currentRoute", currentRoute);
+
   React.useEffect(() => {
     setCurrentRoute(location.pathname);
   }, [location]);
+
   return (
-    // <div className="App">
     <>
       <div>
         <React.Suspense fallback={<LoadingComponent open={true} />}>
@@ -31,7 +29,12 @@ function App() {
             }}
           >
             <div style={{ flexGrow: 1 }}>
-              {isExcludedRouteForHeader && <Header />}
+              {isExcludedRouteForHeader && (
+                <Header
+                  setSideBarOpen={setSideBarOpen}
+                  sidebarOpen={sidebarOpen}
+                />
+              )}
 
               <div
                 style={{
@@ -52,6 +55,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default AppRoutes;

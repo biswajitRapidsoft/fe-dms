@@ -16,7 +16,7 @@ export const axiosBaseQuery =
       let err = axiosError;
       if (err.response?.status === 401) {
         sessionStorage.clear();
-        window.location.href = "/login";
+        window.location.href = "/";
       }
       return {
         error: {
@@ -33,6 +33,7 @@ function getOptions() {
       Authorization: sessionStorage.getItem("data")
         ? `Bearer ${JSON.parse(sessionStorage.getItem("data")).token}`
         : null,
+      userId: JSON.parse(sessionStorage.getItem("data")).userId,
     };
   } catch (err) {
     console.log(err);
