@@ -67,13 +67,10 @@ const Header = () => {
         <AppBar
           position="fixed"
           sx={{
-            backgroundColor: "#cdc1ff",
-            backgroundImage: "linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%)",
-            // background: "linear-gradient(rgb(30 96 139), rgb(14 57 115))",
-            // backgroundColor: " #cdc1ff",
+            // backgroundColor: "#cdc1ff",
             // backgroundImage: "linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%)",
-            // backgroundColor: "",
-            // zIndex: "10000 !important",
+            backgroundImage:
+              "linear-gradient(to right, #5e63b6, #7e79c4, #9b91d2, #b7a9e0, #d1c3ef)",
           }}
         >
           <Toolbar>
@@ -90,16 +87,18 @@ const Header = () => {
                 flexGrow: 1,
                 display: "flex",
                 justifyContent: "flex-end",
+                gap: 2,
               }}
             >
               <IconButton sx={{ p: 0 }}>
                 <Avatar
                   alt="Remy Sharp"
                   src="https://images.unsplash.com/photo-1633332755192-727a05c4013d"
+                  sx={{ height: "53px", width: "53px" }}
                 />
               </IconButton>
               <IconButton onClick={handleClickOpenDialog}>
-                <LogoutIcon sx={{ fontSize: "2rem" }} />
+                <LogoutIcon sx={{ fontSize: "2.5rem" }} />
               </IconButton>
             </Box>
           </Toolbar>

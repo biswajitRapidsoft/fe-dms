@@ -4,9 +4,9 @@ import { Box } from "@mui/material";
 import Chart from "react-apexcharts";
 
 const ChartComponent = ({ dataCount }) => {
-  // console.log("data count in chart", dataCount);
-  const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
-  console.log("selectedChartLabel", selectedChartLabel);
+  const [setSelectedChartLabel] = React.useState(null);
+  // const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
+  // console.log("selectedChartLabel", selectedChartLabel);
 
   const options = React.useMemo(
     () => ({
@@ -81,7 +81,7 @@ const ChartComponent = ({ dataCount }) => {
               total: {
                 show: true,
                 showAlways: true,
-                label: "Total actions count",
+                label: "Total Vehicle Events",
                 color: "#fff",
                 fontSize: 20,
                 fontWeight: "bold",

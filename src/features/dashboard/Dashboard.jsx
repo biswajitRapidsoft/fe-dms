@@ -44,8 +44,8 @@ const Dashboard = () => {
   const [pageSize, setPageSize] = React.useState(10);
   // useState for chart component filter
   const [filter, setFilter] = React.useState({
-    filter: "This Month",
-    filterInputVal: "This Month",
+    filter: "Till Today",
+    filterInputVal: "Till Today",
   });
 
   const [tableFilter, setTableFilter] = React.useState({
@@ -86,12 +86,23 @@ const Dashboard = () => {
     }
   );
 
+  // calling the api for card data
+  const {
+    data: getAllCardEventCount = {
+      data: null,
+    },
+    isLoading: isGetAllEventCardCountLoading,
+  } = useGetAllEventCountQuery("Till Today", {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  });
+  // calling the api for chartfilter
   const {
     data: getAllEventCount = {
       data: null,
     },
     isLoading: isGetAllEventCountLoading,
-  } = useGetAllEventCountQuery(filter.filter || "This Month", {
+  } = useGetAllEventCountQuery(filter.filter || "Till Today", {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
@@ -170,6 +181,99 @@ const Dashboard = () => {
     []
   );
 
+  // custom component for chart labels
+  const CustomChartLabels = React.memo(
+    ({ box, index, arr, getAllEventCount, calculatePercentage }) => {
+      return (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  height: 12,
+                  width: 12,
+                  backgroundColor: box.color,
+                }}
+              ></Box>
+              <Typography sx={{ color: "#fff" }}>{box.title}</Typography>
+            </Box>
+            <Typography sx={{ color: "#fff" }}>
+              {calculatePercentage(
+                getAllEventCount?.data?.[box.key],
+                getAllEventCount?.data?.totalEventCount
+              )}
+              %
+            </Typography>
+          </Box>
+          {index !== arr.length - 1 && (
+            <Divider sx={{ backgroundColor: "#F9F7FD " }} />
+          )}
+        </>
+      );
+    }
+  );
+
+  // custom component for boxes(cards)
+
+  const CustomBox = ({ box, getAllCardEventCount, calculatePercentage }) => {
+    return (
+      <Grid item xs={6} md={4} lg={1.5} sm={6}>
+        <Paper
+          sx={{
+            pb: 3,
+            backgroundColor: theme.palette.secondary.main,
+          }}
+        >
+          <Box sx={{ display: "flex", px: 1, py: 2 }}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                color: "#000",
+              }}
+              variant="h6"
+            >
+              {box.title}
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", px: 2, flexDirection: "column" }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 300,
+                color: "#000",
+              }}
+            >
+              {getAllCardEventCount?.data?.[box.key] || 0}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#000",
+              }}
+            >
+              {calculatePercentage(
+                getAllCardEventCount?.data?.[box.key],
+                getAllCardEventCount?.data?.totalEventCount
+              )}
+              %
+            </Typography>
+          </Box>
+        </Paper>
+      </Grid>
+    );
+  };
+
   React.useEffect(() => {
     if (Cookies.getCookie("loginSuccess")) {
       setSnack({
@@ -209,51 +313,12 @@ const Dashboard = () => {
         <Box sx={{ px: 2, mt: 3 }}>
           <Grid container spacing={2}>
             {boxesData.map((box, index) => (
-              <Grid item xs={6} md={4} lg={1.5} sm={6} key={index}>
-                <Paper
-                  sx={{
-                    pb: 3,
-                    backgroundColor: theme.palette.secondary.main,
-                  }}
-                >
-                  <Box sx={{ display: "flex", px: 1, py: 2 }}>
-                    <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        color: "#000",
-                      }}
-                      variant="h6"
-                    >
-                      {box.title}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", px: 2, flexDirection: "column" }}>
-                    <Typography
-                      variant="h2"
-                      sx={{
-                        fontWeight: 300,
-                        color: "#000",
-                      }}
-                    >
-                      {getAllEventCount?.data?.[box.key] || 0}
-                    </Typography>
-                    {/* {box.key !== "totalEventCount" && ( */}
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: "#000",
-                      }}
-                    >
-                      {calculatePercentage(
-                        getAllEventCount?.data?.[box.key],
-                        getAllEventCount?.data?.totalEventCount
-                      )}
-                      %
-                    </Typography>
-                    {/* )} */}
-                  </Box>
-                </Paper>
-              </Grid>
+              <CustomBox
+                key={index}
+                box={box}
+                getAllCardEventCount={getAllCardEventCount}
+                calculatePercentage={calculatePercentage}
+              />
             ))}
             <Grid item xs={12} sm={12} md={6} lg={8}>
               <Box
@@ -263,6 +328,11 @@ const Dashboard = () => {
                   justifyContent: "flex-end",
                   gap: 1,
                   mb: 1,
+                  ".MuiFormLabel-root": {
+                    color: "#280071",
+                    // fontWeight: 600,
+                    // fontSize: 18,
+                  },
                 }}
               >
                 <Grid item xs={4} sm={4} md={4} lg={3}>
@@ -271,6 +341,7 @@ const Dashboard = () => {
                     size="small"
                     options={getEventType?.data || []}
                     getOptionLabel={(option) => option.replace(/_/g, " ")}
+                    popupIcon={<KeyboardArrowDownIcon />}
                     onChange={(e, newVal) =>
                       handleTableFilterChange("selectedEventType", newVal)
                     }
@@ -307,6 +378,9 @@ const Dashboard = () => {
                     getOptionLabel={(option) => option}
                     onChange={(e, newVal) =>
                       handleTableFilterChange("vehicleNo", newVal)
+                    }
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#280071" }} />
                     }
                     sx={{
                       "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover":
@@ -376,6 +450,25 @@ const Dashboard = () => {
                     width: "97%",
                     display: "flex",
                     justifyContent: "flex-end",
+                    ".MuiTextField-root": {
+                      width: "100%",
+                      // backgroundColor: "transparent",
+                      ".MuiInputBase-root": {
+                        color: "#B4B4B4",
+                        background: "rgba(255, 255, 255, 0.25)",
+                      },
+                    },
+                    ".MuiFormLabel-root": {
+                      color: "#280071",
+                      fontWeight: 600,
+                      fontSize: 18,
+                    },
+                    ".css-3zi3c9-MuiInputBase-root-MuiInput-root:before": {
+                      borderBottom: (theme) => "1px solid #280071",
+                    },
+                    ".css-iwadjf-MuiInputBase-root-MuiInput-root:before": {
+                      borderBottom: (theme) => "1px solid #280071",
+                    },
                   }}
                 >
                   <Autocomplete
@@ -394,7 +487,9 @@ const Dashboard = () => {
                     onInputChange={(e, newVal) => handleInputValChange(newVal)}
                     clearOnEscape
                     disablePortal
-                    popupIcon={<KeyboardArrowDownIcon />}
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#280071" }} />
+                    }
                     // popupIcon={<KeyboardArrowDownIcon color="red" />}
                     sx={{
                       width: 200,
@@ -413,6 +508,14 @@ const Dashboard = () => {
                           color: "#280071",
                           fontWeight: 600,
                         },
+                      "& .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] .MuiAutocomplete-input:focus":
+                        {
+                          borderColor: "black !important",
+                        },
+
+                      // .css-vaz8fx-MuiAutocomplete-root .MuiOutlinedInput-root.MuiInputBase-sizeSmall{
+
+                      // }
                     }}
                     size="small"
                     clearIcon={<ClearIcon color="primary" />}
@@ -451,41 +554,13 @@ const Dashboard = () => {
                     .filter((box) => box.key !== "totalEventCount")
                     .map((box, index, arr) => (
                       <React.Fragment key={box.key}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 1,
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                height: 12,
-                                width: 12,
-                                backgroundColor: box.color,
-                              }}
-                            ></Box>
-                            <Typography sx={{ color: "#fff" }}>
-                              {box.title}
-                            </Typography>
-                          </Box>
-                          <Typography sx={{ color: "#fff" }}>
-                            {calculatePercentage(
-                              getAllEventCount?.data?.[box.key],
-                              getAllEventCount?.data?.totalEventCount
-                            )}
-                            %
-                          </Typography>
-                        </Box>
-                        {index !== arr.length - 1 && (
-                          <Divider sx={{ backgroundColor: "#F9F7FD " }} />
-                        )}
+                        <CustomChartLabels
+                          box={box}
+                          index={index}
+                          arr={arr}
+                          getAllEventCount={getAllEventCount}
+                          calculatePercentage={calculatePercentage}
+                        />
                       </React.Fragment>
                     ))}
                 </Box>
@@ -500,7 +575,8 @@ const Dashboard = () => {
           isGetAllDataLoading ||
           isGetAllEventCountLoading ||
           isGetEventTypeLoading ||
-          isGetAllVehicleDataLoading
+          isGetAllVehicleDataLoading ||
+          isGetAllEventCardCountLoading
         }
       />
     </React.Fragment>

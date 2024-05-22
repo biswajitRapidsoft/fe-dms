@@ -43,6 +43,15 @@ const dashboardApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["getAllVehicle"],
     }),
+
+    getVideo: build.query({
+      query: (payload) => ({
+        url: payload.videoUrl,
+        method: "GET",
+        responseType: "blob",
+      }),
+      providesTags: ["getVideo"],
+    }),
   }),
 });
 
@@ -51,4 +60,5 @@ export const {
   useGetAllEventCountQuery,
   useGetEventTypeQuery,
   useGetAllVehicleQuery,
+  useGetVideoQuery,
 } = dashboardApi;

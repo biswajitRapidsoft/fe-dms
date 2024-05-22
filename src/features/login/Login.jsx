@@ -107,6 +107,7 @@ const Login = () => {
         p: 1,
         background: `linear-gradient(45deg, #5e63b6, #D1C3EF)`,
         height: "100vh",
+
         minHeight: "600px",
       }}
     >

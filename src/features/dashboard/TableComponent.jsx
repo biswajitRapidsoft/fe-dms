@@ -20,6 +20,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 
+import VideoComponent from "./VideoComponent";
+
 const TableComponent = ({
   getAllData,
   pageNo,
@@ -75,7 +77,7 @@ const TableComponent = ({
               {row.driverName}
             </Typography>
             {/* <br /> */}
-            <Typography variant="caption" sx={{ color: "#7CB9E8" }}>
+            <Typography variant="caption" sx={{ color: "#0066b2" }}>
               +91-{row.driverPhone}
             </Typography>
           </Box>
@@ -103,7 +105,7 @@ const TableComponent = ({
                   fontWeight: "bold",
                 }}
               >
-                Sno.
+                S.No.
               </TableCell>
               <TableCell
                 align="center"
@@ -123,7 +125,7 @@ const TableComponent = ({
                   fontWeight: "bold",
                 }}
               >
-                Driver details
+                Driver Details
               </TableCell>
 
               <TableCell
@@ -204,19 +206,52 @@ const TableComponent = ({
             <Box
               sx={{
                 backgroundColor: "#fffafa",
+                // backgroundColor: "red",
                 height: "100%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 34,
+                // gap: 34,
               }}
             >
-              <IconButton onClick={() => setShowVideo(true)}>
-                <OndemandVideoIcon sx={{ fontSize: 80, color: "#a2a8d3" }} />
-              </IconButton>
-              <IconButton onClick={() => setShowImage(true)}>
-                <ImageIcon sx={{ fontSize: 80, color: "#a2a8d3" }} />
-              </IconButton>
+              <Grid container>
+                <Grid
+                  item
+                  lg={6}
+                  xl={6}
+                  md={6}
+                  sm={6}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton onClick={() => setShowVideo(true)}>
+                    <OndemandVideoIcon
+                      sx={{ fontSize: 80, color: "#a2a8d3" }}
+                    />
+                  </IconButton>
+                </Grid>
+                <Grid
+                  item
+                  lg={6}
+                  xl={6}
+                  md={6}
+                  sm={6}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton onClick={() => setShowImage(true)}>
+                    <ImageIcon sx={{ fontSize: 80, color: "#a2a8d3" }} />
+                  </IconButton>
+                </Grid>
+              </Grid>
             </Box>
           )}
           {showVideo && (
@@ -230,22 +265,23 @@ const TableComponent = ({
             </IconButton>
           )}
           {showVideo && selectedTruck && (
-            <Box mt={2}>
+            <Box>
               <Grid container spacing={2}>
-                {selectedTruck?.evidenceVideos?.map((videoUrl, index) => (
-                  <Grid item xs={12} lg={4} key={index}>
-                    {/* {console.log(videoUrl)} */}
-                    <video width="100%" height="500" controls>
-                      <source src={videoUrl} type="video/mp4" />
-                    </video>
-                  </Grid>
-                ))}
+                {selectedTruck?.evidenceVideos?.map((videoUrl, index) => {
+                  return (
+                    <Grid item xs={12} lg={6} key={index}>
+                      {/* {console.log(videoUrl)} */}
+
+                      <VideoComponent videoUrl={videoUrl} />
+                    </Grid>
+                  );
+                })}
               </Grid>
             </Box>
           )}
 
           {showImage && (
-            <Box mt={2}>
+            <Box>
               <Grid container spacing={2}>
                 {selectedTruck?.evidencePhotos?.map((photoUrl, index) => (
                   <Grid item xs={12} lg={4} key={index}>
