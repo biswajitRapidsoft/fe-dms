@@ -269,7 +269,15 @@ const TableComponent = ({
               <Grid container spacing={2}>
                 {selectedTruck?.evidenceVideos?.map((videoUrl, index) => {
                   return (
-                    <Grid item xs={12} lg={6} key={index}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={12}
+                      md={6}
+                      lg={2.4}
+                      // xl={3}
+                      key={index}
+                    >
                       {/* {console.log(videoUrl)} */}
 
                       <VideoComponent videoUrl={videoUrl} />

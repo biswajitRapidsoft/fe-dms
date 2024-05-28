@@ -4,9 +4,9 @@ import { Box } from "@mui/material";
 import Chart from "react-apexcharts";
 
 const ChartComponent = ({ dataCount }) => {
-  const [setSelectedChartLabel] = React.useState(null);
-  // const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
-  // console.log("selectedChartLabel", selectedChartLabel);
+  // const [setSelectedChartLabel] = React.useState(null);
+  const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
+  console.log("selectedChartLabel", selectedChartLabel);
 
   const options = React.useMemo(
     () => ({

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useGetVideoQuery } from "../../services/dashboard";
 
 const VideoComponent = ({ videoUrl }) => {
-  console.log("videoUrl in videoComponent", videoUrl);
-
   const {
     data: videoBlob,
     error,
@@ -14,9 +12,9 @@ const VideoComponent = ({ videoUrl }) => {
       skip: !videoUrl,
     }
   );
-  const [videoSrc, setVideoSrc] = useState(null);
-
-  useEffect(() => {
+  const [videoSrc, setVideoSrc] = React.useState(null);
+  console.log(videoSrc);
+  React.useEffect(() => {
     if (videoBlob) {
       const url = URL.createObjectURL(
         new Blob([videoBlob], { type: "video/mp4" })
@@ -41,7 +39,7 @@ const VideoComponent = ({ videoUrl }) => {
   return (
     <React.Fragment>
       {videoSrc && (
-        <video width="100%" height="390" controls src={videoSrc}></video>
+        <video width="100%" height="100%" controls src={videoSrc}></video>
       )}
     </React.Fragment>
   );

@@ -341,7 +341,9 @@ const Dashboard = () => {
                     size="small"
                     options={getEventType?.data || []}
                     getOptionLabel={(option) => option.replace(/_/g, " ")}
-                    popupIcon={<KeyboardArrowDownIcon />}
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#280071" }} />
+                    }
                     onChange={(e, newVal) =>
                       handleTableFilterChange("selectedEventType", newVal)
                     }
