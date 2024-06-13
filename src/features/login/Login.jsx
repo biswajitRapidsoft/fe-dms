@@ -25,17 +25,17 @@ import LoadingComponent from "../../components/LoadingComponent";
 import SnackAlert from "../../components/Alert";
 
 import { useLoginMutation } from "../../services/login";
+import { useTheme } from "@mui/material";
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" align="center" {...props}>
       {"Copyright © "}
-      <Link sx={{ color: "#fff" }} href="/" onClick={(e) => e.preventDefault()}>
+      <Link
+        sx={{ color: "text.light" }}
+        href="/"
+        onClick={(e) => e.preventDefault()}
+      >
         DMS
       </Link>{" "}
       {new Date().getFullYear()}
@@ -52,6 +52,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [login, loginResponse] = useLoginMutation();
 
@@ -77,7 +78,7 @@ const Login = () => {
         .then((res) => {
           setSnack({
             open: true,
-            message: res.message,
+            message: res?.message,
             severity: "success",
           });
           sessionStorage.setItem("data", JSON.stringify(res.data));
@@ -89,7 +90,7 @@ const Login = () => {
         .catch((err) => {
           setSnack({
             open: true,
-            message: err.data?.message || err.data,
+            message: err?.data?.message || err?.data,
             severity: "error",
           });
         });
@@ -105,7 +106,7 @@ const Login = () => {
     <Box
       sx={{
         p: 1,
-        background: `linear-gradient(45deg, #5e63b6, #D1C3EF)`,
+        background: `linear-gradient(45deg, ${theme?.palette?.primary?.main}, ${theme?.palette?.secondary?.light})`,
         height: "100vh",
 
         minHeight: "600px",
@@ -192,7 +193,7 @@ const Login = () => {
             </Button>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4, color: "#fff" }} />
+        <Copyright sx={{ mt: 8, mb: 4, color: "text.light" }} />
       </Container>
       <LoadingComponent open={loginResponse.isLoading} />
       <SnackAlert snack={snack} setSnack={setSnack} />

@@ -26,7 +26,7 @@ const VideoComponent = ({ videoUrl }) => {
         URL.revokeObjectURL(videoSrc);
       }
     };
-  }, [videoBlob]);
+  }, [videoSrc, videoBlob]);
 
   if (isLoading) {
     return <p>Loading video...</p>;

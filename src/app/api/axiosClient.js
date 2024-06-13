@@ -36,7 +36,9 @@ function getOptions() {
       Authorization: sessionStorage.getItem("data")
         ? `Bearer ${JSON.parse(sessionStorage.getItem("data")).token}`
         : null,
-      userId: JSON.parse(sessionStorage.getItem("data")).userId,
+      userId: Boolean(sessionStorage.getItem("data"))
+        ? JSON.parse(sessionStorage.getItem("data")).userId
+        : null,
     };
   } catch (err) {
     console.log(err);

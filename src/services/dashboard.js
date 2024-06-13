@@ -12,7 +12,12 @@ const dashboardApi = apiSlice.injectEndpoints({
           pageSize: payload.pageSize,
           eventType: payload.eventType,
           vehicleNo: payload.vehicleNo,
-          searchKey: payload.searchKey,
+          remark: payload?.remark,
+          searchKey: payload?.searchKey,
+          fromDate: payload?.fromDate,
+          toDate: payload?.toDate,
+          // driverName: payload?.driverName,
+          dlNumber: payload?.dlNumber,
         },
       }),
       providesTags: ["getAllEvent"],
@@ -28,6 +33,17 @@ const dashboardApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["getAllEventCount"],
     }),
+    getDriverPerformance: build.query({
+      query: (payload) => ({
+        url: config.apiName.getDriverPerformance,
+        method: "GET",
+        params: {
+          value: payload?.value,
+          dlNumber: payload?.dlNumber,
+        },
+      }),
+      providesTags: ["getDriverPerformance"],
+    }),
 
     getEventType: build.query({
       query: () => ({
@@ -35,6 +51,13 @@ const dashboardApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["getEventType"],
+    }),
+    getStatusType: build.query({
+      query: () => ({
+        url: config.apiName.getStatusType,
+        method: "GET",
+      }),
+      providesTags: ["getStatusType"],
     }),
     getAllVehicle: build.query({
       query: () => ({
@@ -52,6 +75,15 @@ const dashboardApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["getVideo"],
     }),
+
+    updateEvent: build.mutation({
+      query: (payload) => ({
+        url: config?.apiName?.updateEvent,
+        method: "POST",
+        data: payload,
+      }),
+      invalidatesTags: ["getAllEvent"],
+    }),
   }),
 });
 
@@ -61,4 +93,7 @@ export const {
   useGetEventTypeQuery,
   useGetAllVehicleQuery,
   useGetVideoQuery,
+  useGetStatusTypeQuery,
+  useGetDriverPerformanceQuery,
+  useUpdateEventMutation,
 } = dashboardApi;

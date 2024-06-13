@@ -5,7 +5,7 @@ import { Backdrop, CircularProgress } from "@mui/material";
 const LoadingComponent = ({ open }) => {
   return ReactDOM.createPortal(
     <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.modal + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.modal + 15 }}
       open={open}
     >
       <CircularProgress color="inherit" />

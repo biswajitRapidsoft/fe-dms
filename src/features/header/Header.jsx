@@ -1,6 +1,14 @@
 import React from "react";
 
-import { AppBar, Toolbar, Box, Avatar, IconButton } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Avatar,
+  IconButton,
+  // Tooltip,
+  // Typography,
+} from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../../img/WATSOO_LOGO.svg";
 import { useDispatch } from "react-redux";
@@ -11,8 +19,11 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
+// import SettingsRemoteIcon from "@mui/icons-material/SettingsRemote";
+import { useTheme } from "@emotion/react";
 
 const Header = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -29,6 +40,10 @@ const Header = () => {
     navigate("/");
   }, [navigate, dispatch]);
 
+  // const handleNavigateCommandConfiguration = React.useCallback(() => {
+  //   navigate("/commandConfiguration");
+  // }, [navigate]);
+
   const AlertDialog = React.memo(function ({
     open,
     handleClose,
@@ -44,6 +59,7 @@ const Header = () => {
           ".MuiDialog-container": {
             alignItems: "flex-start",
           },
+          zIndex: theme.zIndex.modal + 5,
         }}
       >
         <DialogTitle id="alert-dialog-title">
@@ -67,10 +83,13 @@ const Header = () => {
         <AppBar
           position="fixed"
           sx={{
+            zIndex: theme.zIndex.modal + 5,
             // backgroundColor: "#cdc1ff",
             // backgroundImage: "linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%)",
+            // backgroundImage:
+            //   "linear-gradient(to right, #5e63b6, #7e79c4, #9b91d2, #b7a9e0, #d1c3ef)",
             backgroundImage:
-              "linear-gradient(to right, #5e63b6, #7e79c4, #9b91d2, #b7a9e0, #d1c3ef)",
+              "linear-gradient(to left, #0e3973, #35568c, #5674a4, #7793bd, #99b3d6)",
           }}
         >
           <Toolbar>
@@ -97,8 +116,56 @@ const Header = () => {
                   sx={{ height: "53px", width: "53px" }}
                 />
               </IconButton>
+              {/* <Tooltip
+                title={
+                  <Typography
+                    sx={{
+                      fontSize: "13px",
+                      paddingX: "10px",
+                      paddingY: "5px",
+                      maxWidth: "220px",
+                      whiteSpace: "normal",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    Command Configuration
+                  </Typography>
+                }
+                // placement="top"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -3],
+                      },
+                    },
+                  ],
+                }}
+                sx={{
+                  [`& .MuiTooltip-tooltip`]: {
+                    backgroundColor: "black",
+                    color: "white",
+                    boxShadow: 1,
+                    maxWidth: "220px",
+                    whiteSpace: "normal",
+                    wordBreak: "break-word",
+                  },
+                  [`& .MuiTooltip-arrow`]: {
+                    color: "black",
+                  },
+                }}
+              >
+                <IconButton
+                  onClick={() => handleNavigateCommandConfiguration()}
+                >
+                  <SettingsRemoteIcon sx={{ fontSize: "2.5rem" }} />
+                </IconButton>
+              </Tooltip> */}
+
               <IconButton onClick={handleClickOpenDialog}>
-                <LogoutIcon sx={{ fontSize: "2.5rem" }} />
+                <LogoutIcon sx={{ fontSize: "2.5rem", color: "text.light" }} />
               </IconButton>
             </Box>
           </Toolbar>
