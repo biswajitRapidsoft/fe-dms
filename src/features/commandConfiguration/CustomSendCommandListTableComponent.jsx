@@ -62,44 +62,64 @@ const CustomRow = React.memo(
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
               gap: 1,
             }}
           >
-            <Typography
-              variant="body1"
+            <Box
               sx={{
-                fontWeight: 550,
-                color: Boolean(row?.baseCommand)
-                  ? "customBlue.dark"
-                  : "customGrey.600",
-                fontSize: Boolean(row?.baseCommand) ? "" : "15px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              {row?.baseCommand || "NA"}
-            </Typography>
-            <TextField
-              value={row?.midCommand || ""}
-              size="small"
-              name="midCommand"
-              sx={{ minWidth: "10em" }}
-              onChange={(e) => handleSendCommandListCellInputChangeOnChange(e)}
+              <Typography
+                variant="body1"
+                sx={{
+                  fontWeight: 550,
+                  color: Boolean(row?.baseCommand)
+                    ? "customBlue.dark"
+                    : "customGrey.600",
+                  fontSize: Boolean(row?.baseCommand) ? "" : "15px",
+                }}
+              >
+                {row?.baseCommand || "NA"}
+              </Typography>
+            </Box>
 
-              // label="mid
-              // fullWidth
-            />
-            <Typography
-              variant="body1"
+            <Box
               sx={{
-                fontWeight: 550,
-                color: Boolean(row?.endCommand)
-                  ? "customBlue.dark"
-                  : "customGrey.600",
-                fontSize: Boolean(row?.endCommand) ? "" : "15px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 1,
               }}
             >
-              {row?.endCommand || "NA"}
-            </Typography>
+              <TextField
+                value={row?.midCommand || ""}
+                size="small"
+                name="midCommand"
+                sx={{ minWidth: "10em" }}
+                onChange={(e) =>
+                  handleSendCommandListCellInputChangeOnChange(e)
+                }
+
+                // label="mid
+                // fullWidth
+              />
+              <Typography
+                variant="body1"
+                sx={{
+                  fontWeight: 550,
+                  color: Boolean(row?.endCommand)
+                    ? "customBlue.dark"
+                    : "customGrey.600",
+                  fontSize: Boolean(row?.endCommand) ? "" : "15px",
+                }}
+              >
+                {row?.endCommand || "NA"}
+              </Typography>
+            </Box>
           </Box>
         </TableCell>
 
@@ -141,10 +161,23 @@ const CustomSendCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
+                  borderTopLeftRadius: "10px",
+                  borderBottomLeftRadius: "10px",
+                  position: "relative",
                 }}
               >
                 S.No.
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "25px",
+                    backgroundColor: "white",
+                    right: 0,
+                    top: 10,
+                  }}
+                />
               </TableCell>
 
               <TableCell
@@ -153,10 +186,21 @@ const CustomSendCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
+                  position: "relative",
                 }}
               >
                 DESCRIPTION
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "25px",
+                    backgroundColor: "white",
+                    right: 0,
+                    top: 10,
+                  }}
+                />
               </TableCell>
               <TableCell
                 align="center"
@@ -164,10 +208,21 @@ const CustomSendCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
+                  position: "relative",
                 }}
               >
                 COMMAND
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "25px",
+                    backgroundColor: "white",
+                    right: 0,
+                    top: 10,
+                  }}
+                />
               </TableCell>
               <TableCell
                 align="center"
@@ -175,7 +230,9 @@ const CustomSendCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
+                  borderTopRightRadius: "10px",
+                  borderBottomRightRadius: "10px",
                 }}
               >
                 ACTION

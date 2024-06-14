@@ -3,7 +3,8 @@ const config = Object.freeze({
   // baseUrl: "http://192.168.12.58:8085/dms/", //Smruti
   // baseUrl: "http://192.168.12.49:9091/", //Biswaji Sir
   // baseUrl: "http://localhost:9091/",
-  baseUrl: "http://192.168.30.33:8080/watsoo-dms/", // STAGING SERVER
+  baseUrl: "http://192.168.30.33:8080/watsoo-dms/", // TEMPORARY STAGING SERVER
+  // baseUrl:"https://dms.watsoo.com/backend/", // MAIN STAGING SERVER
 
   apiKey: "AIzaSyCqNFRArvRxryWzMYaTJK2CbwTjMoNHcpo",
 

@@ -73,11 +73,24 @@ const CustomCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
                   width: "50px",
+                  borderTopLeftRadius: "10px",
+                  borderBottomLeftRadius: "10px",
+                  position: "relative",
                 }}
               >
                 S.No.
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "25px",
+                    backgroundColor: "white",
+                    right: 0,
+                    top: 10,
+                  }}
+                />
               </TableCell>
 
               <TableCell
@@ -86,16 +99,27 @@ const CustomCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
                   width: {
                     sm: "230px",
                     md: "300px",
                     lg: "250px",
                     xl: "300px",
                   },
+                  position: "relative",
                 }}
               >
                 DESCRIPTION
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "25px",
+                    backgroundColor: "white",
+                    right: 0,
+                    top: 10,
+                  }}
+                />
               </TableCell>
               <TableCell
                 align="center"
@@ -103,7 +127,9 @@ const CustomCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "15px",
+                  paddingY: "10px",
+                  borderTopRightRadius: "10px",
+                  borderBottomRightRadius: "10px",
                 }}
               >
                 COMMAND

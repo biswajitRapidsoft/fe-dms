@@ -1113,7 +1113,7 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
               }}
             >
               <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                Action Taken
+                No Action Needed
               </Typography>
             </Box>
           </Grid>
@@ -1142,7 +1142,7 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
               }}
             >
               <Typography sx={{ fontSize: "24px", fontWeight: "550" }}>
-                {eventsStatusCardData?.actionTakenRemark || 0}
+                {eventsStatusCardData?.noActionTakenRemark || 0}
               </Typography>
             </Box>
           </Grid>
@@ -1283,7 +1283,7 @@ const Dashboard = () => {
 
   const [tableFilter, setTableFilter] = React.useState({
     selectedEventType: null,
-    selectedStatusType: null,
+    remarkId: null,
     vehicleNo: null,
     searchKey: "",
     fromDate: null,
@@ -1369,7 +1369,7 @@ const Dashboard = () => {
       pageSize: pageSize,
       eventType: tableFilter.selectedEventType,
       vehicleNo: tableFilter.vehicleNo,
-      remarkId: tableFilter?.selectedStatusType,
+      remarkId: tableFilter?.remarkId,
       searchKey: debouncedSearch,
       fromDate: formatToUTC(tableFilter?.fromDate),
       toDate: formatToUTC(tableFilter?.toDate),
@@ -1951,7 +1951,7 @@ const Dashboard = () => {
                             //   "selectedStatusType",
                             //   newVal?.replace(/ /g, "_"))
                             handleTableFilterChange(
-                              "selectedStatusType",
+                              "remarkId",
                               selectedStatusOption?.id
                             );
                           }}

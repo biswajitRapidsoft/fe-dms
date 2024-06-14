@@ -273,6 +273,7 @@ const AddCommandModal = React.memo(function ({
 });
 
 const CommandConfiguration = () => {
+  const theme = useTheme();
   const loginData = React.useMemo(() => {
     const sessionedLoginData = sessionStorage.getItem("data");
     return sessionedLoginData ? JSON.parse(sessionedLoginData) : null;
@@ -1220,7 +1221,11 @@ const CommandConfiguration = () => {
                   <Button
                     variant="outlined"
                     onClick={() => handleOpenCommandHistoryTrailDialog()}
-                    sx={{ paddingX: "10px" }}
+                    sx={{
+                      paddingX: "10px",
+                      border: "2px solid",
+                      fontWeight: "550",
+                    }}
                   >
                     HISTORY
                   </Button>
@@ -1231,7 +1236,7 @@ const CommandConfiguration = () => {
         </Box>
 
         {/* SELCTED VEHICLE DETAILS  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  */}
-        {Boolean(selectedVehicleDetails) && (
+        {/* {Boolean(selectedVehicleDetails) && (
           <Box
             sx={{
               display: "flex",
@@ -1242,49 +1247,85 @@ const CommandConfiguration = () => {
             }}
           >
             <Grid container>
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                <Typography>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontSize: "23px",
-                      fontWeight: "550",
-                      color: "customBlue.dark",
-                    }}
-                  >
-                    Vehicle No. :
-                  </Typography>{" "}
-                  <Typography
-                    component="span"
-                    sx={{ fontSize: "23px", color: "customNavyBlue.main" }}
-                  >
-                    {selectedVehicleDetails?.vehicleNumber || "NA"}
-                  </Typography>
-                </Typography>
+              <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                <Grid container>
+                  <Grid item xs={5} sm={3.5} md={4.5} lg={4.5} xl={4.5}>
+                    <Typography
+                      sx={{
+                        fontSize: "23px",
+                        fontWeight: "550",
+                        color: "customBlue.dark",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Vehicle No.
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}>
+                    <Typography
+                      sx={{
+                        fontSize: "23px",
+                        fontWeight: "550",
+                        color: "customBlue.dark",
+                      }}
+                    >
+                      :
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6.5} sm={8} md={7} lg={7} xl={7}>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontSize: "23px",
+                        color: "customNavyBlue.main",
+                        wordBreak: "break-all",
+                      }}
+                    >
+                      {selectedVehicleDetails?.vehicleNumber || "NA"}
+                    </Typography>
+                  </Grid>
+                </Grid>
+         
               </Grid>
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                <Typography>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontSize: "23px",
-                      fontWeight: "550",
-                      color: "customBlue.dark",
-                    }}
-                  >
-                    IMEI No. :
-                  </Typography>{" "}
-                  <Typography
-                    component="span"
-                    sx={{ fontSize: "23px", color: "customNavyBlue.main" }}
-                  >
-                    {selectedVehicleDetails?.imeiNo || "NA"}
-                  </Typography>
-                </Typography>
+              <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                <Grid container>
+                  <Grid item xs={5} sm={3.5} md={3.5} lg={3.5} xl={3.5}>
+                    <Typography
+                      sx={{
+                        fontSize: "23px",
+                        fontWeight: "550",
+                        color: "customBlue.dark",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      IMEI No.
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}>
+                    <Typography
+                      sx={{
+                        fontSize: "23px",
+                        fontWeight: "550",
+                        color: "customBlue.dark",
+                      }}
+                    >
+                      :
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6.5} sm={8} md={8} lg={8} xl={8}>
+                    <Typography
+                      component="span"
+                      sx={{ fontSize: "23px", color: "customNavyBlue.main" }}
+                    >
+                      {selectedVehicleDetails?.imeiNo || "NA"}
+                    </Typography>
+                  </Grid>
+                </Grid>
+          
               </Grid>
             </Grid>
           </Box>
-        )}
+        )} */}
 
         {/* CONFIGURATION CONTAINER = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */}
 
@@ -1294,11 +1335,154 @@ const CommandConfiguration = () => {
             flexDirection: "row",
             alignItems: "center",
             width: "100%",
-            mt: 2,
+            mt: 4.5,
           }}
         >
           {Boolean(selectedVehicleDetails) && (
-            <Grid container>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                <Grid container>
+                  <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+                    <Grid container>
+                      <Grid item xs={11} sm={11} md={11} lg={11} xl={11}>
+                        <Grid container>
+                          <Grid item xs={12} sm={12} md={4.5} lg={6} xl={6}>
+                            <Grid container>
+                              <Grid
+                                item
+                                xs={5}
+                                sm={3.5}
+                                md={4.5}
+                                lg={4.5}
+                                xl={4.5}
+                              >
+                                <Typography
+                                  sx={{
+                                    fontSize: "18px",
+                                    fontWeight: "550",
+                                    color: "customBlue.dark",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  Vehicle No.
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                xs={0.5}
+                                sm={0.5}
+                                md={0.5}
+                                lg={0.5}
+                                xl={0.5}
+                              >
+                                <Typography
+                                  sx={{
+                                    fontSize: "18px",
+                                    fontWeight: "550",
+                                    color: "customBlue.dark",
+                                  }}
+                                >
+                                  :
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={6.5} sm={8} md={7} lg={7} xl={7}>
+                                <Typography
+                                  component="span"
+                                  sx={{
+                                    fontSize: "18px",
+                                    color: "customNavyBlue.main",
+                                    wordBreak: "break-all",
+                                  }}
+                                >
+                                  {selectedVehicleDetails?.vehicleNumber ||
+                                    "NA"}
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} sm={12} md={4.5} lg={6} xl={6}>
+                            <Grid container>
+                              <Grid
+                                item
+                                xs={5}
+                                sm={3.5}
+                                md={3.5}
+                                lg={3.5}
+                                xl={3.5}
+                              >
+                                <Typography
+                                  sx={{
+                                    fontSize: "18px",
+                                    fontWeight: "550",
+                                    color: "customBlue.dark",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  IMEI No.
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                xs={0.5}
+                                sm={0.5}
+                                md={0.5}
+                                lg={0.5}
+                                xl={0.5}
+                              >
+                                <Typography
+                                  sx={{
+                                    fontSize: "18px",
+                                    fontWeight: "550",
+                                    color: "customBlue.dark",
+                                  }}
+                                >
+                                  :
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={6.5} sm={8} md={8} lg={8} xl={8}>
+                                <Typography
+                                  component="span"
+                                  sx={{
+                                    fontSize: "18px",
+                                    color: "customNavyBlue.main",
+                                  }}
+                                >
+                                  {selectedVehicleDetails?.imeiNo || "NA"}
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            alignItems: "center",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        >
+                          <IconButton
+                            size="small"
+                            sx={{
+                              marginRight: "10px",
+                              bgcolor: "primary.main",
+                              "&:hover": {
+                                backgroundColor: theme.palette.primary.dark,
+                              },
+                            }}
+                            onClick={() => handleOpenAddCommandOpen()}
+                          >
+                            <AddIcon sx={{ color: "text.light" }} />
+                          </IconButton>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid
                 item
                 xs={12}
@@ -1319,36 +1503,37 @@ const CommandConfiguration = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "50px",
+                      height: "35px",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      bgcolor: "primary.main",
+                      width: "100%",
                     }}
                   >
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        px: "5px",
+                      }}
+                    >
                       <Typography
                         sx={{
-                          color: "customBlue.dark",
+                          color: "text.light",
                           fontWeight: "550",
-                          fontSize: "19px",
+                          fontSize: "17px",
                         }}
                       >
                         COMMANDS LIST
                       </Typography>
                       {/* <Typography>GTOCN</Typography> */}
                     </Box>
-
-                    <IconButton
-                      size="small"
-                      sx={{ border: "1px solid customGrey.600" }}
-                      onClick={() => handleOpenAddCommandOpen()}
-                    >
-                      <AddIcon />
-                    </IconButton>
                   </Box>
                   <Paper
                     sx={{
                       flexGrow: 1,
                       width: "100%",
+                      mt: 1.5,
                     }}
                   >
                     <CustomCommandListTableComponent
@@ -1383,18 +1568,20 @@ const CommandConfiguration = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "50px",
+                      height: "35px",
                       alignItems: "center",
                       justifyContent: "flex-start",
                       paddingX: "10px",
+                      bgcolor: "primary.main",
+                      width: "100%",
                     }}
                   >
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                       <Typography
                         sx={{
-                          color: "customBlue.dark",
+                          color: "text.light",
                           fontWeight: "550",
-                          fontSize: "19px",
+                          fontSize: "17px",
                         }}
                       >
                         SEND COMMANDS LIST
@@ -1406,6 +1593,7 @@ const CommandConfiguration = () => {
                     sx={{
                       flexGrow: 1,
                       width: "100%",
+                      mt: 1.5,
                     }}
                   >
                     <CustomSendCommandListTableComponent

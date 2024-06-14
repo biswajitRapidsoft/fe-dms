@@ -12,7 +12,7 @@ const dashboardApi = apiSlice.injectEndpoints({
           pageSize: payload.pageSize,
           eventType: payload.eventType,
           vehicleNo: payload.vehicleNo,
-          remark: payload?.remark,
+          remarkId: payload?.remarkId,
           searchKey: payload?.searchKey,
           fromDate: payload?.fromDate,
           toDate: payload?.toDate,

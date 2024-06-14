@@ -21,8 +21,20 @@ const theme = createTheme({
     //   dark: "#A394C1",
     //   customContrast: "#000000",
     // },
+    // primary: {
+    //   main: "#0e3973",
+    //   light: "#99B3D6",
+    //   dark: "#2C4A81",
+    //   customContrast: "#ffffff",
+    // },
+    // secondary: {
+    //   main: "#C3D2EF",
+    //   light: "#E1EBFF",
+    //   dark: "#899DBF",
+    //   customContrast: "#000000",
+    // },
     primary: {
-      main: "#0e3973",
+      main: "#305587",
       light: "#99B3D6",
       dark: "#2C4A81",
       customContrast: "#ffffff",
