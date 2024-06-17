@@ -54,6 +54,10 @@ import VEHICLE_GPS_MACHINE_LOGO from "../../img/VEHICLE_GPS_MACHINE_LOGO.svg";
 import BROKEN_CONNECTION_PATH_LOGO from "../../img/BROKEN_CONNECTION_PATH_LOGO.svg";
 import GPS_RECIEVER_TOWER_LOGO from "../../img/GPS_RECIEVER_TOWER_LOGO.svg";
 import CLOSED_NETWORK_LOGO from "../../img/CLOSED_NETWORK_LOGO.svg";
+import DASHBOARD_CARD_CAMERA from "../../img/DASHBOARD_CARD_CAMERA.svg";
+import DASHBOARD_CARD_VEHICLE_CIRCLE from "../../img/DASHBOARD_CARD_VEHICLE_CIRCLE.svg";
+import DASHBOARD_CARD_COMPLAINTS from "../../img/DASHBOARD_CARD_COMPLAINTS.svg";
+import DASHBOARD_CARD_EVENT from "../../img/DASHBOARD_CARD_EVENT.svg";
 // import { useNavigate } from "react-router";
 import BarChartComponent from "./BarChartComponent";
 import {
@@ -92,51 +96,54 @@ const formatToUTC = (date) => {
   return utcDate.toISOString();
 };
 
+const getCommonStylingForDashboardCards = (primaryColor) => {
+  return {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    height: 220,
+    position: "relative",
+    overflow: "hidden",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 10,
+      backgroundColor: primaryColor || "#ccc",
+      pointerEvents: "none",
+    },
+  };
+};
+
 const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
   const theme = useTheme();
   return (
     <Paper
-      elevation={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        minHeight: "220px",
-        maxHeight: "220px",
-        // minHeight: "250px",
-        // maxHeight: "250px",
-        bgcolor: "customBlue.light",
-        position: "relative",
-        overflow: "hidden",
-        paddingX: "5px",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          background: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 5%),
-            linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 15%),
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 20%),
-            linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "40% 100%, 115% 100%, 100% 10%, 100% 120%",
-        },
-      }}
+      // elevation={2}
+      sx={getCommonStylingForDashboardCards("hsla(174, 52%, 56%, 1)")}
     >
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 550 }}>
-          CAMERA EVENTS
-        </Typography>
-      </Box>
-
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 700 }}>
-          {cameraEventsCardData?.totalEventCount || 0}
-        </Typography>
+      <Box
+        sx={{
+          backgroundColor: "hsla(180, 91%, 92%, 1)",
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          pb: 1,
+          pt: 2,
+          gap: 2,
+        }}
+      >
+        <img src={DASHBOARD_CARD_CAMERA} alt="Camera" />
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Camera Events
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: 700 }}>
+            {cameraEventsCardData?.totalEventCount || 0}
+          </Typography>
+        </Box>
       </Box>
 
       <Box
@@ -449,46 +456,28 @@ const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
   return (
     <Paper
       elevation={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        minHeight: "220px",
-        maxHeight: "220px",
-        // minHeight: "250px",
-        // maxHeight: "250px",
-        bgcolor: "customBlue.light",
-        position: "relative",
-        overflow: "hidden",
-        paddingX: "5px",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          background: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 5%),
-            linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 15%),
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 20%),
-            linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "40% 100%, 115% 100%, 100% 10%, 100% 120%",
-        },
-      }}
+      sx={getCommonStylingForDashboardCards("hsla(231, 53%, 64%, 1)")}
     >
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 550 }}>
-          VEHICLES
-        </Typography>
-      </Box>
-
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 700 }}>
-          {total}
-        </Typography>
+      <Box
+        sx={{
+          backgroundColor: "hsla(231, 100%, 92%, 1)",
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          pb: 1,
+          pt: 2,
+          gap: 3,
+        }}
+      >
+        <img src={DASHBOARD_CARD_VEHICLE_CIRCLE} alt="Camera" />
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Total Vehicles
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: 700 }}>
+            {total}
+          </Typography>
+        </Box>
       </Box>
 
       <Box
@@ -615,40 +604,25 @@ const ComplaintsCard = React.memo(function ({ complaintsCardData }) {
   return (
     <Paper
       elevation={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        minHeight: "220px",
-        maxHeight: "220px",
-        // minHeight: "250px",
-        // maxHeight: "250px",
-        bgcolor: "customBlue.light",
-        position: "relative",
-        overflow: "hidden",
-        paddingX: "5px",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          background: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 5%),
-            linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 15%),
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 20%),
-            linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "40% 100%, 115% 100%, 100% 10%, 100% 120%",
-        },
-      }}
+      sx={getCommonStylingForDashboardCards("hsla(25, 92%, 62%, 1)")}
     >
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 550 }}>
-          COMPLAINTS
-        </Typography>
+      <Box
+        sx={{
+          backgroundColor: "hsla(25, 100%, 92%, 1)",
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          pb: 1,
+          pt: 2,
+          gap: 2,
+        }}
+      >
+        <img src={DASHBOARD_CARD_COMPLAINTS} alt="Camera" />
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Total Complaints
+          </Typography>
+        </Box>
       </Box>
 
       <Box
@@ -973,41 +947,25 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
   return (
     <Paper
       elevation={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        gap: 2,
-        minHeight: "220px",
-        maxHeight: "220px",
-        // minHeight: "250px",
-        // maxHeight: "250px",
-        bgcolor: "customBlue.light",
-        position: "relative",
-        overflow: "hidden",
-        paddingX: "5px",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          background: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 5%),
-            linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 15%),
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 20%),
-            linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "40% 100%, 115% 100%, 100% 10%, 100% 120%",
-        },
-      }}
+      sx={getCommonStylingForDashboardCards("hsla(200, 100%, 52%, 1)")}
     >
-      <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "25px", fontWeight: 550 }}>
-          EVENTS STATUS
-        </Typography>
+      <Box
+        sx={{
+          backgroundColor: "hsla(200, 100%, 90%, 1)",
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          pb: 1,
+          pt: 2,
+          gap: 2,
+        }}
+      >
+        <img src={DASHBOARD_CARD_EVENT} alt="Camera" />
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Events Status
+          </Typography>
+        </Box>
       </Box>
 
       <Box sx={{ paddingX: "15px", marginTop: 6.5, marginLeft: 5 }}>
