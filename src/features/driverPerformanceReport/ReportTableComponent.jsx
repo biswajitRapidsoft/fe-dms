@@ -12,10 +12,10 @@ import Paper from "@mui/material/Paper";
 const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
   console.log("report table component row data: ", row);
 
-  // const findColorCode = React.useMemo(
-  //   () => categoryData?.find((item) => item?.name === row?.categoryDto?.name),
-  //   [categoryData, row?.categoryDto?.name]
-  // );
+  const findColorCode = React.useMemo(
+    () => categoryData?.find((item) => item?.name === row?.categoryDto?.name),
+    [categoryData, row?.categoryDto?.name]
+  );
 
   return (
     <TableRow
@@ -24,14 +24,14 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
       sx={{
         cursor: "pointer",
         height: 80,
-        backgroundColor: Boolean(row?.categoryDto?.name)
-          ? `#${row?.categoryDto?.colorCode}4d`
-          : "inherit",
-        "&:hover": {
-          backgroundColor: Boolean(row?.categoryDto?.name)
-            ? `#${row?.categoryDto?.colorCode}82 !important`
-            : "inherit",
-        },
+        // backgroundColor: Boolean(row?.categoryDto?.name)
+        //   ? `#${row?.categoryDto?.colorCode}4d`
+        //   : "inherit",
+        // "&:hover": {
+        //   backgroundColor: Boolean(row?.categoryDto?.name)
+        //     ? `#${row?.categoryDto?.colorCode}82 !important`
+        //     : "inherit",
+        // },
       }}
     >
       <TableCell align="center">
@@ -101,7 +101,7 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
           sx={{
             fontWeight: 550,
             color: "customBlue.dark",
-            // color: `#${findColorCode?.colorCode}`,
+            color: `#${findColorCode?.colorCode}`,
             fontSize: "17.5px",
           }}
         >

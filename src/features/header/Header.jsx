@@ -20,6 +20,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 // import SettingsRemoteIcon from "@mui/icons-material/SettingsRemote";
+import headerBg from "../../img/header.svg";
 import { useTheme } from "@emotion/react";
 
 const Header = () => {
@@ -88,8 +89,16 @@ const Header = () => {
             // backgroundImage: "linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%)",
             // backgroundImage:
             //   "linear-gradient(to right, #5e63b6, #7e79c4, #9b91d2, #b7a9e0, #d1c3ef)",
-            backgroundImage:
-              "linear-gradient(to left, #0e3973, #35568c, #5674a4, #7793bd, #99b3d6)",
+            // backgroundImage:
+            //   "linear-gradient(to left, #0e3973, #35568c, #5674a4, #7793bd, #99b3d6)",
+            backgroundColor: "#fff !important",
+            background: `url(${headerBg})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: {
+              md: "50% 50%",
+              xs: "20% 80%",
+            },
           }}
         >
           <Toolbar>

@@ -66,6 +66,7 @@ import {
   SMOKING_ALERT,
   YAWN_ALERT,
 } from "../../helper/constants";
+import axios from "axios";
 
 const breadcrumbs = [
   { name: "Dashboard", path: "/dashboard" },
@@ -73,6 +74,7 @@ const breadcrumbs = [
 ];
 
 const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
+  const [data, setData] = React.useState({});
   // const [loading, setLoading] = React.useState(true);
   // const [imageLoadError, setImageLoadError] = React.useState(false);
   // const [errorMessage, setErrorMessage] = React.useState("");
@@ -129,6 +131,17 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
   //     fetchImage(photoUrl);
   //   }
   // }, [fetchImage, photoUrl]);
+  const fetchImage = React.useCallback(async () => {
+    try {
+      const response = await axios.get(photoUrl);
+      setData(response.data);
+    } catch (err) {
+      setData(err.response?.data ? err.response.data : { message: err.data });
+    }
+  }, []);
+  React.useEffect(() => {
+    fetchImage();
+  }, [fetchImage]);
 
   return (
     <Paper elevation={4}>
@@ -143,7 +156,11 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
           position: "relative",
         }}
       >
-        <img src={photoUrl} alt={"evidence"} width="100%" height="100%" />
+        {data.data ? (
+          <img src={data.data} alt={"evidence"} width="100%" height="100%" />
+        ) : (
+          data.message
+        )}
 
         {/* {loading ? (
           <Box
@@ -878,8 +895,16 @@ const EventDetails = () => {
           <Grid container spacing={0.5}>
             {/* DRIVER DETAILS */}
             <Grid item xs={12} sm={12} md={4} lg={2.5}>
-              <Paper elevation={2} sx={{ height: "100%" }}>
-                <Grid container rowGap={2} sx={{ marginLeft: "10px" }}>
+              <Paper elevation={2} sx={{ height: "100%", p: 1.5 }}>
+                <Grid
+                  container
+                  sx={{
+                    marginLeft: "10px",
+                    ".MuiTypography-root": {
+                      my: 1.5,
+                    },
+                  }}
+                >
                   <Grid
                     item
                     xs={6}
@@ -1071,7 +1096,8 @@ const EventDetails = () => {
                                 fontWeight: "550",
                               }}
                             >
-                              DATE OF JOINING
+                              {/* DATE OF JOINING */}
+                              JOINING DATE
                             </Typography>
                           </Grid>
                           <Grid
@@ -1225,7 +1251,8 @@ const EventDetails = () => {
                               fontWeight: "550",
                             }}
                           >
-                            DATE OF JOINING
+                            {/* DATE OF JOINING */}
+                            JOINING DATE
                           </Typography>
                         </Grid>
                         <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}>

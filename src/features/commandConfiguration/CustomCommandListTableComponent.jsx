@@ -16,11 +16,11 @@ const CustomRow = React.memo(({ row, index }) => {
     // hover
     // key={row?.id}
     >
-      <TableCell align="center" sx={{ paddingY: "16px" }}>
+      <TableCell sx={{ paddingY: "16px" }}>
         {/* {row?.id} */}
         {index + 1}
       </TableCell>
-      <TableCell align="center">
+      <TableCell>
         <Typography
           variant="body1"
           sx={{
@@ -34,7 +34,7 @@ const CustomRow = React.memo(({ row, index }) => {
           {row?.description || "NA"}
         </Typography>
       </TableCell>
-      <TableCell align="center">
+      <TableCell>
         <Typography
           variant="body1"
           sx={{
@@ -68,7 +68,6 @@ const CustomCommandListTableComponent = ({
           <TableHead>
             <TableRow>
               <TableCell
-                align="center"
                 sx={{
                   color: "text.light",
                   backgroundColor: "primary.main",
@@ -94,7 +93,6 @@ const CustomCommandListTableComponent = ({
               </TableCell>
 
               <TableCell
-                align="center"
                 sx={{
                   color: "text.light",
                   backgroundColor: "primary.main",
@@ -122,7 +120,6 @@ const CustomCommandListTableComponent = ({
                 />
               </TableCell>
               <TableCell
-                align="center"
                 sx={{
                   color: "text.light",
                   backgroundColor: "primary.main",
