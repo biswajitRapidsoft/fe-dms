@@ -215,7 +215,7 @@ const DriverPerformanceReport = () => {
                   },
                 }}
               >
-                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
                   <Autocomplete
                     disablePortal
                     size="small"
@@ -301,7 +301,7 @@ const DriverPerformanceReport = () => {
                     )}
                   />
                 </Grid>
-                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Select From Date & Time"
@@ -347,7 +347,7 @@ const DriverPerformanceReport = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Select To Date & Time"

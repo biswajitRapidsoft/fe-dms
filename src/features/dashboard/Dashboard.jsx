@@ -8,7 +8,7 @@ import {
   TextField,
   InputAdornment,
   IconButton,
-  useTheme,
+  // useTheme,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
@@ -39,25 +39,20 @@ import TableComponent from "./TableComponent";
 import { Cookies } from "../../helper/cookies";
 import SnackAlert from "../../components/Alert";
 
-import DRINKS_LOGO from "../../img/DRINKS_LOGO.svg";
-import PHONE_IN_HAND_LOGO from "../../img/PHONE_IN_HAND_LOGO.svg";
-import PERSON_YAWN_LOGO from "../../img/PERSON_YAWN_LOGO.svg";
-import CIGARETTE_LOGO from "../../img/CIGARETTE_LOGO.svg";
-import CLOSED_EYES_LOGO from "../../img/CLOSED_EYES_LOGO.svg";
-import DISTRACTED_LOGO from "../../img/DISTRACTED_LOGO.svg";
-import CAR_LOGO from "../../img/CAR_LOGO.svg";
-import ACTIVE_LOGO from "../../img/ACTIVE_LOGO.svg";
-import INAVTIVE_LOGO from "../../img/INAVTIVE_LOGO.svg";
-import PERSON_LOGO from "../../img/PERSON_LOGO.svg";
-import STEERING_WHEEL_LOGO from "../../img/STEERING_WHEEL_LOGO.svg";
-import VEHICLE_GPS_MACHINE_LOGO from "../../img/VEHICLE_GPS_MACHINE_LOGO.svg";
-import BROKEN_CONNECTION_PATH_LOGO from "../../img/BROKEN_CONNECTION_PATH_LOGO.svg";
-import GPS_RECIEVER_TOWER_LOGO from "../../img/GPS_RECIEVER_TOWER_LOGO.svg";
-import CLOSED_NETWORK_LOGO from "../../img/CLOSED_NETWORK_LOGO.svg";
 import DASHBOARD_CARD_CAMERA from "../../img/DASHBOARD_CARD_CAMERA.svg";
 import DASHBOARD_CARD_VEHICLE_CIRCLE from "../../img/DASHBOARD_CARD_VEHICLE_CIRCLE.svg";
 import DASHBOARD_CARD_COMPLAINTS from "../../img/DASHBOARD_CARD_COMPLAINTS.svg";
-import DASHBOARD_CARD_EVENT from "../../img/DASHBOARD_CARD_EVENT.svg";
+import DASHBOARD_CARD_EVENT_CIRCLE from "../../img/DASHBOARD_CARD_EVENT_CIRCLE.svg";
+import DASHBOARD_CARD_DRINKING from "../../img/DASHBOARD_CARD_DRINKING.svg";
+import DASHBOARD_CARD_YAWNING from "../../img/DASHBOARD_CARD_YAWNING.svg";
+import DASHBOARD_CARD_PHONE_IN_HAND from "../../img/DASHBOARD_CARD_PHONE_IN_HAND.svg";
+import DASHBOARD_CARD_SMOKING from "../../img/DASHBOARD_CARD_SMOKING.svg";
+import DASHBOARD_CARD_SLEEPING from "../../img/DASHBOARD_CARD_SLEEPING.svg";
+import DASHBOARD_CARD_DISTRACTION from "../../img/DASHBOARD_CARD_DISTRACTION.svg";
+import DASHBOARD_CARD_VEHICLE_SQUARE from "../../img/DASHBOARD_CARD_VEHICLE_SQUARE.svg";
+import DASHBOARD_CARD_DEFAULTER_DRIVER from "../../img/DASHBOARD_CARD_DEFAULTER_DRIVER.svg";
+import DASHBOARD_CARD_TAMPERED_DEVICE from "../../img/DASHBOARD_CARD_TAMPERED_DEVICE.svg";
+import DASHBOARD_CARD_EVENT_SQUARE from "../../img/DASHBOARD_CARD_EVENT_CIRCLE.svg";
 // import { useNavigate } from "react-router";
 import BarChartComponent from "./BarChartComponent";
 import {
@@ -118,7 +113,6 @@ const getCommonStylingForDashboardCards = (primaryColor) => {
 };
 
 const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
-  const theme = useTheme();
   return (
     <Paper
       // elevation={2}
@@ -140,302 +134,131 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Camera Events
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: 700 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
             {cameraEventsCardData?.totalEventCount || 0}
           </Typography>
         </Box>
       </Box>
 
       <Box
-        sx={{ display: "flex", flexDirection: "column", flexGrow: 1, mr: 1 }}
+        sx={{
+          p: 1,
+        }}
       >
-        <Grid container columnSpacing={1} rowSpacing={2}>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+        <Grid container>
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
                 alignItems: "center",
+                gap: 1,
               }}
             >
-              <img
-                src={DRINKS_LOGO}
-                alt="Drink_Logo"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.drinkingCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
-              />
-              <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+              <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.drinkingCount || 0}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sm={1.5} md={1.5} lg={1.5} xl={1.5}>
+
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
-                height: "100%",
+                gap: 1,
               }}
             >
-              <div
-                style={{
-                  minWidth: "3px",
-                  maxWidth: "3px",
-                  minHeight: "40px",
-                  maxHeight: "40px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <img
-                src={PERSON_YAWN_LOGO}
-                alt="PERSON_YAWN_LOGO"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.yawningCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
-              />
-              <Typography
-                sx={{
-                  fontSize: "25px",
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.yawningCount > 0) &&
-                    "#FF0000",
-                }}
-              >
+              <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.yawningCount || 0}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sm={1.5} md={1.5} lg={1.5} xl={1.5}>
+
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
-                height: "100%",
+                gap: 1,
               }}
             >
-              <div
-                style={{
-                  minWidth: "3px",
-                  maxWidth: "3px",
-                  minHeight: "40px",
-                  maxHeight: "40px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={PHONE_IN_HAND_LOGO}
-                alt="PHONE_IN_HAND_LOGO"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
-              />
-              <Typography
-                sx={{
-                  fontSize: "25px",
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
-                    "#FF0000",
-                }}
-              >
+              <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.mobileUsageCount || 0}
               </Typography>
             </Box>
           </Grid>
 
-          {/* SECOND SEPARATOR */}
-
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
                 alignItems: "center",
+                gap: 1,
               }}
             >
               <img
-                src={CIGARETTE_LOGO}
-                alt="CIGARETTE_LOGO"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.smokingCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
+                src={DASHBOARD_CARD_SMOKING}
+                alt="Smoking"
+                style={{ paddingLeft: 7, paddingRight: 7 }}
               />
-              <Typography
-                sx={{
-                  fontSize: "25px",
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.smokingCount > 0) &&
-                    "#FF0000",
-                }}
-              >
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.smokingCount || 0}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sm={1.5} md={1.5} lg={1.5} xl={1.5}>
+
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <div
-                style={{
-                  minWidth: "3px",
-                  maxWidth: "3px",
-                  minHeight: "40px",
-                  maxHeight: "40px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
+                gap: 1,
+                position: "relative",
               }}
             >
               <img
-                src={CLOSED_EYES_LOGO}
-                alt="CLOSED_EYES_LOGO"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.closeEyesCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
+                src={DASHBOARD_CARD_SLEEPING}
+                alt="Sleeping"
+                style={{ position: "absolute", left: -0.2, top: -6 }}
               />
               <Typography
+                variant="h6"
                 sx={{
-                  fontSize: "25px",
                   fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.closeEyesCount > 0) &&
-                    "#FF0000",
+                  position: "absolute",
+                  left: 68,
+                  top: 7,
                 }}
               >
                 {cameraEventsCardData?.closeEyesCount || 0}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sm={1.5} md={1.5} lg={1.5} xl={1.5}>
+
+          <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <div
-                style={{
-                  // minWidth: "3px",
-                  // maxWidth: "3px",
-                  // minHeight: "40px",
-                  // maxHeight: "40px",
-                  width: "3px",
-                  height: "40px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
+                gap: 1,
+                position: "relative",
               }}
             >
               <img
-                src={DISTRACTED_LOGO}
-                alt="DISTRACTED_LOGO"
-                width={60}
-                height={60}
-                style={{
-                  filter:
-                    Boolean(cameraEventsCardData?.distractionCount > 0) &&
-                    "invert(50%) sepia(100%) saturate(10000%) hue-rotate(0deg)",
-                }}
+                src={DASHBOARD_CARD_DISTRACTION}
+                alt="Distraction"
+                style={{ position: "absolute", left: -1, top: -6 }}
               />
               <Typography
+                variant="h5"
                 sx={{
-                  fontSize: "25px",
                   fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.distractionCount > 0) &&
-                    "#FF0000",
+                  position: "absolute",
+                  left: 68,
+                  top: 7,
                 }}
               >
                 {cameraEventsCardData?.distractionCount || 0}
@@ -449,7 +272,6 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 });
 
 const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
-  const theme = useTheme();
   const totalActiveVehicle = vehiclesCardData?.totalActiveVehicle || 0;
   const totalInactiveVehicle = vehiclesCardData?.totalInActiveVehicle || 0;
   const total = totalActiveVehicle + totalInactiveVehicle;
@@ -469,7 +291,7 @@ const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
           gap: 3,
         }}
       >
-        <img src={DASHBOARD_CARD_VEHICLE_CIRCLE} alt="Camera" />
+        <img src={DASHBOARD_CARD_VEHICLE_CIRCLE} alt="Vehicle" />
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Total Vehicles
@@ -482,112 +304,50 @@ const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
 
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          flexGrow: 1,
-          mx: 1,
-          mt: 4,
+          px: 2,
+          mt: 3.7,
         }}
       >
-        <Grid container columnSpacing={1}>
-          <Grid item xs={5.5} sm={5.5} md={5.5} lg={5.5} xl={5.5}>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                alignItems: "center",
                 gap: 1,
               }}
             >
-              <Typography
-                sx={{ fontSize: "22px", fontWeight: 700, textAlign: "center" }}
-              >
-                Active
-              </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-              >
-                <Box sx={{ position: "relative" }}>
-                  <img
-                    src={ACTIVE_LOGO}
-                    alt="ACTIVE_LOGO"
-                    width={30}
-                    height={30}
-                    style={{ position: "absolute", top: 3, right: 0 }}
-                  />
-                  <img src={CAR_LOGO} alt="CAR_LOGO" width={90} height={60} />
-                </Box>
-                <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+              <img src={DASHBOARD_CARD_VEHICLE_SQUARE} alt="Active Vehicle" />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: "600" }}>
+                  Active
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "700", color: "hsla(130, 86%, 34%, 1)" }}
+                >
                   {totalActiveVehicle}
                 </Typography>
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+          <Grid item xs={6}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <div
-                style={{
-                  width: "3px",
-                  height: "45px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                  marginBottom: "10px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={5.5} sm={5.5} md={5.5} lg={5.5} xl={5.5}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                alignItems: "center",
                 gap: 1,
               }}
             >
-              <Typography
-                sx={{ fontSize: "22px", fontWeight: 700, textAlign: "center" }}
-              >
-                Inactive
-              </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-              >
-                <Box sx={{ position: "relative" }}>
-                  <img
-                    src={INAVTIVE_LOGO}
-                    alt="INAVTIVE_LOGO"
-                    width={30}
-                    height={30}
-                    style={{ position: "absolute", top: 3, right: 0 }}
-                  />
-                  <img src={CAR_LOGO} alt="CAR_LOGO" width={90} height={60} />
-                </Box>
-                <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+              <img src={DASHBOARD_CARD_VEHICLE_SQUARE} alt="Inactive Vehicle" />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: "600" }}>
+                  InActive
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "700", color: "hsla(1, 100%, 65%, 1)" }}
+                >
                   {totalInactiveVehicle}
                 </Typography>
               </Box>
@@ -600,7 +360,6 @@ const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
 });
 
 const ComplaintsCard = React.memo(function ({ complaintsCardData }) {
-  const theme = useTheme();
   return (
     <Paper
       elevation={2}
@@ -617,7 +376,7 @@ const ComplaintsCard = React.memo(function ({ complaintsCardData }) {
           gap: 2,
         }}
       >
-        <img src={DASHBOARD_CARD_COMPLAINTS} alt="Camera" />
+        <img src={DASHBOARD_CARD_COMPLAINTS} alt="Complaints" />
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Total Complaints
@@ -625,319 +384,38 @@ const ComplaintsCard = React.memo(function ({ complaintsCardData }) {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          flexGrow: 1,
-          mr: 1,
-          marginTop: 8.5,
-        }}
-      >
-        <Grid container columnSpacing={1}>
-          <Grid item xs={5.5} sm={5.5} md={5.5} lg={5.5} xl={5.5}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: 1,
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "22px",
-                  fontWeight: 700,
-                  textAlign: "center",
-                  wordBreak: "break-word",
-                }}
-              >
-                Defaulter Drivers
-              </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-              >
-                <Box sx={{ position: "relative" }}>
-                  <img
-                    src={STEERING_WHEEL_LOGO}
-                    alt="STEERING_WHEEL_LOGO"
-                    width={45}
-                    height={45}
-                    style={{ position: "absolute", top: 21, right: -7 }}
-                  />
-                  <img
-                    src={PERSON_LOGO}
-                    alt="PERSON_LOGO"
-                    width={90}
-                    height={70}
-                  />
-                </Box>
-                <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+      <Box sx={{ px: 2, mt: 3.7 }}>
+        <Grid container>
+          <Grid item xs={6}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <img
+                src={DASHBOARD_CARD_DEFAULTER_DRIVER}
+                alt="Defaulter Driver"
+              />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  Defaulter Driver
+                </Typography>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
                   {complaintsCardData?.countDefaulterDriver || 0}
                 </Typography>
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <div
-                style={{
-                  width: "3px",
-                  height: "45px",
-                  background: theme.palette.customGrey.A400,
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                  marginBottom: "20px",
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={5.5} sm={5.5} md={5.5} lg={5.5} xl={5.5}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: 1,
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "22px",
-                  fontWeight: 700,
-                  textAlign: "center",
-                  // wordBreak: "break-word",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Tampered Devices
-              </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: {
-                    xs: "space-evenly",
-                    md: "",
-                    lg: "space-evenly",
-                  },
-                  alignItems: "center",
-                  gap: { xs: 1, md: 0, lg: 2 },
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "relative",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 3.5,
-                  }}
-                >
-                  <img
-                    src={VEHICLE_GPS_MACHINE_LOGO}
-                    alt="VEHICLE_GPS_MACHINE_LOGO"
-                    width={50}
-                    height={60}
-                  />
-                  <img
-                    src={BROKEN_CONNECTION_PATH_LOGO}
-                    alt="BROKEN_CONNECTION_PATH_LOGO"
-                    width={65}
-                    height={70}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 27,
-                      transform: "rotate(75deg)",
-                    }}
-                  />
-                  <img
-                    src={CLOSED_NETWORK_LOGO}
-                    alt="CLOSED_NETWORK_LOGO"
-                    width={27}
-                    height={27}
-                    style={{
-                      position: "absolute",
-                      top: 23,
-                      left: 54,
-                      transform: "rotate(5deg)",
-                    }}
-                  />
-                  <img
-                    src={GPS_RECIEVER_TOWER_LOGO}
-                    alt="GPS_RECIEVER_TOWER_LOGO"
-                    width={55}
-                    height={70}
-                  />
-                </Box>
-                <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
+          <Grid item xs={6}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <img src={DASHBOARD_CARD_TAMPERED_DEVICE} alt="Tampered Device" />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  Tampered Device
+                </Typography>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
                   {complaintsCardData?.tamperedDevices || 0}
                 </Typography>
               </Box>
             </Box>
           </Grid>
         </Grid>
-        {/* <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexGrow: 1,
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            // bgcolor: "red",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "27px",
-                fontWeight: 700,
-                textAlign: "center",
-                wordBreak: "break-word",
-              }}
-            >
-              Defaulter Drivers
-            </Typography>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                gap: 2,
-              }}
-            >
-              <Box sx={{ position: "relative" }}>
-                <img
-                  src={STEERING_WHEEL_LOGO}
-                  alt="STEERING_WHEEL_LOGO"
-                  width={45}
-                  height={45}
-                  style={{ position: "absolute", top: 21, right: -7 }}
-                />
-                <img
-                  src={PERSON_LOGO}
-                  alt="PERSON_LOGO"
-                  width={90}
-                  height={70}
-                />
-              </Box>
-              <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
-                {complaintsCardData?.countDefaulterDriver || 0}
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "27px",
-                fontWeight: 700,
-                textAlign: "center",
-                wordBreak: "break-word",
-              }}
-            >
-              Tampered Devices
-            </Typography>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: {
-                  xs: "space-evenly",
-                  md: "",
-                  lg: "space-evenly",
-                },
-                alignItems: "center",
-                gap: { xs: 1, md: 0, lg: 2 },
-              }}
-            >
-              <Box
-                sx={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 3.5,
-                }}
-              >
-                <img
-                  src={VEHICLE_GPS_MACHINE_LOGO}
-                  alt="VEHICLE_GPS_MACHINE_LOGO"
-                  width={50}
-                  height={60}
-                />
-                <img
-                  src={BROKEN_CONNECTION_PATH_LOGO}
-                  alt="BROKEN_CONNECTION_PATH_LOGO"
-                  width={65}
-                  height={70}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 27,
-                    transform: "rotate(75deg)",
-                  }}
-                />
-                <img
-                  src={CLOSED_NETWORK_LOGO}
-                  alt="CLOSED_NETWORK_LOGO"
-                  width={27}
-                  height={27}
-                  style={{
-                    position: "absolute",
-                    top: 23,
-                    left: 54,
-                    transform: "rotate(5deg)",
-                  }}
-                />
-                <img
-                  src={GPS_RECIEVER_TOWER_LOGO}
-                  alt="GPS_RECIEVER_TOWER_LOGO"
-                  width={55}
-                  height={70}
-                />
-              </Box>
-              <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>
-                {complaintsCardData?.tamperedDevices || 0}
-              </Typography>
-            </Box>
-          </Box>
-        </Box> */}
       </Box>
     </Paper>
   );
@@ -960,7 +438,7 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
           gap: 2,
         }}
       >
-        <img src={DASHBOARD_CARD_EVENT} alt="Camera" />
+        <img src={DASHBOARD_CARD_EVENT_CIRCLE} alt="Event" />
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Events Status
@@ -968,140 +446,38 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
         </Box>
       </Box>
 
-      <Box sx={{ paddingX: "15px", marginTop: 6.5, marginLeft: 5 }}>
-        <Grid container>
-          <Grid item xs={7}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                Pending
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={1}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                :
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography sx={{ fontSize: "24px", fontWeight: "550" }}>
-                {eventsStatusCardData?.pendingRemark || 0}
-              </Typography>
+      <Box sx={{ px: 2, mt: 3.7 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={5}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <img src={DASHBOARD_CARD_EVENT_SQUARE} alt="Pending" />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  Pending
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: 700, color: "hsla(25, 92%, 62%, 1)" }}
+                >
+                  {eventsStatusCardData?.noActionTakenRemark || 0}
+                </Typography>
+              </Box>
             </Box>
           </Grid>
           <Grid item xs={7}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                Action Taken
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                :
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography sx={{ fontSize: "24px", fontWeight: "550" }}>
-                {eventsStatusCardData?.actionTakenRemark || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={7}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                No Action Needed
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography sx={{ fontSize: "22px", fontWeight: "700" }}>
-                :
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography sx={{ fontSize: "24px", fontWeight: "550" }}>
-                {eventsStatusCardData?.noActionTakenRemark || 0}
-              </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <img src={DASHBOARD_CARD_EVENT_SQUARE} alt="Action Taken" />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  Action Taken
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: 700, color: "hsla(199, 98%, 52%, 1)" }}
+                >
+                  {eventsStatusCardData?.actionTakenRemark || 0}
+                </Typography>
+              </Box>
             </Box>
           </Grid>
         </Grid>
@@ -1702,7 +1078,7 @@ const Dashboard = () => {
         }}
       > */}
 
-      <Box sx={{ width: "calc(100vw - 110px)" }}>
+      <Box sx={{ width: "calc(100vw - 113px)", overflowX: "hidden" }}>
         <Box
           sx={{
             display: "flex",
@@ -2247,14 +1623,7 @@ const Dashboard = () => {
                             }}
                           >
                             <Grid container>
-                              <Grid
-                                item
-                                xs={6.5}
-                                sm={6.5}
-                                md={7.5}
-                                lg={6.5}
-                                xl={6.5}
-                              >
+                              <Grid item xs={7} sm={7} md={8} lg={7} xl={7}>
                                 <Typography
                                   sx={{
                                     color: "text.light",
@@ -2266,25 +1635,6 @@ const Dashboard = () => {
                                   Total Vehicles
                                 </Typography>
                               </Grid>
-                              <Grid
-                                item
-                                xs={0.5}
-                                sm={0.5}
-                                md={0.5}
-                                lg={0.5}
-                                xl={0.5}
-                              >
-                                <Typography
-                                  sx={{
-                                    color: "text.light",
-                                    fontSize: "20px",
-                                    fontWeight: "550",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                >
-                                  :
-                                </Typography>
-                              </Grid>
 
                               <Grid item xs={5} sm={5} md={4} lg={5} xl={5}>
                                 <Typography
@@ -2295,18 +1645,11 @@ const Dashboard = () => {
                                     whiteSpace: "nowrap",
                                   }}
                                 >
-                                  {getAllEventCount?.data?.totalVehicle || 0}
+                                  : {getAllEventCount?.data?.totalVehicle || 0}
                                 </Typography>
                               </Grid>
 
-                              <Grid
-                                item
-                                xs={6.5}
-                                sm={6.5}
-                                md={7.5}
-                                lg={6.5}
-                                xl={6.5}
-                              >
+                              <Grid item xs={7} sm={7} md={8} lg={7} xl={7}>
                                 <Typography
                                   sx={{
                                     color: "text.light",
@@ -2318,25 +1661,6 @@ const Dashboard = () => {
                                   Vehicles Engaged
                                 </Typography>
                               </Grid>
-                              <Grid
-                                item
-                                xs={0.5}
-                                sm={0.5}
-                                md={0.5}
-                                lg={0.5}
-                                xl={0.5}
-                              >
-                                <Typography
-                                  sx={{
-                                    color: "text.light",
-                                    fontSize: "20px",
-                                    fontWeight: "550",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                >
-                                  :
-                                </Typography>
-                              </Grid>
                               <Grid item xs={5} sm={5} md={4} lg={5} xl={5}>
                                 <Typography
                                   sx={{
@@ -2346,6 +1670,7 @@ const Dashboard = () => {
                                     whiteSpace: "nowrap",
                                   }}
                                 >
+                                  :{" "}
                                   {getAllEventCount?.data?.vehiclesEngaged || 0}
                                 </Typography>
                               </Grid>

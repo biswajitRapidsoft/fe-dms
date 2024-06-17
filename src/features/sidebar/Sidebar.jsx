@@ -121,7 +121,8 @@ export default function Sidenav() {
         PaperProps={{
           sx: {
             // backgroundColor: "#497CE1",
-            background: `linear-gradient(to top, #0e3973, #1d498d, #2b59a8, #3a6ac4, #497ce1)`,
+            // background: `linear-gradient(to top, #0e3973, #1d498d, #2b59a8, #3a6ac4, #497ce1)`,
+            background: (theme) => theme.palette.primary.main,
             // background: `linear-gradient(to top, #0e3973, #295091, #4067b0, #5780d0, #6d9af1)`,
             color: "#ffffff",
           },
