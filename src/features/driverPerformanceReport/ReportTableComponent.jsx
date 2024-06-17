@@ -100,7 +100,7 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
           variant="body1"
           sx={{
             fontWeight: 550,
-            color: "customBlue.dark",
+            // color: "customBlue.dark",
             color: `#${findColorCode?.colorCode}`,
             fontSize: "17.5px",
           }}

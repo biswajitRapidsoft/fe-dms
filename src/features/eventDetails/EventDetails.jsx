@@ -138,7 +138,7 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
     } catch (err) {
       setData(err.response?.data ? err.response.data : { message: err.data });
     }
-  }, []);
+  }, [photoUrl]);
   React.useEffect(() => {
     fetchImage();
   }, [fetchImage]);
@@ -825,9 +825,9 @@ const EventDetails = () => {
                     />
                   </LocalizationProvider>
                 </Grid> */}
-                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}></Grid>
-                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}></Grid>
-                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                <Grid item xs={3} sm={3} md={3} lg={4} xl={4}></Grid>
+                <Grid item xs={3} sm={3} md={3} lg={3} xl={4}></Grid>
+                <Grid item xs={6} sm={6} md={6} lg={5} xl={4}>
                   <Autocomplete
                     disablePortal
                     size="small"
@@ -1426,7 +1426,7 @@ const EventDetails = () => {
                   <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
                     <Paper
                       elevation={3}
-                      sx={{ width: "100%", height: "100%", paddingX: 1 }}
+                      sx={{ width: "100%", height: "100%", padding: 2 }}
                     >
                       {/* HEADER SECTION */}
                       <Box
@@ -1442,6 +1442,7 @@ const EventDetails = () => {
                             textAlign: "left",
                             fontWeight: "550",
                             color: "customBlue.dark",
+                            mb: 1,
                           }}
                         >
                           EVIDENCES
@@ -1576,7 +1577,7 @@ const EventDetails = () => {
                           lg: "100%",
                           xl: "100%",
                         },
-                        paddingX: 1,
+                        padding: 2,
                       }}
                     >
                       <Grid container rowGap={1} sx={{ height: "100%" }}>
