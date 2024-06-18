@@ -17,6 +17,8 @@ import ChartComponent from "./ChartComponent";
 // import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ClearIcon from "@mui/icons-material/Clear";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 // import SettingsRemoteIcon from "@mui/icons-material/SettingsRemote";
 // import LocationOnIcon from "@mui/icons-material/LocationOn";
 // import { useTheme } from "@mui/material/styles";
@@ -154,7 +156,9 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 gap: 1,
               }}
             >
-              <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
+              <Tooltip title="Drinking" arrow>
+                <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
+              </Tooltip>
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.drinkingCount || 0}
               </Typography>
@@ -169,7 +173,9 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 gap: 1,
               }}
             >
-              <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+              <Tooltip title="Yawning" arrow>
+                <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+              </Tooltip>
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.yawningCount || 0}
               </Typography>
@@ -184,7 +190,9 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 gap: 1,
               }}
             >
-              <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+              <Tooltip title="Phone Calling" arrow>
+                <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+              </Tooltip>
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.mobileUsageCount || 0}
               </Typography>
@@ -199,11 +207,13 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 gap: 1,
               }}
             >
-              <img
-                src={DASHBOARD_CARD_SMOKING}
-                alt="Smoking"
-                style={{ paddingLeft: 7, paddingRight: 7 }}
-              />
+              <Tooltip title="Smoking" arrow>
+                <img
+                  src={DASHBOARD_CARD_SMOKING}
+                  alt="Smoking"
+                  style={{ paddingLeft: 7, paddingRight: 7 }}
+                />
+              </Tooltip>
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {cameraEventsCardData?.smokingCount || 0}
               </Typography>
@@ -219,11 +229,13 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 position: "relative",
               }}
             >
-              <img
-                src={DASHBOARD_CARD_SLEEPING}
-                alt="Sleeping"
-                style={{ position: "absolute", left: -0.2, top: -6 }}
-              />
+              <Tooltip title="Close eyes" arrow>
+                <img
+                  src={DASHBOARD_CARD_SLEEPING}
+                  alt="Sleeping"
+                  style={{ position: "absolute", left: -0.2, top: -6 }}
+                />
+              </Tooltip>
               <Typography
                 variant="h6"
                 sx={{
@@ -247,11 +259,13 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 position: "relative",
               }}
             >
-              <img
-                src={DASHBOARD_CARD_DISTRACTION}
-                alt="Distraction"
-                style={{ position: "absolute", left: -1, top: -6 }}
-              />
+              <Tooltip title="Distraction" arrow>
+                <img
+                  src={DASHBOARD_CARD_DISTRACTION}
+                  alt="Distraction"
+                  style={{ position: "absolute", left: -1, top: -6 }}
+                />
+              </Tooltip>
               <Typography
                 variant="h6"
                 sx={{
@@ -459,7 +473,7 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
                   variant="h6"
                   sx={{ fontWeight: 700, color: "hsla(25, 92%, 62%, 1)" }}
                 >
-                  {eventsStatusCardData?.noActionTakenRemark || 0}
+                  {eventsStatusCardData?.pendingRemark || 0}
                 </Typography>
               </Box>
             </Box>
