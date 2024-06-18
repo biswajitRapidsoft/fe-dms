@@ -74,7 +74,6 @@ const breadcrumbs = [
 ];
 
 const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
-  const [data, setData] = React.useState({});
   // const [loading, setLoading] = React.useState(true);
   // const [imageLoadError, setImageLoadError] = React.useState(false);
   // const [errorMessage, setErrorMessage] = React.useState("");
@@ -131,17 +130,6 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
   //     fetchImage(photoUrl);
   //   }
   // }, [fetchImage, photoUrl]);
-  const fetchImage = React.useCallback(async () => {
-    try {
-      const response = await axios.get(photoUrl);
-      setData(response.data);
-    } catch (err) {
-      setData(err.response?.data ? err.response.data : { message: err.data });
-    }
-  }, [photoUrl]);
-  React.useEffect(() => {
-    fetchImage();
-  }, [fetchImage]);
 
   return (
     <Paper elevation={4}>
@@ -156,11 +144,7 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
           position: "relative",
         }}
       >
-        {data.data ? (
-          <img src={data.data} alt={"evidence"} width="100%" height="100%" />
-        ) : (
-          data.message
-        )}
+        <img src={photoUrl} alt={"evidence"} width="100%" height="100%" />
 
         {/* {loading ? (
           <Box

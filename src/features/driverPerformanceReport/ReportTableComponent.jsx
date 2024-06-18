@@ -232,7 +232,7 @@ const ReportTableComponent = ({ getAllData, categoryData }) => {
                 <CustomRow
                   index={index}
                   theme={theme}
-                  key={row.id}
+                  key={index + 1}
                   row={row}
                   categoryData={categoryData}
                 />

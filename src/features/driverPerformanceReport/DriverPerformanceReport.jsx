@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   useGetAllCategoryQuery,
   useGetAllDriverPerformanceDetailsQuery,
@@ -18,6 +18,7 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import ReportTableComponent from "./ReportTableComponent";
+import LoadingComponent from "../../components/LoadingComponent";
 
 const breadcrumbs = [
   { name: "Driver Performance Report", path: "/driverPerformanceReport" },
@@ -100,8 +101,8 @@ const DriverPerformanceReport = () => {
 
   console.log("driverPerformanceTableFilters: ", driverPerformanceTableFilters);
 
-  const [driverPerformanceReportData, setDriverPerformanceReportData] =
-    useState([]);
+  // const [driverPerformanceReportData, setDriverPerformanceReportData] =
+  //   useState([]);
 
   const {
     data: getAllDriverPerformanceDetailsData = {
@@ -148,7 +149,7 @@ const DriverPerformanceReport = () => {
     data: getAllCategoryData = { data: [] },
     isLoading: isGetAllCategoryDataLoading,
     isSuccess: isGetAllCategoryDataSuccess,
-  } = useGetAllCategoryQuery({ refetchOnMountOrArgChange: true });
+  } = useGetAllCategoryQuery();
 
   console.log("getAllCategoryData: ", getAllCategoryData);
   console.log("isGetAllCategoryDataLoading: ", isGetAllCategoryDataLoading);
@@ -174,16 +175,16 @@ const DriverPerformanceReport = () => {
     []
   );
 
-  useEffect(() => {
-    if (Boolean(isgetAllDriverPerformanceDetailsSuccess)) {
-      setDriverPerformanceReportData(
-        getAllDriverPerformanceDetailsData?.data?.data || []
-      );
-    }
-  }, [
-    isgetAllDriverPerformanceDetailsSuccess,
-    getAllDriverPerformanceDetailsData?.data?.data,
-  ]);
+  // useEffect(() => {
+  //   if (Boolean(isgetAllDriverPerformanceDetailsSuccess)) {
+  //     setDriverPerformanceReportData(
+  //       getAllDriverPerformanceDetailsData?.data?.data || []
+  //     );
+  //   }
+  // }, [
+  //   isgetAllDriverPerformanceDetailsSuccess,
+  //   getAllDriverPerformanceDetailsData?.data?.data,
+  // ]);
 
   return (
     <React.Fragment>
@@ -215,7 +216,7 @@ const DriverPerformanceReport = () => {
                   },
                 }}
               >
-                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
+                <Grid item xs={4} sm={4} md={4} lg={3} xl={2}>
                   <Autocomplete
                     disablePortal
                     size="small"
@@ -301,7 +302,7 @@ const DriverPerformanceReport = () => {
                     )}
                   />
                 </Grid>
-                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
+                <Grid item xs={4} sm={4} md={4} lg={3} xl={2}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Select From Date & Time"
@@ -347,7 +348,7 @@ const DriverPerformanceReport = () => {
                     />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={4} sm={4} md={3} lg={3} xl={2}>
+                <Grid item xs={4} sm={4} md={4} lg={3} xl={2}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Select To Date & Time"
@@ -395,7 +396,7 @@ const DriverPerformanceReport = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <ReportTableComponent
-                getAllData={driverPerformanceReportData}
+                getAllData={getAllDriverPerformanceDetailsData.data.data}
                 categoryData={getAllCategoryData?.data || []}
               />
             </Grid>
@@ -425,6 +426,13 @@ const DriverPerformanceReport = () => {
           </Grid>
         </Box>
       </Box>
+      <LoadingComponent
+        open={
+          isgetAllDriverPerformanceDetailsLoading ||
+          isGetAllCategoryDataLoading ||
+          isGetAllDriverDataLoading
+        }
+      />
     </React.Fragment>
   );
 };

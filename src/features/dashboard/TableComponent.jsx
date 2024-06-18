@@ -322,7 +322,7 @@ const CustomRow = React.memo(
                   <Autocomplete
                     disablePortal
                     disableClearable
-                    id="combo-box-demo"
+                    // id="remark-autocomplete-table-component"
                     // sx={{ width: "100%", mt: "10px" }}
                     size="small"
                     options={getRemarkType}

@@ -253,7 +253,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 style={{ position: "absolute", left: -1, top: -6 }}
               />
               <Typography
-                variant="h5"
+                variant="h6"
                 sx={{
                   fontWeight: "bold",
                   position: "absolute",
@@ -1118,17 +1118,17 @@ const Dashboard = () => {
             {/* CARD GRID ITEM*/}
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Grid container columnSpacing={1} rowSpacing={1}>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={2.5}>
                   <CameraEventsCard
                     cameraEventsCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={2.5}>
                   <VehiclesCard
                     vehiclesCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={4}>
                   <ComplaintsCard
                     complaintsCardData={getAllData?.data?.eventTypeCountDto}
                   />
@@ -1895,7 +1895,7 @@ const Dashboard = () => {
                               >
                                 <Autocomplete
                                   disablePortal
-                                  id="combo-box-demo"
+                                  id="search-vehicle-dashboard"
                                   size="small"
                                   options={getAllDriverData?.data || []}
                                   getOptionLabel={(option) =>
@@ -1957,9 +1957,10 @@ const Dashboard = () => {
                                     <TextField
                                       {...params}
                                       id={
-                                        selectedDriverPerformanceFilterOption?.key
-                                          ? selectedDriverPerformanceFilterOption?.key
-                                          : ""
+                                        // selectedDriverPerformanceFilterOption?.key
+                                        //   ? selectedDriverPerformanceFilterOption?.key
+                                        //   : ""
+                                        "search-driver-dashboard"
                                       }
                                       sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -2022,7 +2023,7 @@ const Dashboard = () => {
                                 <Autocomplete
                                   disablePortal
                                   disableClearable
-                                  id="combo-box-demo"
+                                  id="driver-performance-filter-dashboard"
                                   size="small"
                                   options={driverPerformanceFilterOptionArray}
                                   fullWidth
@@ -2054,9 +2055,10 @@ const Dashboard = () => {
                                     <TextField
                                       {...params}
                                       id={
-                                        selectedDriverPerformanceFilterOption?.key
-                                          ? selectedDriverPerformanceFilterOption?.key
-                                          : ""
+                                        // selectedDriverPerformanceFilterOption?.key
+                                        //   ? selectedDriverPerformanceFilterOption?.key
+                                        //   : ""
+                                        "driver-performance-filter-text-field-dashboard"
                                       }
                                       sx={{
                                         "& .MuiOutlinedInput-root": {

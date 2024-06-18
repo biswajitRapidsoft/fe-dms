@@ -48,14 +48,14 @@ const CommandHistoryTrailDialog = React.memo(function ({
     <Dialog
       open={commandHistoryTrailDialogOpen}
       onClose={handleCloseCommandHistoryTrailDialog}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby="command-history-trail-dialog-title"
+      aria-describedby="command-history-trail-dialog-description"
       maxWidth="sm"
       fullWidth
       scroll="body"
       sx={{ zIndex: theme.zIndex.modal + 10 }}
     >
-      <DialogTitle id="alert-dialog-title">
+      <DialogTitle id="command-history-trail-dialog-title">
         <Box
           sx={{
             display: "flex",
@@ -865,7 +865,7 @@ const CommandConfiguration = () => {
               {" "}
               <Autocomplete
                 disablePortal
-                id="combo-box-demo"
+                id="search-vehicle"
                 // sx={{ width: "100%", mt: "10px" }}
                 sx={{
                   "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover": {
@@ -934,11 +934,12 @@ const CommandConfiguration = () => {
                     {...params}
                     label="Search Vehicle"
                     id={
-                      commandConfigurationSearchFormData?.vehicle?.id
-                        ? String(
-                            commandConfigurationSearchFormData?.vehicle?.id
-                          )
-                        : ""
+                      // commandConfigurationSearchFormData?.vehicle?.id
+                      //   ? String(
+                      //       commandConfigurationSearchFormData?.vehicle?.id
+                      //     )
+                      //   : ""
+                      "search-vehicle-command-config"
                     }
                     value={
                       commandConfigurationSearchFormData?.vehicle?.vehicleNumber
@@ -975,7 +976,7 @@ const CommandConfiguration = () => {
               {" "}
               <Autocomplete
                 disablePortal
-                id="combo-box-demo"
+                id="search-emi"
                 size="small"
                 sx={{
                   "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover": {
@@ -1046,9 +1047,10 @@ const CommandConfiguration = () => {
                     {...params}
                     label="Search IMEI"
                     id={
-                      commandConfigurationSearchFormData?.imeiNo
-                        ? String(commandConfigurationSearchFormData?.imeiNo)
-                        : ""
+                      // commandConfigurationSearchFormData?.imeiNo
+                      //   ? String(commandConfigurationSearchFormData?.imeiNo)
+                      //   : ""
+                      "search-emi-command-config"
                     }
                     value={
                       commandConfigurationSearchFormData?.imeiNo
@@ -1084,7 +1086,7 @@ const CommandConfiguration = () => {
               {" "}
               <Autocomplete
                 disablePortal
-                id="combo-box-demo"
+                id="search-device-model"
                 size="small"
                 sx={{
                   "& + .MuiAutocomplete-popper .MuiAutocomplete-option:hover": {
@@ -1156,9 +1158,10 @@ const CommandConfiguration = () => {
                     {...params}
                     label="Search Device Modal"
                     id={
-                      commandConfigurationSearchFormData?.model
-                        ? String(commandConfigurationSearchFormData?.model)
-                        : ""
+                      // commandConfigurationSearchFormData?.model
+                      //   ? String(commandConfigurationSearchFormData?.model)
+                      //   : ""
+                      "search-device-model-command-config"
                     }
                     value={
                       commandConfigurationSearchFormData?.model
