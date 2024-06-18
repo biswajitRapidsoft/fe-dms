@@ -927,7 +927,7 @@ function SingleImageEvidenceComponent({ photoUrl }) {
   }, [photoUrl]);
   React.useEffect(() => {
     fetchImageData();
-  }, []);
+  }, [fetchImageData]);
   return (
     <Grid item xs={12} lg={4}>
       {imgData.data ? (
