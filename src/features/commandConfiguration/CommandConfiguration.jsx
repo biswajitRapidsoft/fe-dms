@@ -861,7 +861,7 @@ const CommandConfiguration = () => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+            <Grid item xs={3} lg={2} xl={2}>
               {" "}
               <Autocomplete
                 disablePortal
@@ -972,7 +972,7 @@ const CommandConfiguration = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+            <Grid item xs={3} lg={2} xl={2}>
               {" "}
               <Autocomplete
                 disablePortal
@@ -1082,7 +1082,7 @@ const CommandConfiguration = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+            <Grid item xs={3} lg={2} xl={2}>
               {" "}
               <Autocomplete
                 disablePortal
@@ -1193,7 +1193,7 @@ const CommandConfiguration = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}>
+            <Grid item xs={2} lg={0.5} xl={0.5}>
               <Button
                 variant="contained"
                 disabled={
@@ -1209,9 +1209,9 @@ const CommandConfiguration = () => {
                 GO
               </Button>
             </Grid>
-            <Grid item xs={4.5} sm={4.5} md={4.5} lg={4.5} xl={4.5} />
+            {/* <Grid item xs={1} lg={4.5} xl={4.5} /> */}
             {Boolean(selectedVehicleDetails) && (
-              <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+              <Grid item xs={2} md={1} lg={5.5} xl={5.5}>
                 <Box
                   sx={{
                     display: "flex",
@@ -1225,10 +1225,11 @@ const CommandConfiguration = () => {
                     variant="outlined"
                     onClick={() => handleOpenCommandHistoryTrailDialog()}
                     sx={{
-                      paddingX: "10px",
+                      // paddingX: "10px",
                       border: "2px solid",
                       fontWeight: "550",
                     }}
+                    size="small"
                   >
                     HISTORY
                   </Button>

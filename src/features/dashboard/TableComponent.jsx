@@ -45,6 +45,7 @@ import {
   YAWN_ALERT,
   customChartColors,
 } from "../../helper/constants";
+import { evidenceImageService } from "../../services/evidenceImageService";
 
 const CustomRow = React.memo(
   ({
@@ -633,7 +634,7 @@ const TableComponent = ({
     <React.Fragment>
       <TableContainer
         component={Paper}
-        sx={{ overflow: "auto", height: "700px", maxHeight: "700px" }}
+        sx={{ overflow: "auto", maxHeight: "700px" }}
       >
         <Table aria-label="simple table" stickyHeader size="small">
           <TableHead>
@@ -769,7 +770,7 @@ const TableComponent = ({
         page={pageNo}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        rowsPerPageOptions={[5, 10, 20, 50, 100]}
+        // rowsPerPageOptions={[5, 10, 20, 50, 100]}
       />
 
       {/* dialog */}
@@ -902,13 +903,10 @@ const TableComponent = ({
             <Box>
               <Grid container spacing={2}>
                 {selectedTruck?.evidencePhotos?.map((photoUrl, index) => (
-                  <Grid item xs={12} lg={4} key={index}>
-                    <img
-                      src={photoUrl}
-                      alt="Evidence"
-                      style={{ width: "100%", height: "500px" }}
-                    />
-                  </Grid>
+                  <SingleImageEvidenceComponent
+                    photoUrl={photoUrl}
+                    key={photoUrl}
+                  />
                 ))}
               </Grid>
             </Box>
@@ -918,5 +916,31 @@ const TableComponent = ({
     </React.Fragment>
   );
 };
+
+function SingleImageEvidenceComponent({ photoUrl }) {
+  const [imgData, setImgData] = React.useState({});
+  const fetchImageData = React.useCallback(async () => {
+    const response = await evidenceImageService.fetchEvidenceImageData(
+      photoUrl
+    );
+    setImgData(response);
+  }, [photoUrl]);
+  React.useEffect(() => {
+    fetchImageData();
+  }, []);
+  return (
+    <Grid item xs={12} lg={4}>
+      {imgData.data ? (
+        <img
+          src={imgData.data}
+          alt="Evidence"
+          style={{ width: "100%", height: "500px" }}
+        />
+      ) : (
+        imgData.message
+      )}
+    </Grid>
+  );
+}
 
 export default React.memo(TableComponent);

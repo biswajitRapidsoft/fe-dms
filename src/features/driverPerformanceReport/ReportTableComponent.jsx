@@ -149,7 +149,7 @@ const ReportTableComponent = ({ getAllData, categoryData }) => {
     <React.Fragment>
       <TableContainer
         component={Paper}
-        sx={{ overflow: "auto", height: "70vh" }}
+        sx={{ overflow: "auto", maxHeight: "70vh" }}
       >
         <Table aria-label="simple table" stickyHeader size="small">
           <TableHead>

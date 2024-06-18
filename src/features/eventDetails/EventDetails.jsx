@@ -66,7 +66,8 @@ import {
   SMOKING_ALERT,
   YAWN_ALERT,
 } from "../../helper/constants";
-import axios from "axios";
+
+import { evidenceImageService } from "../../services/evidenceImageService";
 
 const breadcrumbs = [
   { name: "Dashboard", path: "/dashboard" },
@@ -74,62 +75,18 @@ const breadcrumbs = [
 ];
 
 const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
-  // const [loading, setLoading] = React.useState(true);
-  // const [imageLoadError, setImageLoadError] = React.useState(false);
-  // const [errorMessage, setErrorMessage] = React.useState("");
-  // const [imageSrc, setImageSrc] = React.useState(null);
+  const [imgData, setImgData] = React.useState({});
 
-  // const fetchImage = React.useCallback(async (photoUrl) => {
-  //   setLoading(true);
-  //   setImageLoadError(false);
-  //   setErrorMessage("");
+  const fetchImageData = React.useCallback(async () => {
+    const response = await evidenceImageService.fetchEvidenceImageData(
+      photoUrl
+    );
+    setImgData(response);
+  }, [photoUrl]);
 
-  //   try {
-  //     const response = await fetch(photoUrl);
-  //     console.log("image response: ", response);
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to load image");
-  //     }
-
-  //     const blob = await response.blob();
-  //     const imageSrc = URL.createObjectURL(blob);
-  //     setImageSrc(imageSrc);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setImageLoadError(true);
-  //     setErrorMessage(error.message ? error.message : "Failed to load image");
-  //     setLoading(false);
-  //   }
-  // }, []);
-
-  // const fetchImage = React.useCallback(async (photoUrl) => {
-  //   setLoading(true);
-  //   setImageLoadError(false);
-  //   setErrorMessage("");
-  //   try {
-  //     const response = await axios.get(photoUrl, { responseType: "blob" });
-
-  //     if (response.headers["content-type"].startsWith("image/")) {
-  //       const imageUrl = URL.createObjectURL(response.data);
-  //       setImageSrc(imageUrl);
-  //       setLoading(false);
-  //     } else {
-  //       throw new Error("The URL did not return an image.");
-  //     }
-  //   } catch (error) {
-  //     debugger;
-  //     setImageLoadError(true);
-  //     setErrorMessage(error.message ? error.message : "Failed to load image");
-  //     setLoading(false);
-  //   }
-  // }, []);
-
-  // React.useEffect(() => {
-  //   if (Boolean(photoUrl)) {
-  //     fetchImage(photoUrl);
-  //   }
-  // }, [fetchImage, photoUrl]);
+  React.useEffect(() => {
+    fetchImageData();
+  }, [fetchImageData]);
 
   return (
     <Paper elevation={4}>
@@ -144,7 +101,11 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
           position: "relative",
         }}
       >
-        <img src={photoUrl} alt={"evidence"} width="100%" height="100%" />
+        {imgData.data ? (
+          <img src={imgData.data} alt={"evidence"} width="100%" height="100%" />
+        ) : (
+          imgData.message
+        )}
 
         {/* {loading ? (
           <Box
@@ -1425,8 +1386,12 @@ const EventDetails = () => {
                           sx={{
                             textAlign: "left",
                             fontWeight: "550",
-                            color: "customBlue.dark",
+                            // color: "customBlue.dark",
+                            color: "#fff",
+                            backgroundColor: (theme) =>
+                              theme.palette.primary.main,
                             mb: 1,
+                            px: 1,
                           }}
                         >
                           EVIDENCES
@@ -1573,7 +1538,10 @@ const EventDetails = () => {
                                 sx={{
                                   textAlign: "left",
                                   fontWeight: "550",
-                                  color: "customBlue.dark",
+                                  color: "#fff",
+                                  backgroundColor: (theme) =>
+                                    theme.palette.primary.main,
+                                  px: 1,
                                 }}
                               >
                                 DETAILS
@@ -1707,7 +1675,10 @@ const EventDetails = () => {
                                 sx={{
                                   textAlign: "left",
                                   fontWeight: "550",
-                                  color: "customBlue.dark",
+                                  color: "#fff",
+                                  backgroundColor: (theme) =>
+                                    theme.palette.primary.main,
+                                  px: 1,
                                 }}
                               >
                                 REMARKS
@@ -1817,7 +1788,10 @@ const EventDetails = () => {
                                 sx={{
                                   textAlign: "left",
                                   fontWeight: "550",
-                                  color: "customBlue.dark",
+                                  color: "#fff",
+                                  backgroundColor: (theme) =>
+                                    theme.palette.primary.main,
+                                  px: 1,
                                 }}
                               >
                                 VEHICLE DETAILS

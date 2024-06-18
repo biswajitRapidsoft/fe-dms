@@ -603,7 +603,7 @@ const Dashboard = () => {
   });
   // useStates for paginations
   const [pageNo, setPageNo] = React.useState(0);
-  const [pageSize, setPageSize] = React.useState(5);
+  const [pageSize, setPageSize] = React.useState(10);
   // useState for chart component filter
   const [filter, setFilter] = React.useState({
     filter: "Till Today",
