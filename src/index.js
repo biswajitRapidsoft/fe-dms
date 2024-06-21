@@ -103,6 +103,13 @@ const theme = createTheme({
       50: "#FFF6A5",
       200: "#F8E850",
     },
+    customLightBlue: {
+      main: "#51C8FF",
+      light: "#95DEFF",
+      dark: "#23BBFF",
+      50: "#D2F2FF",
+      100: "#B5EFFF",
+    },
   },
 });
 

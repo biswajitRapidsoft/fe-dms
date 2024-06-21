@@ -19,9 +19,9 @@ export const CLOSE_EYES = "CLOSE_EYES";
 export const LOW_HEAD = "LOW_HEAD";
 export const DRINKING = "DRINKING";
 export const NO_FACE = "NO_FACE";
-export const PHONE_CALLING = "PHONE_CALLING";
+export const MOBILE_USE = "MOBILE_USE";
 export const SMOKING_ALERT = "SMOKING_ALERT";
-export const YAWN_ALERT = "YAWN_ALERT";
+export const YAWNING = "YAWNING";
 export const POWER_CUT = "POWER_CUT";
 
 export const ALL_EVENT_TYPE = "ALL";

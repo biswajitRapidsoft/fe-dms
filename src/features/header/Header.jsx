@@ -22,6 +22,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 // import SettingsRemoteIcon from "@mui/icons-material/SettingsRemote";
 import headerBg from "../../img/header.svg";
 import { useTheme } from "@emotion/react";
+import DMS_PROFILE_PIC from "../../img/DMS_PROFILE_PIC.png";
 
 const Header = () => {
   const theme = useTheme();
@@ -120,8 +121,9 @@ const Header = () => {
             >
               <IconButton sx={{ p: 0 }}>
                 <Avatar
-                  alt="Remy Sharp"
-                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d"
+                  alt="Profile pic"
+                  // src="https://images.unsplash.com/photo-1633332755192-727a05c4013d"
+                  src={DMS_PROFILE_PIC}
                   sx={{ height: "53px", width: "53px" }}
                 />
               </IconButton>

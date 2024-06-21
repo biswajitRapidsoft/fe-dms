@@ -28,11 +28,11 @@ function App() {
     (route) => location.pathname === route
   );
   // const [sidebarOpen, setSideBarOpen] = React.useState(false);
-  const [currentRoute, setCurrentRoute] = React.useState(location.pathname);
-  console.log("currentRoute", currentRoute);
-  React.useEffect(() => {
-    setCurrentRoute(location.pathname);
-  }, [location]);
+  // const [currentRoute, setCurrentRoute] = React.useState(location.pathname);
+  // console.log("currentRoute", currentRoute);
+  // React.useEffect(() => {
+  //   setCurrentRoute(location.pathname);
+  // }, [location]);
   return (
     // <div className="App">
     <>
@@ -54,7 +54,7 @@ function App() {
                   flexGrow: 1,
                   //   marginLeft: isExcludedRouteForSideBar ? "1em" : "",
                   marginTop: isExcludedRouteForHeader ? "4em" : "",
-                  marginLeft: isExcludedRouteForSidebar ? "4.7em" : "",
+                  marginLeft: isExcludedRouteForSidebar ? "5em" : "",
                   marginRight: isExcludedRouteForHeader ? "1em" : "",
                 }}
               >

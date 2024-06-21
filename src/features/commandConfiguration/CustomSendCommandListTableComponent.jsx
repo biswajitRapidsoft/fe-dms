@@ -10,10 +10,23 @@ import TablePagination from "@mui/material/TablePagination";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
+function calculateSerialNumber(index, pageNumber, rowsPerPage) {
+  index = index ?? 0;
+  pageNumber = pageNumber ?? 0;
+  rowsPerPage = rowsPerPage ?? 10;
+
+  index = Number(index);
+  pageNumber = Number(pageNumber);
+  rowsPerPage = Number(rowsPerPage);
+
+  return pageNumber * rowsPerPage + index + 1;
+}
+
 const CustomRow = React.memo(
   ({
     row,
     index,
+    rowSerialNumber,
     handleSendCommandListCellInputChange,
     handleSendCommandInSendEventList,
   }) => {
@@ -32,7 +45,7 @@ const CustomRow = React.memo(
       [handleSendCommandInSendEventList, row]
     );
 
-    console.log("CustomRow data in sendCommandList: ", row);
+    // console.log("CustomRow data in sendCommandList: ", row);
     return (
       <TableRow
       // hover
@@ -40,7 +53,20 @@ const CustomRow = React.memo(
       >
         <TableCell>
           {/* {row?.id} */}
-          {index + 1}
+          <Typography
+            variant="body1"
+            sx={{
+              // fontWeight: 550,
+              color: Boolean(row?.command)
+                ? "customGrey.700"
+                : "customGrey.600",
+              textAlign: "center",
+              // fontSize: Boolean(row?.command) ? "" : "15px",
+            }}
+          >
+            {/* {index + 1} */}
+            {rowSerialNumber}
+          </Typography>
         </TableCell>
         <TableCell>
           <Typography
@@ -50,87 +76,89 @@ const CustomRow = React.memo(
               color: Boolean(row?.description)
                 ? "customBlue.dark"
                 : "customGrey.600",
-              fontSize: Boolean(row?.description) ? "" : "15px",
+              wordBreak: "break-word",
             }}
           >
             {row?.description || "NA"}
           </Typography>
         </TableCell>
         <TableCell>
+          {/* <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "left",
+            }}
+          > */}
+          <Typography
+            variant="body1"
+            sx={{
+              fontWeight: 550,
+              color: Boolean(row?.baseCommand)
+                ? "customBlue.dark"
+                : "customGrey.600",
+              // fontSize: Boolean(row?.baseCommand) ? "" : "15px",
+              wordBreak: "break-word",
+              textAlign: "left",
+            }}
+          >
+            {row?.baseCommand || "NA"}
+          </Typography>
+          {/* </Box> */}
+        </TableCell>
+
+        <TableCell>
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
               gap: 1,
             }}
           >
-            <Box
+            <TextField
+              value={row?.midCommand || ""}
+              size="small"
+              name="midCommand"
+              sx={{ minWidth: "5em" }}
+              onChange={(e) => handleSendCommandListCellInputChangeOnChange(e)}
+
+              // label="mid
+              // fullWidth
+            />
+            <Typography
+              variant="body1"
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
+                fontWeight: 550,
+                color: Boolean(row?.endCommand)
+                  ? "customBlue.dark"
+                  : "customGrey.600",
               }}
             >
-              <Typography
-                variant="body1"
-                sx={{
-                  fontWeight: 550,
-                  color: Boolean(row?.baseCommand)
-                    ? "customBlue.dark"
-                    : "customGrey.600",
-                  fontSize: Boolean(row?.baseCommand) ? "" : "15px",
-                }}
-              >
-                {row?.baseCommand || "NA"}
-              </Typography>
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 1,
-              }}
-            >
-              <TextField
-                value={row?.midCommand || ""}
-                size="small"
-                name="midCommand"
-                sx={{ minWidth: "10em" }}
-                onChange={(e) =>
-                  handleSendCommandListCellInputChangeOnChange(e)
-                }
-
-                // label="mid
-                // fullWidth
-              />
-              <Typography
-                variant="body1"
-                sx={{
-                  fontWeight: 550,
-                  color: Boolean(row?.endCommand)
-                    ? "customBlue.dark"
-                    : "customGrey.600",
-                  fontSize: Boolean(row?.endCommand) ? "" : "15px",
-                }}
-              >
-                {row?.endCommand || "NA"}
-              </Typography>
-            </Box>
+              {row?.endCommand || "NA"}
+            </Typography>
           </Box>
         </TableCell>
 
-        <TableCell>
-          <Button
-            variant="contained"
-            size="small"
-            onClick={(e) => handleSendCommandInSendEventListOnClick(e)}
+        <TableCell sx={{ padding: 0 }}>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            SEND
-          </Button>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={(e) => handleSendCommandInSendEventListOnClick(e)}
+            >
+              SEND
+            </Button>
+          </Box>
         </TableCell>
       </TableRow>
     );
@@ -150,7 +178,18 @@ const CustomSendCommandListTableComponent = ({
     <React.Fragment>
       <TableContainer
         component={Paper}
-        sx={{ overflow: "auto", maxHeight: "555px" }}
+        sx={{
+          overflow: "auto",
+          maxHeight: "555px",
+          ".MuiTypography-root": {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif",
+          },
+          ".MuiButton-root": {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+          },
+        }}
       >
         <Table aria-label="simple table" stickyHeader size="small">
           <TableHead>
@@ -163,10 +202,11 @@ const CustomSendCommandListTableComponent = ({
                   paddingY: "10px",
                   borderTopLeftRadius: "10px",
                   borderBottomLeftRadius: "10px",
-                  position: "relative",
                 }}
               >
-                S.No.
+                <Typography sx={{ fontWeight: 550, letterSpacing: "1px" }}>
+                  S.No.
+                </Typography>
                 <div
                   style={{
                     position: "absolute",
@@ -185,10 +225,12 @@ const CustomSendCommandListTableComponent = ({
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
                   paddingY: "10px",
-                  position: "relative",
+                  // maxWidth: "150px",
                 }}
               >
-                DESCRIPTION
+                <Typography sx={{ fontWeight: 550, letterSpacing: "1px" }}>
+                  DESCRIPTION
+                </Typography>
                 <div
                   style={{
                     position: "absolute",
@@ -205,11 +247,22 @@ const CustomSendCommandListTableComponent = ({
                   color: "text.light",
                   backgroundColor: "primary.main",
                   fontWeight: "bold",
-                  paddingY: "10px",
-                  position: "relative",
+                  // paddingY: "10px",
                 }}
               >
-                COMMAND
+                <Typography sx={{ fontWeight: 550, letterSpacing: "1px" }}>
+                  COMMAND
+                </Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: "text.light",
+                  backgroundColor: "primary.main",
+                  fontWeight: "bold",
+                  paddingY: "10px",
+                  // paddingX: "140px",
+                }}
+              >
                 <div
                   style={{
                     position: "absolute",
@@ -231,7 +284,9 @@ const CustomSendCommandListTableComponent = ({
                   borderBottomRightRadius: "10px",
                 }}
               >
-                ACTION
+                <Typography sx={{ fontWeight: 550, letterSpacing: "1px" }}>
+                  ACTION
+                </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -239,6 +294,11 @@ const CustomSendCommandListTableComponent = ({
             {Boolean(commandListData?.data?.length > 0) ? (
               commandListData?.data?.map((row, index) => (
                 <CustomRow
+                  rowSerialNumber={calculateSerialNumber(
+                    index,
+                    pageNo,
+                    pageSize
+                  )}
                   index={index}
                   key={row.id}
                   row={row}

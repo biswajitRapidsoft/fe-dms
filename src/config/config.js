@@ -1,5 +1,6 @@
 const config = Object.freeze({
   // baseUrl: "http://192.168.12.58:9091/", //Smruti
+  // baseUrl: "http://192.168.12.51:9091/", //Dhruti Sir
   // baseUrl: "http://192.168.12.58:8085/dms/", //Smruti
   // baseUrl: "http://192.168.12.49:9091/", //Biswaji Sir
   // baseUrl: "http://localhost:9091/",
@@ -26,6 +27,7 @@ const config = Object.freeze({
     getAllDriverPerformanceDetails: "api/driver/getall/perfomance",
     getAllCategory: "api/category/getall",
     getAllDriver: "api/driver/getall",
+    getDriverById: "api/driver/getbyid",
     getDriverEventCount: "api/driver/event/count",
   },
 });

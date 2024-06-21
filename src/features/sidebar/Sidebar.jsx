@@ -144,6 +144,7 @@ export default function Sidenav() {
                   "&:hover": {
                     bgcolor: "#6391E8",
                   },
+                  borderBottom: "1px solid grey",
                 }}
               >
                 <ListItemButton

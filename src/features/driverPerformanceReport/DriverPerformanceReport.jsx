@@ -19,53 +19,58 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import ReportTableComponent from "./ReportTableComponent";
 import LoadingComponent from "../../components/LoadingComponent";
+import SnackAlert from "../../components/Alert";
 
 const breadcrumbs = [
   { name: "Driver Performance Report", path: "/driverPerformanceReport" },
 ];
 
 const CustomCategoryMarkerComponent = React.memo(function ({ categoryData }) {
-  console.log("dynamic categoryData: ", categoryData);
+  // console.log("dynamic categoryData: ", categoryData);
   return (
-    <Grid container>
-      <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 1.5,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <div
+          style={{
+            width: "20px",
+            height: "20px",
+            borderRadius: "50%",
+            backgroundColor: `#${categoryData?.colorCode}`,
           }}
+        />
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <Typography
+          sx={{ whiteSpace: "nowrap", fontSize: "20px", fontWeight: "550" }}
         >
-          <div
-            style={{
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              backgroundColor: `#${categoryData?.colorCode}`,
-            }}
-          />
-        </Box>
-      </Grid>
-      <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <Typography
-            sx={{ whiteSpace: "nowrap", fontSize: "20px", fontWeight: "550" }}
-          >
-            {categoryData?.name}
-          </Typography>
-        </Box>
-      </Grid>
-    </Grid>
+          {categoryData?.name}
+        </Typography>
+      </Box>
+    </Box>
   );
 });
 
@@ -99,7 +104,13 @@ const DriverPerformanceReport = () => {
   const [driverPerformanceTableFilters, setDriverPerformanceTableFilters] =
     useState(initialDriverPerformanceTableFilters);
 
-  console.log("driverPerformanceTableFilters: ", driverPerformanceTableFilters);
+  const [snack, setSnack] = React.useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+
+  // console.log("driverPerformanceTableFilters: ", driverPerformanceTableFilters);
 
   // const [driverPerformanceReportData, setDriverPerformanceReportData] =
   //   useState([]);
@@ -112,7 +123,7 @@ const DriverPerformanceReport = () => {
       },
     },
     isLoading: isgetAllDriverPerformanceDetailsLoading,
-    isSuccess: isgetAllDriverPerformanceDetailsSuccess,
+    isFetching: isgetAllDriverPerformanceDetailsFetching,
   } = useGetAllDriverPerformanceDetailsQuery(
     {
       dlNumber: Boolean(driverPerformanceTableFilters?.dlNumber?.trim())
@@ -128,52 +139,187 @@ const DriverPerformanceReport = () => {
         (!Boolean(formatToUTC(driverPerformanceTableFilters?.fromDate)) &&
           Boolean(formatToUTC(driverPerformanceTableFilters?.toDate))),
       refetchOnMountOrArgChange: true,
-      pollingInterval: 30000,
     }
   );
 
-  console.log(
-    "getAllDriverPerformanceDetailsData: ",
-    getAllDriverPerformanceDetailsData
-  );
-  console.log(
-    "isgetAllDriverPerformanceDetailsLoading: ",
-    isgetAllDriverPerformanceDetailsLoading
-  );
-  console.log(
-    "isgetAllDriverPerformanceDetailsSuccess : ",
-    isgetAllDriverPerformanceDetailsSuccess
-  );
+  // console.log(
+  //   "getAllDriverPerformanceDetailsData: ",
+  //   getAllDriverPerformanceDetailsData
+  // );
+  // console.log(
+  //   "isgetAllDriverPerformanceDetailsLoading: ",
+  //   isgetAllDriverPerformanceDetailsLoading
+  // );
+  // console.log(
+  //   "isgetAllDriverPerformanceDetailsSuccess : ",
+  //   isgetAllDriverPerformanceDetailsSuccess
+  // );
 
   const {
     data: getAllCategoryData = { data: [] },
     isLoading: isGetAllCategoryDataLoading,
-    isSuccess: isGetAllCategoryDataSuccess,
   } = useGetAllCategoryQuery();
 
-  console.log("getAllCategoryData: ", getAllCategoryData);
-  console.log("isGetAllCategoryDataLoading: ", isGetAllCategoryDataLoading);
-  console.log("isGetAllCategoryDataSuccess : ", isGetAllCategoryDataSuccess);
+  // console.log("getAllCategoryData: ", getAllCategoryData);
+  // console.log("isGetAllCategoryDataLoading: ", isGetAllCategoryDataLoading);
+  // console.log("isGetAllCategoryDataSuccess : ", isGetAllCategoryDataSuccess);
 
   const {
     data: getAllDriverData = { data: null },
     isLoading: isGetAllDriverDataLoading,
-    isSuccess: isGetAllDriverDataSuccess,
   } = useGetAllDriverQuery({ refetchOnMountOrArgChange: true });
 
-  console.log("getAllDriverData: ", getAllDriverData);
-  console.log("isGetAllDriverDataLoading: ", isGetAllDriverDataLoading);
-  console.log("isGetAllDriverDataSuccess : ", isGetAllDriverDataSuccess);
+  // console.log("getAllDriverData: ", getAllDriverData);
+  // console.log("isGetAllDriverDataLoading: ", isGetAllDriverDataLoading);
+  // console.log("isGetAllDriverDataSuccess : ", isGetAllDriverDataSuccess);
+
+  // const handleChangeEventDetailsFilterationDate = React.useCallback(
+  //   (dateKey, dateValue) => {
+  //     setDriverPerformanceTableFilters((prevData) => ({
+  //       ...prevData,
+  //       [dateKey]: dateValue,
+  //     }));
+  //   },
+  //   []
+  // );
+
+  // const handleChangeEventDetailsFilterationDate = React.useCallback(
+  //   (dateKey, dateValue) => {
+  //     if (dateKey === "fromDate") {
+  //       // Update fromDate and ensure toDate is not before it
+  //       setDriverPerformanceTableFilters((prevData) => ({
+  //         ...prevData,
+  //         [dateKey]: dateValue,
+  //         toDate:
+  //           prevData.toDate && prevData.toDate.isBefore(dateValue)
+  //             ? null
+  //             : prevData.toDate,
+  //       }));
+  //     } else if (dateKey === "toDate") {
+  //       // Update toDate and ensure it is not before fromDate
+  //       setDriverPerformanceTableFilters((prevData) => ({
+  //         ...prevData,
+  //         [dateKey]: dateValue,
+  //         fromDate:
+  //           prevData.fromDate && prevData.fromDate.isAfter(dateValue)
+  //             ? null
+  //             : prevData.fromDate,
+  //       }));
+  //     }
+  //   },
+  //   []
+  // );
 
   const handleChangeEventDetailsFilterationDate = React.useCallback(
     (dateKey, dateValue) => {
-      setDriverPerformanceTableFilters((prevData) => ({
-        ...prevData,
-        [dateKey]: dateValue,
-      }));
+      setDriverPerformanceTableFilters((prevData) => {
+        if (dateKey === "fromDate") {
+          if (dateValue === null) {
+            // If fromDate is set to null, also set toDate to null
+            return {
+              ...prevData,
+              fromDate: null,
+              toDate: null,
+            };
+          } else {
+            // If fromDate is after toDate, clear toDate
+            const updatedToDate =
+              prevData.toDate && dateValue.isAfter(prevData.toDate)
+                ? null
+                : prevData.toDate;
+            return {
+              ...prevData,
+              fromDate: dateValue,
+              toDate: updatedToDate,
+            };
+          }
+        } else if (dateKey === "toDate") {
+          const updatedFromDate =
+            prevData.fromDate &&
+            dateValue &&
+            dateValue.isBefore(prevData.fromDate)
+              ? null
+              : prevData.fromDate;
+          if (!Boolean(updatedFromDate)) {
+            setSnack({
+              open: true,
+              severity: "warning",
+              message:
+                "TO DATE & TIME can't be earlier than FROM DATE & TIME !",
+            });
+          }
+          return {
+            ...prevData,
+            [dateKey]: dateValue,
+            fromDate: updatedFromDate,
+          };
+        }
+        return prevData;
+      });
     },
     []
   );
+
+  // const disableDatesBeforeFromDate = React.useCallback(
+  //   (date) => {
+  //     if (!driverPerformanceTableFilters?.fromDate) {
+  //       return false; // Do not disable any dates if fromDate is null
+  //     }
+  //     return date < driverPerformanceTableFilters.fromDate;
+  //   },
+  //   [driverPerformanceTableFilters?.fromDate]
+  // );
+
+  // const disableDatesBeforeFromDate = React.useCallback(
+  //   (date) => {
+  //     const fromDate = driverPerformanceTableFilters?.fromDate;
+  //     if (!fromDate) {
+  //       return false; // No restriction if fromDate is null
+  //     }
+  //     if (date.isSame(fromDate, "day")) {
+  //       // Allow selection of the same day but disable times before fromDate time
+  //       return date.isBefore(fromDate);
+  //     }
+  //     return date.isBefore(fromDate, "day"); // Disable dates before fromDate
+  //   },
+  //   [driverPerformanceTableFilters?.fromDate]
+  // );
+
+  const disableDatesBeforeFromDate = React.useCallback(
+    (date) => {
+      const fromDate = driverPerformanceTableFilters?.fromDate;
+      if (!fromDate) {
+        return false; // No restriction if fromDate is null
+      }
+      return date.isBefore(fromDate, "day"); // Disable dates before fromDate
+    },
+    [driverPerformanceTableFilters?.fromDate]
+  );
+
+  // const shouldDisableTime = React.useCallback(
+  //   (timeValue, clockType) => {
+  //     const fromDate = driverPerformanceTableFilters?.fromDate;
+  //     if (!fromDate) {
+  //       return false; // No restriction if fromDate is null
+  //     }
+
+  //     const fromDateHour = fromDate.hour();
+  //     const fromDateMinute = fromDate.minute();
+
+  //     if (clockType === "hours") {
+  //       // Disable hours before fromDate hour
+  //       return timeValue < fromDateHour;
+  //     }
+
+  //     if (clockType === "minutes") {
+  //       // Disable minutes before fromDate minute if the hour is the same
+  //       return timeValue < fromDateMinute && fromDate.hour() === fromDateHour;
+  //     }
+
+  //     return false;
+  //   },
+  //   [driverPerformanceTableFilters?.fromDate]
+  // );
 
   // useEffect(() => {
   //   if (Boolean(isgetAllDriverPerformanceDetailsSuccess)) {
@@ -188,7 +334,7 @@ const DriverPerformanceReport = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ width: "calc(100vw - 110px)" }}>
+      <Box sx={{ width: "calc(100vw - 113px)", overflowX: "hidden" }}>
         {/* <Box sx={{ width: "100%" }}> */}
         <Box
           sx={{
@@ -196,6 +342,8 @@ const DriverPerformanceReport = () => {
             flexDirection: "row",
             alignItems: "center",
             width: "100%",
+            paddingTop: "15px",
+            paddingBottom: "10px",
           }}
         >
           <TopViewNav breadcrumbs={breadcrumbs} />
@@ -315,10 +463,11 @@ const DriverPerformanceReport = () => {
                       // renderInput={(params) => (
                       //   <TextField {...params} fullWidth />
                       // )}
+                      value={driverPerformanceTableFilters?.fromDate}
                       format="DD/MM/YYYY, hh:mm A"
                       maxDate={today}
                       onAccept={(value) => {
-                        console.log("date time picker from value: ", value);
+                        // console.log("date time picker from value: ", value);
 
                         return handleChangeEventDetailsFilterationDate(
                           "fromDate",
@@ -352,16 +501,10 @@ const DriverPerformanceReport = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       label="Select To Date & Time"
-                      // value={eventDetailsFilterationFormData?.toDate}
-                      // onChange={(value) =>
-                      //   handleChangeEventDetailsFilterationDate(
-                      //     "toDate",
-                      //     value
-                      //   )
-                      // }
-
+                      value={driverPerformanceTableFilters?.toDate}
+                      shouldDisableDate={disableDatesBeforeFromDate}
                       onAccept={(value) => {
-                        console.log("date time picker to value: ", value);
+                        // console.log("date time picker to value: ", value);
 
                         return handleChangeEventDetailsFilterationDate(
                           "toDate",
@@ -395,42 +538,41 @@ const DriverPerformanceReport = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Box
+                sx={{
+                  marginTop: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: { xs: "flex-start", md: "flex-end" },
+                  gap: 5,
+                  flexWrap: "wrap",
+                }}
+              >
+                {Boolean(getAllCategoryData?.data?.length > 0) &&
+                  getAllCategoryData?.data?.map((categoryItem, index) => (
+                    <CustomCategoryMarkerComponent
+                      key={index}
+                      categoryData={categoryItem}
+                    />
+                  ))}
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <ReportTableComponent
                 getAllData={getAllDriverPerformanceDetailsData.data.data}
                 categoryData={getAllCategoryData?.data || []}
               />
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Box sx={{ marginTop: 1 }}>
-                <Grid container spacing={2}>
-                  {Boolean(getAllCategoryData?.data?.length > 0) &&
-                    getAllCategoryData?.data?.map((categoryItem, index) => (
-                      <Grid
-                        key={index}
-                        item
-                        xs={1.5}
-                        sm={1.5}
-                        md={1.5}
-                        lg={1.5}
-                        xl={1.5}
-                      >
-                        <CustomCategoryMarkerComponent
-                          key={index}
-                          categoryData={categoryItem}
-                        />
-                      </Grid>
-                    ))}
-                </Grid>
-              </Box>
-            </Grid>
           </Grid>
         </Box>
+        <SnackAlert snack={snack} setSnack={setSnack} />
       </Box>
       <LoadingComponent
         open={
           isgetAllDriverPerformanceDetailsLoading ||
           isGetAllCategoryDataLoading ||
-          isGetAllDriverDataLoading
+          isGetAllDriverDataLoading ||
+          isgetAllDriverPerformanceDetailsFetching
         }
       />
     </React.Fragment>

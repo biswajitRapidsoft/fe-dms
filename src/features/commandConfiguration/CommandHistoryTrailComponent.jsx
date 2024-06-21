@@ -3,7 +3,7 @@ import React from "react";
 import { formatDateToIST, formatTimeToIST } from "../../helper/formatter";
 
 const customFontStyles = {
-  fontFamily: "Open Sans !important",
+  // fontFamily: "Open Sans !important",
   fontWeight: 600,
   fontSize: "14px",
 };

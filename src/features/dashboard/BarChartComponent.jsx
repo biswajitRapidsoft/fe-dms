@@ -13,14 +13,14 @@ const BarChartComponent = React.memo(function ({
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
 
-  console.log("barchart raw data: ", data);
+  // console.log("barchart raw data: ", data);
 
   // const dataEntries = Object.entries(data);
   const dataEntries = Object.entries(data).map(([key, value]) => ({
     [key]: value,
   }));
 
-  console.log("dataEntries: ", dataEntries);
+  // console.log("dataEntries: ", dataEntries);
 
   const largestPrevMonth = React.useMemo(
     () =>
@@ -33,7 +33,7 @@ const BarChartComponent = React.memo(function ({
     [dataEntries]
   );
 
-  console.log("largestPrevMonth: ", largestPrevMonth);
+  // console.log("largestPrevMonth: ", largestPrevMonth);
 
   const largestCurrMonth = React.useMemo(
     () =>
@@ -46,7 +46,7 @@ const BarChartComponent = React.memo(function ({
     [dataEntries]
   );
 
-  console.log("largestCurrMonth: ", largestCurrMonth);
+  // console.log("largestCurrMonth: ", largestCurrMonth);
 
   let meanScale = 15;
 
@@ -62,7 +62,7 @@ const BarChartComponent = React.memo(function ({
 
   const customLabels = React.useMemo(() => ["Previous", "Current"], []);
 
-  console.log("labels: ", labels);
+  // console.log("labels: ", labels);
 
   const datas = React.useMemo(
     () => ({
@@ -105,7 +105,7 @@ const BarChartComponent = React.memo(function ({
     [datas, getLongestTickLabelLength]
   );
 
-  console.log("longestLabelLength: ", longestLabelLength);
+  // console.log("longestLabelLength: ", longestLabelLength);
 
   const sumDataLabel = React.useMemo(
     () => ({
@@ -310,7 +310,7 @@ const BarChartComponent = React.memo(function ({
             max: meanScale,
             stacked: true,
             afterFit: (ctx) => {
-              console.log("ctx: ", ctx);
+              // console.log("ctx: ", ctx);
               ctx.width = 40;
             },
             ticks: {
@@ -344,15 +344,15 @@ const BarChartComponent = React.memo(function ({
     const box = document.querySelector(".box");
     const barLength = chartInstance.data.labels.length;
 
-    console.log("barLength: ", barLength);
+    // console.log("barLength: ", barLength);
 
     if (barLength > 7) {
       if (box) {
-        console.log("varyingBoxWidth BEFORE: ", box.style.width);
+        // console.log("varyingBoxWidth BEFORE: ", box.style.width);
         const chartWidth =
           700 + (barLength - 7 + longestLabelLength - 100) * 40;
         box.style.width = `${chartWidth}px`;
-        console.log("varyingBoxWidth AFTER: ", box.style.width);
+        // console.log("varyingBoxWidth AFTER: ", box.style.width);
       }
     }
     //  else {
@@ -423,7 +423,7 @@ const BarChartComponent = React.memo(function ({
               height: "14px", // adjust the height of the scrollbar
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: "primary.main", // color of the scrollbar track
+              backgroundColor: "customPurple.500", // color of the scrollbar track
             },
             "&::-webkit-scrollbar-thumb": {
               backgroundColor: "secondary.light", // color of the scrollbar thumb

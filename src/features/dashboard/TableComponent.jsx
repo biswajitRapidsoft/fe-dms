@@ -17,8 +17,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ImageIcon from "@mui/icons-material/Image";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 import { Grid } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -28,10 +28,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+// import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import InfoIcon from "@mui/icons-material/Info";
 
-import VideoComponent from "./VideoComponent";
+// import VideoComponent from "./VideoComponent";
 // import { useNavigate } from "react-router";
 import { formatDateToIST, formatTimeToIST } from "../../helper/formatter";
 import {
@@ -40,16 +40,591 @@ import {
   DRINKING,
   LOW_HEAD,
   NO_FACE,
-  PHONE_CALLING,
+  MOBILE_USE,
   SMOKING_ALERT,
-  YAWN_ALERT,
+  YAWNING,
   customChartColors,
 } from "../../helper/constants";
 import { evidenceImageService } from "../../services/evidenceImageService";
 
+// import VIDEO_GALLERY_LOGO from "../../img/VIDEO_GALLERY_LOGO.svg";
+import PHOTO_GALLERY_LOGO from "../../img/PHOTO_GALLERY_LOGO.svg";
+
+const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
+  const [imgData, setImgData] = React.useState({});
+
+  const fetchImageData = React.useCallback(async () => {
+    const response = await evidenceImageService.fetchEvidenceImageData(
+      photoUrl
+    );
+    setImgData(response);
+  }, [photoUrl]);
+
+  React.useEffect(() => {
+    fetchImageData();
+  }, [fetchImageData]);
+
+  return (
+    <Paper elevation={4} sx={{ width: "280px", height: "180px" }}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          // maxHeight: "180px",
+          // backgroundImage: `linear-gradient(to right bottom, #ffffff, #dbdae0, #b9b6c3, #9793a5, #777289, #676077, #574f65, #483e54, #413748, #3a303d, #322933, #2a2329)`,
+          flexShrink: 0,
+          position: "relative",
+        }}
+      >
+        {imgData.data ? (
+          <img src={imgData.data} alt={"evidence"} width="100%" height="100%" />
+        ) : (
+          imgData.message
+        )}
+
+        {/* <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            color: "text.light",
+            backgroundColor: "transparent",
+            backdropFilter: "blur(20px)",
+            backgroundImage:
+              "linear-gradient(120deg,rgba(0, 0, 0, 0.2), rgba(225, 255, 255, 0.3))",
+          }}
+        >
+          <Typography>Photo Evidence</Typography>
+        </Box> */}
+      </Box>
+    </Paper>
+  );
+});
+
+const CustomGradientBoxForVideo = React.memo(function ({ videoUrl }) {
+  return (
+    <Paper elevation={4} sx={{ width: "280px", height: "180px" }}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          // maxHeight: "180px",
+          // backgroundImage: `linear-gradient(to right bottom, #ffffff, #dbdae0, #b9b6c3, #9793a5, #777289, #676077, #574f65, #483e54, #413748, #3a303d, #322933, #2a2329)`,
+          flexShrink: 0,
+          position: "relative",
+        }}
+      >
+        <video
+          src={videoUrl}
+          controls
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        />
+        {/* <Box
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          color: "text.light",
+          backgroundColor: "transparent",
+          backdropFilter: "blur(20px)",
+          backgroundImage:
+            "linear-gradient(120deg, rgba(0, 0, 0, 0.2), rgba(225, 255, 255, 0.3))",
+        }}
+      >
+        <Typography>Video Evidence</Typography>
+      </Box> */}
+      </Box>
+    </Paper>
+  );
+});
+
+const DriverActionDetailsDialog = React.memo(function ({
+  driverActionDetailsDialogOpen,
+  selectedEventRowData,
+  handleCloseDriverActionDetailsDialog,
+}) {
+  const theme = useTheme();
+  // const [showVideoGallery, setShowVideoGallery] = React.useState(false);
+  const showVideoGallery = false;
+  // const [showImageGallery, setShowImageGallery] = React.useState(true);
+  const showImageGallery = true;
+
+  // console.log("selectedEventRowData : ", selectedEventRowData);
+
+  // const handleChangeShowVideoGallery = React.useCallback(() => {
+  //   setShowVideoGallery((prev) => !prev);
+  //   setShowImageGallery(false);
+  // }, []);
+  // const handleChangeShowImageGallery = React.useCallback(() => {
+  //   setShowImageGallery((prev) => !prev);
+  //   setShowVideoGallery(false);
+  // }, []);
+  return (
+    <Dialog
+      open={driverActionDetailsDialogOpen}
+      onClose={handleCloseDriverActionDetailsDialog}
+      sx={{
+        "& .MuiDialog-paper": {
+          width: "80%",
+          maxWidth: "none",
+          height: "80%",
+          maxHeight: "none",
+        },
+        backdropFilter: "blur(8px)",
+        backgroundColor: "rgba(0,0,30,0.4)",
+        zIndex: theme.zIndex.modal + 10,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingRight: "16px",
+          borderBottom: `1.5px solid ${theme?.palette?.customGrey["600"]}`,
+        }}
+      >
+        <DialogTitle
+          sx={{
+            fontSize: "1.6rem",
+            fontWeight: "bold",
+          }}
+        >
+          Driver Action Details
+        </DialogTitle>
+        <IconButton onClick={handleCloseDriverActionDetailsDialog}>
+          <CloseIcon sx={{ fontSize: "2.05rem" }} />
+        </IconButton>
+      </Box>
+      <DialogContent sx={{ padding: 0 }}>
+        <Box
+          sx={{
+            backgroundColor: "primary.customContrast",
+            // backgroundColor: "red",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Grid container sx={{ height: "100%" }}>
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              md={3.5}
+              sm={12}
+              xs={12}
+              sx={{
+                height: { xs: "25%", md: "100%" },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "100%",
+                  flexDirection: { xs: "row", md: "column" },
+                  gap: 1,
+                }}
+              >
+                {/* <Paper
+                  elevation={2}
+                  sx={{
+                    width: { xs: "50%", md: "100%" },
+                    height: { xs: "100%", md: "50%" },
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    bgcolor: showVideoGallery
+                      ? "customLightBlue.100"
+                      : "inherit",
+                  }}
+                  onClick={() => handleChangeShowVideoGallery()}
+                >
+                  <img
+                    src={VIDEO_GALLERY_LOGO}
+                    alt="Video Gallery Logo"
+                    width={85}
+                    style={{userSelect:"none"}}
+                  />
+                </Paper> */}
+
+                <Paper
+                  elevation={2}
+                  sx={{
+                    width: { xs: "50%", md: "100%" },
+                    height: { xs: "100%", md: "50%" },
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    bgcolor: showImageGallery
+                      ? "customLightBlue.100"
+                      : "inherit",
+                  }}
+                  // onClick={() => handleChangeShowImageGallery()}
+                >
+                  <img
+                    src={PHOTO_GALLERY_LOGO}
+                    alt="Still Gallery Logo"
+                    width={85}
+                    draggable={false}
+                    style={{ userSelect: "none" }}
+                  />
+                </Paper>
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xl={9}
+              lg={9}
+              md={8.5}
+              sm={12}
+              xs={12}
+              sx={{
+                // bgcolor: "lavender",
+                height: { xs: "75%", md: "100%" },
+                padding: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  height: "100%",
+                  gap: 3,
+                  // bgcolor: "lavender",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "100%",
+                    border: `1px solid ${theme?.palette?.primary?.main}`,
+                    // height: "30%",
+                    height: { xs: "220px", md: "200px", lg: "180px" },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      bgcolor: "primary.main",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "text.light",
+                        fontWeight: "550",
+                        fontSize: "20px",
+                        paddingY: "8px",
+                        letterSpacing: "1px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      Driver Action Details :
+                    </Typography>
+                  </Box>
+
+                  <Grid
+                    container
+                    rowSpacing={2}
+                    sx={{ marginTop: "5px", marginLeft: "10px" }}
+                  >
+                    <Grid item xs={12} lg={6}>
+                      <Grid container>
+                        <Grid item xs={4} sm={2.5} md={2.5} lg={3.5}>
+                          <Typography
+                            sx={{
+                              whiteSpace: "nowrap",
+                              fontSize: "18.5px",
+                              fontWeight: "550",
+                            }}
+                          >
+                            Driver Name
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={8} sm={9.5} md={9.5} lg={8.5}>
+                          <Typography sx={{ wordBreak: "break-word" }}>
+                            <Typography
+                              component="span"
+                              sx={{
+                                marginRight: "10px",
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                              }}
+                            >
+                              :
+                            </Typography>
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                                color: "customGrey.600",
+                              }}
+                            >
+                              {selectedEventRowData?.driverName || "NA"}
+                            </Typography>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                      <Grid container>
+                        <Grid item xs={4} sm={2.5} md={2.5} lg={3.5}>
+                          <Typography
+                            sx={{
+                              whiteSpace: "nowrap",
+                              fontSize: "18.5px",
+                              fontWeight: "550",
+                            }}
+                          >
+                            Date & Time
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={8} sm={9.5} md={9.5} lg={8.5}>
+                          <Typography sx={{ wordBreak: "break-word" }}>
+                            <Typography
+                              component="span"
+                              sx={{
+                                marginRight: "10px",
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                              }}
+                            >
+                              :
+                            </Typography>
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                                color: "customGrey.600",
+                              }}
+                            >
+                              {formatDateToIST(
+                                selectedEventRowData?.eventServerCreateTime
+                              )}
+                            </Typography>{" "}
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                                color: "customGrey.600",
+                              }}
+                            >
+                              {formatTimeToIST(
+                                selectedEventRowData?.eventServerCreateTime
+                              )}
+                            </Typography>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                      <Grid container>
+                        <Grid item xs={4} sm={2.5} md={2.5} lg={3.5}>
+                          <Typography
+                            sx={{
+                              whiteSpace: "nowrap",
+                              fontSize: "18.5px",
+                              fontWeight: "550",
+                            }}
+                          >
+                            Event Type
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={8} sm={9.5} md={9.5} lg={8.5}>
+                          <Typography sx={{ wordBreak: "break-word" }}>
+                            <Typography
+                              component="span"
+                              sx={{
+                                marginRight: "10px",
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                              }}
+                            >
+                              :
+                            </Typography>
+
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontSize: "18px",
+                                fontWeight: "550",
+                                color: "customGrey.600",
+                              }}
+                            >
+                              {Boolean(selectedEventRowData?.eventType)
+                                ? selectedEventRowData?.eventType?.replace(
+                                    /_/g,
+                                    " "
+                                  )
+                                : "NA"}
+                            </Typography>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box
+                  sx={{
+                    width: "100%",
+                    border: `1px solid ${theme?.palette?.primary?.main}`,
+                    // height: "70%",
+                    height: {
+                      xs: "calc(100% - 220px)",
+                      md: "calc(100% - 200px)",
+                      lg: "calc(100% - 180px)",
+                    },
+                    display: "flex",
+                    flexDirection: "column",
+                    // bgcolor: "lavender",
+                    gap: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      bgcolor: "primary.main",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "text.light",
+                        fontWeight: "550",
+                        fontSize: "20px",
+                        paddingY: "8px",
+                        letterSpacing: "1px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      Evidences :
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      width: "100%",
+                      overflowX: "hidden",
+                      overflowY: "auto",
+                      display: "flex",
+                      gap: "5px",
+                      flexGrow: 1,
+                      flexWrap: "wrap",
+                      // bgcolor: "lavender",
+                      paddingLeft: "10px",
+                      // paddingY: "10px",
+                    }}
+                  >
+                    {!Boolean(showImageGallery) && (
+                      <>
+                        {Boolean(
+                          selectedEventRowData?.evidenceVideos?.length > 0
+                        ) &&
+                          selectedEventRowData?.evidenceVideos?.map(
+                            (videoItem, index) => (
+                              <CustomGradientBoxForVideo
+                                key={`video-${index}`}
+                                videoUrl={videoItem}
+                              />
+                            )
+                          )}
+                      </>
+                    )}
+                    {!Boolean(showVideoGallery) && (
+                      <>
+                        {Boolean(
+                          selectedEventRowData?.evidencePhotos?.length > 0
+                        ) &&
+                          selectedEventRowData?.evidencePhotos?.map(
+                            (photoItem, index) => (
+                              <CustomGradientBoxForPhoto
+                                key={`photo-${index}`}
+                                photoUrl={photoItem}
+                              />
+                            )
+                          )}
+                      </>
+                    )}
+
+                    {/* {Boolean(
+                      selectedEventRowData?.evidencePhotos?.length > 0
+                    ) &&
+                      selectedEventRowData?.evidencePhotos?.map(
+                        (photoItem, index) => (
+                          <CustomGradientBoxForPhoto
+                            key={`photo-${index}`}
+                            photoUrl={photoItem}
+                          />
+                        )
+                      )} */}
+                  </Box>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </DialogContent>
+    </Dialog>
+  );
+});
+
+// function SingleImageEvidenceComponent({ photoUrl }) {
+//   const [imgData, setImgData] = React.useState({});
+//   const fetchImageData = React.useCallback(async () => {
+//     const response = await evidenceImageService.fetchEvidenceImageData(
+//       photoUrl
+//     );
+//     setImgData(response);
+//   }, [photoUrl]);
+//   React.useEffect(() => {
+//     fetchImageData();
+//   }, [fetchImageData]);
+//   return (
+//     <Grid item xs={12} lg={4}>
+//       {imgData.data ? (
+//         <img
+//           src={imgData.data}
+//           alt="Evidence"
+//           style={{ width: "100%", height: "500px" }}
+//         />
+//       ) : (
+//         imgData.message
+//       )}
+//     </Grid>
+//   );
+// }
+
+function calculateSerialNumber(index, pageNumber, rowsPerPage) {
+  index = index ?? 0;
+  pageNumber = pageNumber ?? 0;
+  rowsPerPage = rowsPerPage ?? 10;
+
+  index = Number(index);
+  pageNumber = Number(pageNumber);
+  rowsPerPage = Number(rowsPerPage);
+
+  return pageNumber * rowsPerPage + index + 1;
+}
+
 const CustomRow = React.memo(
   ({
     index,
+    rowSerialNumber,
     theme,
     row,
     handleClickOpen,
@@ -70,7 +645,7 @@ const CustomRow = React.memo(
     //   [navigate]
     // );
     // console.log("table component row data: ", row);
-    console.log("table component row data: ", index, row.id);
+    // console.log("table component row data: ", index, row.id);
 
     const matchedRemarkType = React.useMemo(
       () => getRemarkType?.find((item) => item?.id === row?.remarkId),
@@ -152,7 +727,8 @@ const CustomRow = React.memo(
         }}
       >
         <TableCell align="center">
-          <Typography sx={{ fontSize: "19px" }}>{index + 1}</Typography>
+          {/* <Typography sx={{ fontSize: "19px" }}>{index + 1}</Typography> */}
+          <Typography sx={{ fontSize: "19px" }}>{rowSerialNumber}</Typography>
         </TableCell>
         <TableCell align="center">
           <Typography
@@ -230,12 +806,11 @@ const CustomRow = React.memo(
                 ? customChartColors.drinkingCount
                 : row?.eventType === NO_FACE
                 ? customChartColors.noFaceCount
-                : row?.eventType === PHONE_CALLING
+                : row?.eventType === MOBILE_USE
                 ? customChartColors.mobileUsageCount
                 : row?.eventType === SMOKING_ALERT
                 ? customChartColors.smokingCount
-                : row?.eventType === YAWN_ALERT &&
-                  customChartColors.yawningCount,
+                : row?.eventType === YAWNING && customChartColors.yawningCount,
 
             fontSize: "15px",
             fontWeight: "550",
@@ -305,7 +880,8 @@ const CustomRow = React.memo(
                     scrollbarWidth: "none",
                   },
                   inputProps: {
-                    maxLength: 1000,
+                    // maxLength: 1000,
+                    maxLength: 200,
                     style: {
                       overflow: "auto",
                       msOverflowStyle: "none",
@@ -339,7 +915,7 @@ const CustomRow = React.memo(
                     }
                     onInputChange={(event, newValue) => {
                       event?.stopPropagation();
-                      console.log("autocomplete newValue: ", newValue);
+                      // console.log("autocomplete newValue: ", newValue);
                       const selectedRemarkOption =
                         getRemarkType?.find(
                           (option) => option?.status === newValue
@@ -524,7 +1100,7 @@ const CustomRow = React.memo(
             }
             onInputChange={(event, newValue) => {
               event?.stopPropagation();
-              console.log("autocomplete newValue: ", newValue);
+              // console.log("autocomplete newValue: ", newValue);
               const selectedRemarkOption =
                 getRemarkType?.find((option) => option?.status === newValue) ||
                 null;
@@ -609,26 +1185,19 @@ const TableComponent = ({
 }) => {
   // useState for opening and closing dialog
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [selectedTruck, setSelectedTruck] = React.useState(null);
-  // useStates for viewing the images and video icons
-  const [showVideo, setShowVideo] = React.useState(false);
-  const [showImage, setShowImage] = React.useState(false);
+  const [driverActionDetailsDialogOpen, setDriverActionDetailsDialogOpen] =
+    React.useState(false);
+  const [selectedEventRowData, setSelectedEventRowData] = React.useState(null);
 
-  const handleClickOpen = React.useCallback(
-    (row) => {
-      setSelectedTruck(row);
-      setOpen(true);
-    },
-    [setOpen]
-  );
+  const handleClickOpen = React.useCallback((row) => {
+    setSelectedEventRowData(row);
+    setDriverActionDetailsDialogOpen(true);
+  }, []);
 
-  const handleClose = React.useCallback(() => {
-    setOpen(false);
-    setSelectedTruck(null);
-    setShowVideo(false);
-    setShowImage(false);
-  }, [setOpen]);
+  const handleCloseDriverActionDetailsDialog = React.useCallback(() => {
+    setDriverActionDetailsDialogOpen(false);
+    setSelectedEventRowData(null);
+  }, []);
 
   return (
     <React.Fragment>
@@ -738,6 +1307,11 @@ const TableComponent = ({
               getAllData?.data?.map((row, index) => (
                 <CustomRow
                   index={index}
+                  rowSerialNumber={calculateSerialNumber(
+                    index,
+                    pageNo,
+                    pageSize
+                  )}
                   theme={theme}
                   key={row.id}
                   row={row}
@@ -775,7 +1349,15 @@ const TableComponent = ({
 
       {/* dialog */}
 
-      <Dialog
+      <DriverActionDetailsDialog
+        driverActionDetailsDialogOpen={driverActionDetailsDialogOpen}
+        selectedEventRowData={selectedEventRowData}
+        handleCloseDriverActionDetailsDialog={
+          handleCloseDriverActionDetailsDialog
+        }
+      />
+
+      {/* <Dialog
         open={open}
         onClose={handleClose}
         sx={{
@@ -806,7 +1388,6 @@ const TableComponent = ({
           </IconButton>
         </Box>
         <DialogContent>
-          {/* box containg the image and video icons */}
           {!showVideo && !showImage && (
             <Box
               sx={{
@@ -889,7 +1470,6 @@ const TableComponent = ({
                       // xl={3}
                       key={index}
                     >
-                      {/* {console.log(videoUrl)} */}
 
                       <VideoComponent videoUrl={videoUrl} />
                     </Grid>
@@ -912,35 +1492,9 @@ const TableComponent = ({
             </Box>
           )}
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </React.Fragment>
   );
 };
-
-function SingleImageEvidenceComponent({ photoUrl }) {
-  const [imgData, setImgData] = React.useState({});
-  const fetchImageData = React.useCallback(async () => {
-    const response = await evidenceImageService.fetchEvidenceImageData(
-      photoUrl
-    );
-    setImgData(response);
-  }, [photoUrl]);
-  React.useEffect(() => {
-    fetchImageData();
-  }, [fetchImageData]);
-  return (
-    <Grid item xs={12} lg={4}>
-      {imgData.data ? (
-        <img
-          src={imgData.data}
-          alt="Evidence"
-          style={{ width: "100%", height: "500px" }}
-        />
-      ) : (
-        imgData.message
-      )}
-    </Grid>
-  );
-}
 
 export default React.memo(TableComponent);

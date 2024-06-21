@@ -7,8 +7,8 @@ import { customChartColors } from "../../helper/constants";
 const ChartComponent = ({ dataCount }) => {
   const theme = useTheme();
   // const [setSelectedChartLabel] = React.useState(null);
-  const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
-  console.log("selectedChartLabel", selectedChartLabel);
+  // const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
+  // console.log("selectedChartLabel", selectedChartLabel);
 
   const series = React.useMemo(() => {
     return [
@@ -39,9 +39,9 @@ const ChartComponent = ({ dataCount }) => {
         events: {
           dataPointSelection: (e, chartContext, config) => {
             e.target.attributes.selected.value = "false";
-            setSelectedChartLabel(
-              config.w.config.labels[config.dataPointIndex]
-            );
+            // setSelectedChartLabel(
+            //   config.w.config.labels[config.dataPointIndex]
+            // );
           },
         },
       },
@@ -121,7 +121,10 @@ const ChartComponent = ({ dataCount }) => {
         },
       },
     }),
-    [setSelectedChartLabel, theme.palette.text.light]
+    [
+      // setSelectedChartLabel,
+      theme.palette.text.light,
+    ]
   );
 
   return (

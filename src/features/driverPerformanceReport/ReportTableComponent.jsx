@@ -10,7 +10,7 @@ import { Typography, useTheme } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
 const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
-  console.log("report table component row data: ", row);
+  // console.log("report table component row data: ", row);
 
   const findColorCode = React.useMemo(
     () => categoryData?.find((item) => item?.name === row?.categoryDto?.name),
@@ -123,11 +123,11 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
               ? customChartColors.drinkingCount
               : row?.eventType === NO_FACE
               ? customChartColors.noFaceCount
-              : row?.eventType === PHONE_CALLING
+              : row?.eventType === MOBILE_USE
               ? customChartColors.mobileUsageCount
               : row?.eventType === SMOKING_ALERT
               ? customChartColors.smokingCount
-              : row?.eventType === YAWN_ALERT && customChartColors.yawningCount,
+              : row?.eventType === YAWNING && customChartColors.yawningCount,
 
           fontSize: "15.6px",
           fontWeight: "550",
@@ -140,8 +140,8 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
 });
 
 const ReportTableComponent = ({ getAllData, categoryData }) => {
-  console.log("ReportTableComponent getAllData: ", getAllData);
-  console.log("ReportTableComponent categoryData: ", categoryData);
+  // console.log("ReportTableComponent getAllData: ", getAllData);
+  // console.log("ReportTableComponent categoryData: ", categoryData);
   // useState for opening and closing dialog
   const theme = useTheme();
 

@@ -17,7 +17,7 @@ const eventDetailsApi = apiSlice.injectEndpoints({
     }),
     getAllEventForEventDetails: build.query({
       query: (payload) => {
-        console.log("payload: ", payload);
+        // console.log("payload: ", payload);
         return {
           url: config.apiName.getAllEvent,
           method: "GET",
@@ -32,15 +32,15 @@ const eventDetailsApi = apiSlice.injectEndpoints({
       providesTags: ["getAllEventForEventDetails"],
     }),
 
-    getDriverEventCount: build.query({
+    getDriverById: build.query({
       query: (payload) => ({
-        url: config.apiName.getDriverEventCount,
+        url: config.apiName.getDriverById,
         method: "GET",
         params: {
           driverId: payload?.driverId,
         },
       }),
-      providesTags: ["getDriverEventCount"],
+      providesTags: ["getDriverById"],
     }),
   }),
 });
@@ -48,5 +48,5 @@ const eventDetailsApi = apiSlice.injectEndpoints({
 export const {
   useGetGeoPositionsQuery,
   useGetAllEventForEventDetailsQuery,
-  useGetDriverEventCountQuery,
+  useGetDriverByIdQuery,
 } = eventDetailsApi;

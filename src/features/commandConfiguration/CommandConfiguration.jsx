@@ -53,7 +53,13 @@ const CommandHistoryTrailDialog = React.memo(function ({
       maxWidth="sm"
       fullWidth
       scroll="body"
-      sx={{ zIndex: theme.zIndex.modal + 10 }}
+      sx={{
+        zIndex: theme.zIndex.modal + 10,
+        ".MuiTypography-root": {
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif",
+        },
+      }}
     >
       <DialogTitle id="command-history-trail-dialog-title">
         <Box
@@ -126,7 +132,7 @@ const AddCommandModal = React.memo(function ({
     initialAddCommandFormData
   );
 
-  console.log("addCommandFormData: ", addCommandFormData);
+  // console.log("addCommandFormData: ", addCommandFormData);
 
   const handleAddCommandFormDataOnChange = React.useCallback((e) => {
     const { name, value } = e.target;
@@ -199,6 +205,7 @@ const AddCommandModal = React.memo(function ({
                 fullWidth
                 required
                 autoFocus
+                inputProps={{ maxLength: 200 }}
               />
             </Grid>
             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
@@ -210,6 +217,7 @@ const AddCommandModal = React.memo(function ({
                 label="Command"
                 fullWidth
                 required
+                inputProps={{ maxLength: 200 }}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -230,7 +238,7 @@ const AddCommandModal = React.memo(function ({
                     scrollbarWidth: "none",
                   },
                   inputProps: {
-                    maxLength: 1000,
+                    maxLength: 200,
                     style: {
                       overflow: "auto",
                       msOverflowStyle: "none",
@@ -279,12 +287,12 @@ const CommandConfiguration = () => {
     return sessionedLoginData ? JSON.parse(sessionedLoginData) : null;
   }, []);
 
-  console.log("loginData in commandConfiguration: ", loginData);
+  // console.log("loginData in commandConfiguration: ", loginData);
   const [commandListpageNo, setCommandListPageNo] = React.useState(0);
-  const [commandListpageSize, setCommandListPageSize] = React.useState(25);
+  const [commandListpageSize, setCommandListPageSize] = React.useState(10);
   const [sendCommandListpageNo, setSendCommandListPageNo] = React.useState(0);
   const [sendCommandListpageSize, setSendCommandListPageSize] =
-    React.useState(25);
+    React.useState(10);
   const [commandHistoryTrailDialogOpen, setCommandHistoryTrailDialogOpen] =
     useState(false);
   const [
@@ -312,17 +320,17 @@ const CommandConfiguration = () => {
     setCommandConfigurationSearchFormData,
   ] = useState(initialCommandConfigurationSearchFormData);
 
-  console.log(
-    "commandConfigurationSearchFormData: ",
-    commandConfigurationSearchFormData
-  );
+  // console.log(
+  //   "commandConfigurationSearchFormData: ",
+  //   commandConfigurationSearchFormData
+  // );
 
   const [selectedVehicleDetails, setSelectedVehicleDetails] = useState(null);
-  console.log("selectedVehicleDetails: ", selectedVehicleDetails);
+  // console.log("selectedVehicleDetails: ", selectedVehicleDetails);
 
   const [vehicles, setVehicles] = useState([]);
 
-  console.log("vehicles: ", vehicles);
+  // console.log("vehicles: ", vehicles);
 
   const [
     getCommandDetailsForCommandList,
@@ -347,15 +355,15 @@ const CommandConfiguration = () => {
   } = useGetAllVehicleQuery();
 
   const [sendCommand, sendCommandResponse] = useSendCommandDetailsMutation();
-  console.log("sendCommandResponse: ", sendCommandResponse);
+  // console.log("sendCommandResponse: ", sendCommandResponse);
 
   const [commandListData, setCommandListData] = useState([]);
   const [sendCommandListData, setSendCommandListData] = useState([]);
 
-  console.log("commandListData: ", commandListData);
-  console.log("sendCommandListData: ", sendCommandListData);
+  // console.log("commandListData: ", commandListData);
+  // console.log("sendCommandListData: ", sendCommandListData);
 
-  console.log("createCommandResponse: ", createCommandResponse);
+  // console.log("createCommandResponse: ", createCommandResponse);
 
   const handleCommandListTablePageChange = React.useCallback(
     (event, newpage) => {
@@ -368,7 +376,7 @@ const CommandConfiguration = () => {
       })
         .unwrap()
         .then((res) => {
-          console.log("getCommandDetailsForCommandList api response: ", res);
+          // console.log("getCommandDetailsForCommandList api response: ", res);
           setCommandListData(res?.data || []);
         })
         .catch((err) => {
@@ -395,7 +403,7 @@ const CommandConfiguration = () => {
       })
         .unwrap()
         .then((res) => {
-          console.log("getCommandDetailsForCommandList api response: ", res);
+          // console.log("getCommandDetailsForCommandList api response: ", res);
           setCommandListData(res?.data || []);
         })
         .catch((err) => {
@@ -420,10 +428,10 @@ const CommandConfiguration = () => {
       })
         .unwrap()
         .then((res) => {
-          console.log(
-            "getCommandDetailsForSendCommandList api response: ",
-            res
-          );
+          // console.log(
+          //   "getCommandDetailsForSendCommandList api response: ",
+          //   res
+          // );
           setSendCommandListData(res?.data || []);
         })
         .catch((err) => {
@@ -450,10 +458,10 @@ const CommandConfiguration = () => {
       })
         .unwrap()
         .then((res) => {
-          console.log(
-            "getCommandDetailsForSendCommandList api response: ",
-            res
-          );
+          // console.log(
+          //   "getCommandDetailsForSendCommandList api response: ",
+          //   res
+          // );
           setSendCommandListData(res?.data || []);
         })
         .catch((err) => {
@@ -490,7 +498,7 @@ const CommandConfiguration = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("getCommandDetailsForCommandList api response: ", res);
+        // console.log("getCommandDetailsForCommandList api response: ", res);
         setSelectedVehicleDetails(
           vehicles?.find(
             (vehicle) =>
@@ -518,7 +526,7 @@ const CommandConfiguration = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("getCommandDetailsForSendCommandList api response: ", res);
+        // console.log("getCommandDetailsForSendCommandList api response: ", res);
         setSelectedVehicleDetails(
           vehicles?.find(
             (vehicle) =>
@@ -579,7 +587,7 @@ const CommandConfiguration = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("getCommandDetailsForCommandList api response: ", res);
+        // console.log("getCommandDetailsForCommandList api response: ", res);
         // setSelectedVehicleDetails(
         //   vehicles?.find(
         //     (vehicle) =>
@@ -604,7 +612,7 @@ const CommandConfiguration = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("getCommandDetailsForSendCommandList api response: ", res);
+        // console.log("getCommandDetailsForSendCommandList api response: ", res);
         // setSelectedVehicleDetails(
         //   vehicles?.find(
         //     (vehicle) =>
@@ -674,12 +682,12 @@ const CommandConfiguration = () => {
         command: addCommandFormData?.command || "",
       };
 
-      console.log("addCommand payload: ", payload);
+      // console.log("addCommand payload: ", payload);
 
       createCommand(payload)
         .unwrap()
         .then((res) => {
-          console.log("createCommand res: ", res);
+          // console.log("createCommand res: ", res);
           setSnack({
             open: true,
             message: "Command Created Successfully",
@@ -708,10 +716,10 @@ const CommandConfiguration = () => {
     (e, rowNumber) => {
       let inputValue = e?.target?.value;
       setSendCommandListData((prevData) => {
-        console.log(
-          "handleSendCommandListCellInputChange prevData: ",
-          prevData
-        );
+        // console.log(
+        //   "handleSendCommandListCellInputChange prevData: ",
+        //   prevData
+        // );
         return {
           ...prevData,
           data: prevData?.data?.map((item) => {
@@ -732,7 +740,7 @@ const CommandConfiguration = () => {
 
   const handleSendCommandInSendEventList = React.useCallback(
     (rowData) => {
-      console.log("rowData: ", rowData);
+      // console.log("rowData: ", rowData);
 
       if (!Boolean(rowData?.midCommand)) {
         setSnack({
@@ -744,7 +752,7 @@ const CommandConfiguration = () => {
       }
       const concatenatedCommand =
         rowData?.baseCommand + rowData?.midCommand + rowData?.endCommand;
-      console.log("concatenatedCommand: ", concatenatedCommand);
+      // console.log("concatenatedCommand: ", concatenatedCommand);
 
       const payload = {
         command: concatenatedCommand,
@@ -760,7 +768,7 @@ const CommandConfiguration = () => {
       sendCommand(payload)
         .unwrap()
         .then((res) => {
-          console.log("send command res: ", res);
+          // console.log("send command res: ", res);
           setSnack({
             open: true,
             message: res?.message,
@@ -768,10 +776,10 @@ const CommandConfiguration = () => {
           });
 
           setSendCommandListData((prevData) => {
-            console.log(
-              "handleSendCommandListCellInputChange prevData: ",
-              prevData
-            );
+            // console.log(
+            //   "handleSendCommandListCellInputChange prevData: ",
+            //   prevData
+            // );
             return {
               ...prevData,
               data: prevData?.data?.map((item) => {
@@ -798,16 +806,25 @@ const CommandConfiguration = () => {
   );
 
   const handleOpenCommandHistoryTrailDialog = React.useCallback(() => {
+    if (!Boolean(selectedVehicleDetails?.id)) {
+      setSnack({
+        open: true,
+        message: "Please Choose a Vechicle !",
+        severity: "warning",
+      });
+      return;
+    }
     const params = {
-      vechileId: commandConfigurationSearchFormData?.vehicle?.id || null,
+      vechileId: selectedVehicleDetails?.id || null,
     };
     getCommandHistoryTrail(params)
       .unwrap()
       .then((res) => {
-        console.log("COMMAND HISTORY TRAIL RES: ", res);
+        // console.log("COMMAND HISTORY TRAIL RES: ", res);
         setCommandHistoryTrailComponentData(res?.data || []);
       })
       .catch((err) => {
+        // console.log("snack err: ", err);
         setSnack({
           open: true,
           message: err?.data?.message || err?.data,
@@ -817,7 +834,7 @@ const CommandConfiguration = () => {
         setCommandHistoryTrailComponentData([]);
       });
     setCommandHistoryTrailDialogOpen(true);
-  }, [getCommandHistoryTrail, commandConfigurationSearchFormData?.vehicle?.id]);
+  }, [getCommandHistoryTrail, selectedVehicleDetails?.id]);
   const handleCloseCommandHistoryTrailDialog = React.useCallback(() => {
     setCommandHistoryTrailDialogOpen(false);
   }, []);
@@ -837,13 +854,15 @@ const CommandConfiguration = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ width: "calc(100vw - 110px)" }}>
+      <Box sx={{ width: "calc(100vw - 113px)", overflowX: "hidden" }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             width: "100%",
+            paddingTop: "15px",
+            paddingBottom: "10px",
           }}
         >
           <TopViewNav breadcrumbs={breadcrumbs} />
@@ -858,10 +877,18 @@ const CommandConfiguration = () => {
             alignItems: "center",
             width: "100%",
             mt: 2,
+            ".MuiButton-root": {
+              fontFamily:
+                "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+            },
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={3} lg={2} xl={2}>
+          <Grid
+            container
+            spacing={2}
+            // sx={{ bgcolor: "orange" }}
+          >
+            <Grid item xs={12} sm={6} md={3.5} lg={3} xl={2}>
               {" "}
               <Autocomplete
                 disablePortal
@@ -972,7 +999,7 @@ const CommandConfiguration = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={3} lg={2} xl={2}>
+            <Grid item xs={12} sm={6} md={3.5} lg={3} xl={2}>
               {" "}
               <Autocomplete
                 disablePortal
@@ -1082,10 +1109,33 @@ const CommandConfiguration = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={3} lg={2} xl={2}>
+            <Grid item xs={12} sm={6} md={3.5} lg={3} xl={2}>
               {" "}
-              <Autocomplete
+              <TextField
+                label="Device Modal"
+                fullWidth
+                disabled
+                size="small"
+                // id={
+                //   "search-device-model-command-config"
+                // }
+                value={
+                  commandConfigurationSearchFormData?.model
+                    ? commandConfigurationSearchFormData?.model
+                    : ""
+                }
+                sx={{
+                  "& .MuiInputLabel-root": {
+                    color: "customBlue.dark", // Change the label color here
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "customBlue.dark", // Change the label color when focused
+                  },
+                }}
+              />
+              {/* <Autocomplete
                 disablePortal
+                disabled
                 id="search-device-model"
                 size="small"
                 sx={{
@@ -1117,46 +1167,46 @@ const CommandConfiguration = () => {
                       )
                     : null
                 }
-                onInputChange={(event, newValue) => {
-                  const selectedVehicle = vehicles.find(
-                    (vehicle) => vehicle?.model === newValue
-                  );
+                // onInputChange={(event, newValue) => {
+                //   const selectedVehicle = vehicles.find(
+                //     (vehicle) => vehicle?.model === newValue
+                //   );
 
-                  setCommandConfigurationSearchFormData({
-                    ...commandConfigurationSearchFormData,
-                    vehicle: {
-                      id: selectedVehicle ? selectedVehicle?.id : null,
-                      vehicleNumber: selectedVehicle
-                        ? selectedVehicle?.vehicleNumber
-                        : "",
-                    },
-                    imeiNo: selectedVehicle ? selectedVehicle?.imeiNo : "",
-                    model: selectedVehicle ? selectedVehicle?.model : "",
-                  });
-                }}
+                //   setCommandConfigurationSearchFormData({
+                //     ...commandConfigurationSearchFormData,
+                //     vehicle: {
+                //       id: selectedVehicle ? selectedVehicle?.id : null,
+                //       vehicleNumber: selectedVehicle
+                //         ? selectedVehicle?.vehicleNumber
+                //         : "",
+                //     },
+                //     imeiNo: selectedVehicle ? selectedVehicle?.imeiNo : "",
+                //     model: selectedVehicle ? selectedVehicle?.model : "",
+                //   });
+                // }}
                 getOptionLabel={(option) => option?.model || ""}
-                renderOption={(props, option) => (
-                  <li {...props} key={option?.id}>
-                    {option?.model}
-                  </li>
-                )}
-                PaperComponent={(props) => (
-                  <Paper
-                    sx={{
-                      background: "primary.customContrast",
-                      color: "customGrey.700",
-                      borderRadius: "10px",
-                      // width: "200px",
-                      maxHeight: "350px",
-                      overflowY: "auto",
-                    }}
-                    {...props}
-                  />
-                )}
+                // renderOption={(props, option) => (
+                //   <li {...props} key={option?.id}>
+                //     {option?.model}
+                //   </li>
+                // )}
+                // PaperComponent={(props) => (
+                //   <Paper
+                //     sx={{
+                //       background: "primary.customContrast",
+                //       color: "customGrey.700",
+                //       borderRadius: "10px",
+                //       // width: "200px",
+                //       maxHeight: "350px",
+                //       overflowY: "auto",
+                //     }}
+                //     {...props}
+                //   />
+                // )}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search Device Modal"
+                    label="Device Modal"
                     id={
                       // commandConfigurationSearchFormData?.model
                       //   ? String(commandConfigurationSearchFormData?.model)
@@ -1178,40 +1228,50 @@ const CommandConfiguration = () => {
                     }}
                   />
                 )}
-                isOptionEqualToValue={(option, value) =>
-                  option?.model === value?.model
-                }
-                onChange={(event, newValue) => {
-                  if (!newValue) {
-                    setCommandConfigurationSearchFormData({
-                      ...commandConfigurationSearchFormData,
-                      vehicle: { id: null, vehicleNumber: "" },
-                      imeiNo: "",
-                      model: "",
-                    });
-                  }
+                // isOptionEqualToValue={(option, value) =>
+                //   option?.model === value?.model
+                // }
+                // onChange={(event, newValue) => {
+                //   if (!newValue) {
+                //     setCommandConfigurationSearchFormData({
+                //       ...commandConfigurationSearchFormData,
+                //       vehicle: { id: null, vehicleNumber: "" },
+                //       imeiNo: "",
+                //       model: "",
+                //     });
+                //   }
+                // }}
+              /> */}
+            </Grid>
+            <Grid item xs={6} sm={6} md={1} lg={0.5} xl={0.5}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  height: "100%",
+                  // justifyContent: { md: "flex-end", lg: "center" },
+                  // bgcolor: "pink",
                 }}
-              />
-            </Grid>
-            <Grid item xs={2} lg={0.5} xl={0.5}>
-              <Button
-                variant="contained"
-                disabled={
-                  !Boolean(commandConfigurationSearchFormData?.imeiNo) ||
-                  !Boolean(commandConfigurationSearchFormData?.vehicle?.id) ||
-                  !Boolean(
-                    commandConfigurationSearchFormData?.vehicle?.vehicleNumber
-                  )
-                }
-                sx={{ width: "5em" }}
-                onClick={() => handleGetCommandListOnGo()}
               >
-                GO
-              </Button>
+                <Button
+                  variant="contained"
+                  disabled={
+                    !Boolean(commandConfigurationSearchFormData?.imeiNo) ||
+                    !Boolean(commandConfigurationSearchFormData?.vehicle?.id) ||
+                    !Boolean(
+                      commandConfigurationSearchFormData?.vehicle?.vehicleNumber
+                    )
+                  }
+                  // sx={{ width: "5em" }}
+                  onClick={() => handleGetCommandListOnGo()}
+                >
+                  GO
+                </Button>
+              </Box>
             </Grid>
-            {/* <Grid item xs={1} lg={4.5} xl={4.5} /> */}
             {Boolean(selectedVehicleDetails) && (
-              <Grid item xs={2} md={1} lg={5.5} xl={5.5}>
+              <Grid item xs={6} sm={12} md={12} lg={2.5} xl={5.5}>
                 <Box
                   sx={{
                     display: "flex",
@@ -1219,6 +1279,7 @@ const CommandConfiguration = () => {
                     width: "100%",
                     height: "100%",
                     justifyContent: "flex-end",
+                    // bgcolor: "red",
                   }}
                 >
                   <Button
@@ -1349,7 +1410,15 @@ const CommandConfiguration = () => {
                   <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                     <Grid container>
                       <Grid item xs={11} sm={11} md={11} lg={11} xl={11}>
-                        <Grid container>
+                        <Grid
+                          container
+                          sx={{
+                            ".MuiTypography-root": {
+                              fontFamily:
+                                "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif",
+                            },
+                          }}
+                        >
                           <Grid item xs={12} sm={12} md={4.5} lg={6} xl={6}>
                             <Grid container>
                               <Grid
@@ -1507,18 +1576,23 @@ const CommandConfiguration = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "35px",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      paddingX: "10px",
                       bgcolor: "primary.main",
                       width: "100%",
+                      borderRadius: "10px",
+                      ".MuiTypography-root": {
+                        fontFamily:
+                          "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif",
+                      },
                     }}
                   >
                     <Box
                       sx={{
                         display: "flex",
                         flexDirection: "row",
-                        px: "5px",
+                        paddingLeft: "5px",
                       }}
                     >
                       <Typography
@@ -1526,6 +1600,8 @@ const CommandConfiguration = () => {
                           color: "text.light",
                           fontWeight: "550",
                           fontSize: "17px",
+                          paddingY: "10px",
+                          letterSpacing: "1px",
                         }}
                       >
                         COMMANDS LIST
@@ -1572,20 +1648,33 @@ const CommandConfiguration = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "35px",
+                      // height: "35px",
                       alignItems: "center",
                       justifyContent: "flex-start",
                       paddingX: "10px",
                       bgcolor: "primary.main",
                       width: "100%",
+                      borderRadius: "10px",
+                      ".MuiTypography-root": {
+                        fontFamily:
+                          "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif",
+                      },
                     }}
                   >
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        paddingLeft: "5px",
+                      }}
+                    >
                       <Typography
                         sx={{
                           color: "text.light",
                           fontWeight: "550",
                           fontSize: "17px",
+                          paddingY: "10px",
+                          letterSpacing: "1px",
                         }}
                       >
                         SEND COMMANDS LIST

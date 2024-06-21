@@ -17,7 +17,7 @@ import ChartComponent from "./ChartComponent";
 // import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ClearIcon from "@mui/icons-material/Clear";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 // import SettingsRemoteIcon from "@mui/icons-material/SettingsRemote";
 // import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -45,16 +45,18 @@ import DASHBOARD_CARD_CAMERA from "../../img/DASHBOARD_CARD_CAMERA.svg";
 import DASHBOARD_CARD_VEHICLE_CIRCLE from "../../img/DASHBOARD_CARD_VEHICLE_CIRCLE.svg";
 import DASHBOARD_CARD_COMPLAINTS from "../../img/DASHBOARD_CARD_COMPLAINTS.svg";
 import DASHBOARD_CARD_EVENT_CIRCLE from "../../img/DASHBOARD_CARD_EVENT_CIRCLE.svg";
-import DASHBOARD_CARD_DRINKING from "../../img/DASHBOARD_CARD_DRINKING.svg";
+import DASHBOARD_CARD_LOW_HEAD from "../../img/DASHBOARD_CARD_LOW_HEAD.svg";
 import DASHBOARD_CARD_YAWNING from "../../img/DASHBOARD_CARD_YAWNING.svg";
 import DASHBOARD_CARD_PHONE_IN_HAND from "../../img/DASHBOARD_CARD_PHONE_IN_HAND.svg";
 import DASHBOARD_CARD_SMOKING from "../../img/DASHBOARD_CARD_SMOKING.svg";
 import DASHBOARD_CARD_SLEEPING from "../../img/DASHBOARD_CARD_SLEEPING.svg";
 import DASHBOARD_CARD_DISTRACTION from "../../img/DASHBOARD_CARD_DISTRACTION.svg";
+// import DASHBOARD_CARD_DRINKING from "../../img/DASHBOARD_CARD_DRINKING.svg";
+// import DASHBOARD_CARD_N0_FACE from "../../img/DASHBOARD_CARD_NO_FACE.svg";
 import DASHBOARD_CARD_VEHICLE_SQUARE from "../../img/DASHBOARD_CARD_VEHICLE_SQUARE.svg";
 import DASHBOARD_CARD_DEFAULTER_DRIVER from "../../img/DASHBOARD_CARD_DEFAULTER_DRIVER.svg";
 import DASHBOARD_CARD_TAMPERED_DEVICE from "../../img/DASHBOARD_CARD_TAMPERED_DEVICE.svg";
-import DASHBOARD_CARD_EVENT_SQUARE from "../../img/DASHBOARD_CARD_EVENT_CIRCLE.svg";
+import DASHBOARD_CARD_EVENT_SQUARE from "../../img/DASHBOARD_CARD_EVENT_SQUARE.svg";
 // import { useNavigate } from "react-router";
 import BarChartComponent from "./BarChartComponent";
 import {
@@ -148,7 +150,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
         }}
       >
         <Grid container>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <Box
               sx={{
                 display: "flex",
@@ -163,6 +165,49 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 {cameraEventsCardData?.drinkingCount || 0}
               </Typography>
             </Box>
+          </Grid> */}
+
+          <Grid item xs={4}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // gap: 1,
+              }}
+            >
+              <Tooltip
+                title="Low head"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_LOW_HEAD}
+                  alt="Low Head"
+                  // style={{
+                  //   filter: "hue-rotate(185deg) brightness(1) saturate(4.5)",
+                  // }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.lowHeadCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.lowHeadCount || 0}
+              </Typography>
+            </Box>
           </Grid>
 
           <Grid item xs={4}>
@@ -170,13 +215,33 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
+                // gap: 1,
               }}
             >
-              <Tooltip title="Yawning" arrow>
+              <Tooltip
+                title="Yawning"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
                 <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
               </Tooltip>
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.yawningCount > 0) && "red",
+                }}
+              >
                 {cameraEventsCardData?.yawningCount || 0}
               </Typography>
             </Box>
@@ -187,13 +252,34 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
+                // gap: 1,
               }}
             >
-              <Tooltip title="Phone Calling" arrow>
+              <Tooltip
+                title="Phone Calling"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
                 <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
               </Tooltip>
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
+                    "red",
+                }}
+              >
                 {cameraEventsCardData?.mobileUsageCount || 0}
               </Typography>
             </Box>
@@ -204,17 +290,37 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
+                // gap: 1,
               }}
             >
-              <Tooltip title="Smoking" arrow>
+              <Tooltip
+                title="Smoking"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -10],
+                      },
+                    },
+                  ],
+                }}
+              >
                 <img
                   src={DASHBOARD_CARD_SMOKING}
                   alt="Smoking"
                   style={{ paddingLeft: 7, paddingRight: 7 }}
                 />
               </Tooltip>
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.smokingCount > 0) && "red",
+                }}
+              >
                 {cameraEventsCardData?.smokingCount || 0}
               </Typography>
             </Box>
@@ -225,11 +331,24 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
+                // gap: 1,
                 position: "relative",
               }}
             >
-              <Tooltip title="Close eyes" arrow>
+              <Tooltip
+                title="Close eyes"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
                 <img
                   src={DASHBOARD_CARD_SLEEPING}
                   alt="Sleeping"
@@ -241,8 +360,10 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 sx={{
                   fontWeight: "bold",
                   position: "absolute",
-                  left: 68,
+                  left: 60,
                   top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.closeEyesCount > 0) && "red",
                 }}
               >
                 {cameraEventsCardData?.closeEyesCount || 0}
@@ -255,11 +376,24 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
+                // gap: 1,
                 position: "relative",
               }}
             >
-              <Tooltip title="Distraction" arrow>
+              <Tooltip
+                title="Distraction"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
                 <img
                   src={DASHBOARD_CARD_DISTRACTION}
                   alt="Distraction"
@@ -271,8 +405,11 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 sx={{
                   fontWeight: "bold",
                   position: "absolute",
-                  left: 68,
+                  left: 60,
                   top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.distractionCount > 0) &&
+                    "red",
                 }}
               >
                 {cameraEventsCardData?.distractionCount || 0}
@@ -284,6 +421,402 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
     </Paper>
   );
 });
+
+// const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
+//   return (
+//     <Paper
+//       // elevation={2}
+//       sx={getCommonStylingForDashboardCards("hsla(174, 52%, 56%, 1)")}
+//     >
+//       <Box
+//         sx={{
+//           backgroundColor: "hsla(180, 91%, 92%, 1)",
+//           display: "flex",
+//           alignItems: "center",
+//           px: 2,
+//           pb: 1,
+//           pt: 2,
+//           gap: 2,
+//         }}
+//       >
+//         <img src={DASHBOARD_CARD_CAMERA} alt="Camera" />
+//         <Box sx={{ flexGrow: 1 }}>
+//           <Typography variant="h6" sx={{ fontWeight: 600 }}>
+//             Camera Events
+//           </Typography>
+//           <Typography variant="h6" sx={{ fontWeight: 700 }}>
+//             {cameraEventsCardData?.totalEventCount || 0}
+//           </Typography>
+//         </Box>
+//       </Box>
+
+//       <Box
+//         sx={{
+//           p: 1,
+//         }}
+//       >
+//         <Grid container>
+//           {/* <Grid item xs={4}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 gap: 1,
+//               }}
+//             >
+//               <Tooltip title="Drinking" arrow>
+//                 <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
+//               </Tooltip>
+//               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+//                 {cameraEventsCardData?.drinkingCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid> */}
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 // gap: 1,
+//               }}
+//             >
+//               <Tooltip
+//                 title="Low head"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_LOW_HEAD}
+//                   alt="Low Head"
+//                   // style={{
+//                   //   filter: "hue-rotate(185deg) brightness(1) saturate(4.5)",
+//                   // }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   color:
+//                     Boolean(cameraEventsCardData?.lowHeadCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.lowHeadCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 // gap: 1,
+//               }}
+//             >
+//               <Tooltip
+//                 title="Yawning"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   color:
+//                     Boolean(cameraEventsCardData?.yawningCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.yawningCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 // gap: 1,
+//               }}
+//             >
+//               <Tooltip
+//                 title="Phone Calling"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   color:
+//                     Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
+//                     "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.mobileUsageCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 // gap: 1,
+//               }}
+//             >
+//               <Tooltip
+//                 title="Smoking"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -10],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_SMOKING}
+//                   alt="Smoking"
+//                   style={{ paddingLeft: 7, paddingRight: 7, paddingTop: 6 }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   color:
+//                     Boolean(cameraEventsCardData?.smokingCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.smokingCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 gap: 1,
+//                 position: "relative",
+//               }}
+//             >
+//               <Tooltip
+//                 title="Close eyes"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_SLEEPING}
+//                   alt="Sleeping"
+//                   style={{ position: "absolute", left: -0.2, top: -6 }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   position: "absolute",
+//                   left: 60,
+//                   top: 7,
+//                   color:
+//                     Boolean(cameraEventsCardData?.closeEyesCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.closeEyesCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 gap: 1,
+//                 position: "relative",
+//               }}
+//             >
+//               <Tooltip
+//                 title="Distraction"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_DISTRACTION}
+//                   alt="Distraction"
+//                   style={{ position: "absolute", left: -1, top: -6 }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   position: "absolute",
+//                   left: 60,
+//                   top: 7,
+//                   color:
+//                     Boolean(cameraEventsCardData?.distractionCount > 0) &&
+//                     "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.distractionCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 gap: 1,
+//                 position: "relative",
+//               }}
+//             >
+//               <Tooltip
+//                 title="Drinking"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_DRINKING}
+//                   alt="Drinking"
+//                   style={{ position: "absolute", left: -1, top: -6 }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   position: "absolute",
+//                   left: 60,
+//                   top: 7,
+//                   color:
+//                     Boolean(cameraEventsCardData?.drinkingCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.drinkingCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+
+//           <Grid item xs={3}>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 gap: 1,
+//                 position: "relative",
+//               }}
+//             >
+//               <Tooltip
+//                 title="No Face"
+//                 arrow
+//                 PopperProps={{
+//                   modifiers: [
+//                     {
+//                       name: "offset",
+//                       options: {
+//                         offset: [0, -15],
+//                       },
+//                     },
+//                   ],
+//                 }}
+//               >
+//                 <img
+//                   src={DASHBOARD_CARD_N0_FACE}
+//                   alt="No Face"
+//                   style={{ position: "absolute", left: -1, top: -6 }}
+//                 />
+//               </Tooltip>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "bold",
+//                   position: "absolute",
+//                   left: 60,
+//                   top: 7,
+//                   color:
+//                     Boolean(cameraEventsCardData?.noFaceCount > 0) && "red",
+//                 }}
+//               >
+//                 {cameraEventsCardData?.noFaceCount || 0}
+//               </Typography>
+//             </Box>
+//           </Grid>
+//         </Grid>
+//       </Box>
+//     </Paper>
+//   );
+// });
 
 const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
   const totalActiveVehicle = vehiclesCardData?.totalActiveVehicle || 0;
@@ -320,6 +853,7 @@ const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
         sx={{
           px: 2,
           mt: 3.7,
+          // mt: 5.7,
         }}
       >
         <Grid container spacing={1}>
@@ -398,7 +932,13 @@ const ComplaintsCard = React.memo(function ({ complaintsCardData }) {
         </Box>
       </Box>
 
-      <Box sx={{ px: 2, mt: 3.7 }}>
+      <Box
+        sx={{
+          px: 2,
+          mt: 3.7,
+          // mt: 5.7,
+        }}
+      >
         <Grid container>
           <Grid item xs={6}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -460,36 +1000,108 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
         </Box>
       </Box>
 
-      <Box sx={{ px: 2, mt: 3.7 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={5}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <img src={DASHBOARD_CARD_EVENT_SQUARE} alt="Pending" />
+      <Box
+        sx={{
+          px: 2,
+          pt: 1,
+          // mt: 3.7,
+          // mt: 5.7,
+        }}
+      >
+        <Grid container columnSpacing={1} rowSpacing={0.5}>
+          <Grid item xs={6.5}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={DASHBOARD_CARD_EVENT_SQUARE}
+                alt="Pending"
+                width={48}
+                height={48}
+                style={{ transform: "rotate(90deg)" }}
+              />
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: 600 }}>
                   Pending
                 </Typography>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: 700, color: "hsla(25, 92%, 62%, 1)" }}
+                  sx={{ fontWeight: 700, color: "hsla(199, 98%, 52%, 1)" }}
                 >
                   {eventsStatusCardData?.pendingRemark || 0}
                 </Typography>
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={7}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <img src={DASHBOARD_CARD_EVENT_SQUARE} alt="Action Taken" />
+          <Grid item xs={5.5}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={DASHBOARD_CARD_EVENT_SQUARE}
+                alt="Action Taken"
+                width={48}
+                height={48}
+                style={{
+                  filter: "hue-rotate(160deg) brightness(1.2) saturate(1.5)",
+                  transform: "rotate(180deg)",
+                }}
+              />
               <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: 600, whiteSpace: "nowrap" }}
+                >
                   Action Taken
                 </Typography>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: 700, color: "hsla(199, 98%, 52%, 1)" }}
+                  sx={{ fontWeight: 700, color: "hsla(28, 94%, 49%, 1)" }}
                 >
                   {eventsStatusCardData?.actionTakenRemark || 0}
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 0.5,
+              }}
+            >
+              <img
+                src={DASHBOARD_CARD_EVENT_SQUARE}
+                alt="No Action Needed"
+                width={48}
+                height={48}
+                style={{
+                  filter: "hue-rotate(220deg) brightness(1.2) saturate(1.5)",
+                  transform: "rotate(270deg)",
+                }}
+              />
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  No Action Needed
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: 700, color: "hsla(44, 94%, 49%, 1)" }}
+                >
+                  {eventsStatusCardData?.noActionTakenRemark || 0}
                 </Typography>
               </Box>
             </Box>
@@ -640,7 +1252,7 @@ const Dashboard = () => {
     dlNumber: "",
   });
 
-  console.log("tableFilter: ", tableFilter);
+  // console.log("tableFilter: ", tableFilter);
 
   const [
     selectedDlNumberForDriverPerformanceBarchart,
@@ -698,7 +1310,7 @@ const Dashboard = () => {
 
   const [tableComponentData, setTableComponentData] = useState({});
 
-  console.log("tableComponentData: ", tableComponentData);
+  // console.log("tableComponentData: ", tableComponentData);
 
   // extracing the event data for table
   const {
@@ -755,7 +1367,7 @@ const Dashboard = () => {
     }
   );
 
-  console.log("getDriverPerformanceData: ", getDriverPerformanceData);
+  // console.log("getDriverPerformanceData: ", getDriverPerformanceData);
 
   // calling the api for card data
   // const {
@@ -778,7 +1390,7 @@ const Dashboard = () => {
     pollingInterval: 30000,
   });
 
-  console.log("getAllEventCount: ", getAllEventCount);
+  // console.log("getAllEventCount: ", getAllEventCount);
 
   const {
     data: getEventType = {
@@ -787,6 +1399,8 @@ const Dashboard = () => {
     isLoading: isGetEventTypeLoading,
   } = useGetEventTypeQuery();
 
+  // console.log("getEventType: ", getEventType);
+
   const {
     data: getStatusType = {
       data: [],
@@ -794,7 +1408,7 @@ const Dashboard = () => {
     isLoading: isGetStatusTypeLoading,
   } = useGetStatusTypeQuery();
 
-  console.log("getStatusType: ", getStatusType?.data);
+  // console.log("getStatusType: ", getStatusType?.data);
 
   // getAllVehcile
 
@@ -808,12 +1422,10 @@ const Dashboard = () => {
   const {
     data: getAllDriverData = { data: null },
     isLoading: isGetAllDriverDataLoading,
-    isSuccess: isGetAllDriverDataSuccess,
   } = useGetAllDriverQuery({ refetchOnMountOrArgChange: true });
 
-  console.log("getAllDriverData: ", getAllDriverData);
-  console.log("isGetAllDriverDataLoading: ", isGetAllDriverDataLoading);
-  console.log("isGetAllDriverDataSuccess : ", isGetAllDriverDataSuccess);
+  // console.log("getAllDriverData: ", getAllDriverData);
+  // console.log("isGetAllDriverDataLoading: ", isGetAllDriverDataLoading);
 
   const [updateEvent, updateEventResponse] = useUpdateEventMutation();
 
@@ -869,8 +1481,8 @@ const Dashboard = () => {
   }, []);
 
   const calculatePercentage = React.useCallback((count, total) => {
-    console.log("calculatePercentage count: ", count);
-    console.log("calculatePercentage total: ", total);
+    // console.log("calculatePercentage count: ", count);
+    // console.log("calculatePercentage total: ", total);
 
     if (!Boolean(count) && !Boolean(total)) {
       return 0;
@@ -904,14 +1516,75 @@ const Dashboard = () => {
     [tableFilter]
   );
 
+  // const handleChangeEventDetailsFilterationDate = React.useCallback(
+  //   (dateKey, dateValue) => {
+  //     setTableFilter((prevData) => ({
+  //       ...prevData,
+  //       [dateKey]: dateValue,
+  //     }));
+  //   },
+  //   []
+  // );
+
   const handleChangeEventDetailsFilterationDate = React.useCallback(
     (dateKey, dateValue) => {
-      setTableFilter((prevData) => ({
-        ...prevData,
-        [dateKey]: dateValue,
-      }));
+      setTableFilter((prevData) => {
+        if (dateKey === "fromDate") {
+          if (dateValue === null) {
+            // If fromDate is set to null, also set toDate to null
+            return {
+              ...prevData,
+              fromDate: null,
+              toDate: null,
+            };
+          } else {
+            // If fromDate is after toDate, clear toDate
+            const updatedToDate =
+              prevData.toDate && dateValue.isAfter(prevData.toDate)
+                ? null
+                : prevData.toDate;
+            return {
+              ...prevData,
+              fromDate: dateValue,
+              toDate: updatedToDate,
+            };
+          }
+        } else if (dateKey === "toDate") {
+          const updatedFromDate =
+            prevData.fromDate &&
+            dateValue &&
+            dateValue.isBefore(prevData.fromDate)
+              ? null
+              : prevData.fromDate;
+          if (!Boolean(updatedFromDate)) {
+            setSnack({
+              open: true,
+              severity: "warning",
+              message:
+                "TO DATE & TIME can't be earlier than FROM DATE & TIME !",
+            });
+          }
+          return {
+            ...prevData,
+            [dateKey]: dateValue,
+            fromDate: updatedFromDate,
+          };
+        }
+        return prevData;
+      });
     },
     []
+  );
+
+  const disableDatesBeforeFromDate = React.useCallback(
+    (date) => {
+      const fromDate = tableFilter?.fromDate;
+      if (!fromDate) {
+        return false; // No restriction if fromDate is null
+      }
+      return date.isBefore(fromDate, "day"); // Disable dates before fromDate
+    },
+    [tableFilter?.fromDate]
   );
 
   // const handleNavigateCommandConfiguration = React.useCallback(() => {
@@ -921,11 +1594,11 @@ const Dashboard = () => {
   const handleChangeSelectedRemarkOption = React.useCallback(
     (rowId, selectedRemarkOption) => {
       // debugger;
-      console.log("handleChangeSelectedRemarkOption rowid: ", rowId);
-      console.log(
-        "handleChangeSelectedRemarkOption selectedRemarkOption: ",
-        selectedRemarkOption
-      );
+      // console.log("handleChangeSelectedRemarkOption rowid: ", rowId);
+      // console.log(
+      //   "handleChangeSelectedRemarkOption selectedRemarkOption: ",
+      //   selectedRemarkOption
+      // );
       setTableComponentData((prevData) => {
         return {
           ...prevData,
@@ -950,8 +1623,8 @@ const Dashboard = () => {
 
   const handleInputChangeEventRemark = React.useCallback(
     (rowId, inputValue) => {
-      console.log("handleInputChangeEventRemark rowId : ", rowId);
-      console.log("handleInputChangeEventRemark inputValue : ", inputValue);
+      // console.log("handleInputChangeEventRemark rowId : ", rowId);
+      // console.log("handleInputChangeEventRemark inputValue : ", inputValue);
 
       setTableComponentData((prevData) => {
         return {
@@ -975,11 +1648,11 @@ const Dashboard = () => {
   const handleResetSelectedRemarkOption = React.useCallback(
     (rowId, rollbackRemarkOption) => {
       // debugger;
-      console.log("handleResetSelectedRemarkOption rowid: ", rowId);
-      console.log(
-        "handleResetSelectedRemarkOption rollbackRemarkOption: ",
-        rollbackRemarkOption
-      );
+      // console.log("handleResetSelectedRemarkOption rowid: ", rowId);
+      // console.log(
+      //   "handleResetSelectedRemarkOption rollbackRemarkOption: ",
+      //   rollbackRemarkOption
+      // );
       setTableComponentData((prevData) => {
         return {
           ...prevData,
@@ -1002,10 +1675,10 @@ const Dashboard = () => {
 
   const handleUpdateEventRemark = React.useCallback(
     (eventId, newRemark, newRemarkId, oldRemarkId) => {
-      console.log("handleUpdateEventRemark eventId: ", eventId);
-      console.log("handleUpdateEventRemark newRemark: ", newRemark);
-      console.log("handleUpdateEventRemark newRemarkId: ", newRemarkId);
-      console.log("handleUpdateEventRemark oldRemarkId: ", oldRemarkId);
+      // console.log("handleUpdateEventRemark eventId: ", eventId);
+      // console.log("handleUpdateEventRemark newRemark: ", newRemark);
+      // console.log("handleUpdateEventRemark newRemarkId: ", newRemarkId);
+      // console.log("handleUpdateEventRemark oldRemarkId: ", oldRemarkId);
 
       if (Boolean(oldRemarkId === newRemarkId)) {
         setSnack({
@@ -1034,7 +1707,7 @@ const Dashboard = () => {
       updateEvent(payload)
         .unwrap()
         .then((res) => {
-          console.log("updateEvent res: ", res);
+          // console.log("updateEvent res: ", res);
           setSnack({
             open: true,
             message: "Event upated successfully",
@@ -1092,12 +1765,14 @@ const Dashboard = () => {
         }}
       > */}
 
-      <Box sx={{ width: "calc(100vw - 113px)", overflowX: "hidden" }}>
+      <Box sx={{ width: "calc(100vw - 113px)" }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             flexDirection: "row",
+            paddingTop: "15px",
+            paddingBottom: "10px",
           }}
         >
           <TopViewNav breadcrumbs={breadcrumbs} />
@@ -1132,22 +1807,29 @@ const Dashboard = () => {
             {/* CARD GRID ITEM*/}
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Grid container columnSpacing={1} rowSpacing={1}>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={2.5}>
+                {/* <Grid item xs={12} sm={12} md={7} lg={6} xl={4}> */}
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={3}>
                   <CameraEventsCard
                     cameraEventsCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={2.5}>
+
+                {/* <Grid item xs={12} sm={12} md={5} lg={6} xl={2.5}> */}
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={2.5}>
                   <VehiclesCard
                     vehiclesCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={4}>
+
+                {/* <Grid item xs={12} sm={12} md={5} lg={6} xl={2.8}> */}
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={3.3}>
                   <ComplaintsCard
                     complaintsCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
+
+                {/* <Grid item xs={12} sm={12} md={7} lg={6} xl={2.7}> */}
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={3.2}>
                   <EventsStatusCard
                     eventsStatusCardData={getAllData?.data?.eventTypeCountDto}
                   />
@@ -1455,13 +2137,14 @@ const Dashboard = () => {
                             // renderInput={(params) => (
                             //   <TextField {...params} fullWidth />
                             // )}
+                            value={tableFilter?.fromDate}
                             format="DD/MM/YYYY, hh:mm A"
                             maxDate={today}
                             onAccept={(value) => {
-                              console.log(
-                                "date time picker from value: ",
-                                value
-                              );
+                              // console.log(
+                              //   "date time picker from value: ",
+                              //   value
+                              // );
 
                               return handleChangeEventDetailsFilterationDate(
                                 "fromDate",
@@ -1496,6 +2179,7 @@ const Dashboard = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DateTimePicker
                             label="Select To Date & Time"
+                            value={tableFilter?.toDate}
                             // value={eventDetailsFilterationFormData?.toDate}
                             // onChange={(value) =>
                             //   handleChangeEventDetailsFilterationDate(
@@ -1503,9 +2187,9 @@ const Dashboard = () => {
                             //     value
                             //   )
                             // }
-
+                            shouldDisableDate={disableDatesBeforeFromDate}
                             onAccept={(value) => {
-                              console.log("date time picker to value: ", value);
+                              // console.log("date time picker to value: ", value);
 
                               return handleChangeEventDetailsFilterationDate(
                                 "toDate",
@@ -1582,7 +2266,8 @@ const Dashboard = () => {
                         ref={responsiveDonutChartContainerRef}
                         sx={{
                           // height: "24em",
-                          backgroundColor: "primary.main",
+                          // backgroundColor: "primary.main",
+                          backgroundColor: "customPurple.500",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
@@ -1829,7 +2514,8 @@ const Dashboard = () => {
                     >
                       <Paper
                         sx={{
-                          backgroundColor: "primary.main",
+                          // backgroundColor: "primary.main",
+                          backgroundColor: "customPurple.500",
                           display: "flex",
                           // justifyContent: "flex-start",
                           // alignItems: "center",
@@ -2125,9 +2811,9 @@ const Dashboard = () => {
                             flexGrow: 1,
                             alignItems: "center",
                             justifyContent: "flex-end",
-                            paddingX: 1,
                             gap: 1,
                             mt: 1,
+                            mr: 1,
                           }}
                         >
                           <Box
@@ -2135,6 +2821,7 @@ const Dashboard = () => {
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
+                              justifyContent: "flex-end",
                               gap: 1,
                             }}
                           >
@@ -2150,7 +2837,8 @@ const Dashboard = () => {
                               sx={{
                                 color: "primary.customContrast",
                                 fontSize: "16px",
-                                whiteSpace: "nowrap",
+                                // whiteSpace: "nowrap",
+                                wordBreak: "break-word",
                               }}
                             >
                               Previous{" "}
@@ -2171,6 +2859,7 @@ const Dashboard = () => {
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
+                              justifyContent: "flex-end",
                               gap: 1,
                             }}
                           >
@@ -2185,7 +2874,7 @@ const Dashboard = () => {
                               sx={{
                                 color: "primary.customContrast",
                                 fontSize: "16px",
-                                whiteSpace: "nowrap",
+                                // whiteSpace: "nowrap",
                               }}
                             >
                               Current{" "}
@@ -2236,7 +2925,8 @@ const Dashboard = () => {
           isGetAllVehicleDataLoading ||
           isGetStatusTypeLoading ||
           isGetDriverPerformanceLoading ||
-          updateEventResponse?.isLoading
+          updateEventResponse?.isLoading ||
+          isGetAllDriverDataLoading
           // || isGetAllEventCardCountLoading
         }
       />

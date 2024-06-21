@@ -13,7 +13,7 @@ const VideoComponent = ({ videoUrl }) => {
     }
   );
   const [videoSrc, setVideoSrc] = React.useState(null);
-  console.log(videoSrc);
+  // console.log(videoSrc);
   React.useEffect(() => {
     if (videoBlob) {
       const url = URL.createObjectURL(
