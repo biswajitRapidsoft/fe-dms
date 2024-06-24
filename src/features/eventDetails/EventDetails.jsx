@@ -61,7 +61,7 @@ import {
   LOW_HEAD,
   NO_FACE,
   MOBILE_USE,
-  SMOKING_ALERT,
+  SMOKING,
   YAWNING,
 } from "../../helper/constants";
 
@@ -234,7 +234,7 @@ const DynamicMarkerF = React.memo(function ({
             ? DRINKS_GOOGLE_MAP_LOGO
             : markerData?.eventType === MOBILE_USE
             ? PHONE_IN_HAND_GOOGLE_MAP_LOGO
-            : markerData?.eventType === SMOKING_ALERT
+            : markerData?.eventType === SMOKING
             ? SMOKING_GOOGLE_MAP_LOGO
             : markerData?.eventType === YAWNING
             ? PERSON_YAWN_GOOGLE_MAP_LOGO
@@ -610,6 +610,29 @@ const EventDetails = () => {
     [allEvidencesData]
   );
 
+  // const handleTableFilterChange = React.useCallback(
+  //   (value) => {
+  //     setSelectedEventType(value);
+
+  //     // console.log("event details filtered value: ", value);
+
+  //     if (Boolean(allEvidencesData?.length > 0)) {
+  //       if(Boolean(value !== "ALL")) {
+  //         const filteredData = allEvidencesData?.filter(
+  //           (item) => item?.eventType === value
+  //         );
+  //         setFilteredEventData(filteredData);
+  //       }
+  //       if(Boolean(value === "All")) {
+
+  //         setFilteredEventData(allEvidencesData);
+  //       }
+
+  //     }
+  //   },
+  //   [allEvidencesData]
+  // );
+
   // const handleChangeEventDetailsFilterationDate = React.useCallback(
   //   (dateKey, dateValue) => {
   //     setEventDetailsFilterationFormData((prevData) => ({
@@ -782,7 +805,10 @@ const EventDetails = () => {
                 disablePortal
                 disabled={!Boolean(isShowAllEvidences)}
                 size="small"
-                options={getEventTypeData?.data || []}
+                // options={getEventTypeData?.data || []}
+                options={(getEventTypeData?.data || []).filter(
+                  (option) => option !== "ALL"
+                )}
                 getOptionLabel={(option) => option.replace(/_/g, " ")}
                 popupIcon={
                   <KeyboardArrowDownIcon sx={{ color: "customBlue.dark" }} />

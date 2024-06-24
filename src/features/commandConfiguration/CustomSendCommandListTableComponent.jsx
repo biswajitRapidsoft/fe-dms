@@ -48,8 +48,8 @@ const CustomRow = React.memo(
     // console.log("CustomRow data in sendCommandList: ", row);
     return (
       <TableRow
-      // hover
-      // key={row?.id}
+        hover
+        // key={row?.id}
       >
         <TableCell>
           {/* {row?.id} */}

@@ -20,7 +20,7 @@ export const LOW_HEAD = "LOW_HEAD";
 export const DRINKING = "DRINKING";
 export const NO_FACE = "NO_FACE";
 export const MOBILE_USE = "MOBILE_USE";
-export const SMOKING_ALERT = "SMOKING_ALERT";
+export const SMOKING = "SMOKING";
 export const YAWNING = "YAWNING";
 export const POWER_CUT = "POWER_CUT";
 

@@ -51,8 +51,8 @@ import DASHBOARD_CARD_PHONE_IN_HAND from "../../img/DASHBOARD_CARD_PHONE_IN_HAND
 import DASHBOARD_CARD_SMOKING from "../../img/DASHBOARD_CARD_SMOKING.svg";
 import DASHBOARD_CARD_SLEEPING from "../../img/DASHBOARD_CARD_SLEEPING.svg";
 import DASHBOARD_CARD_DISTRACTION from "../../img/DASHBOARD_CARD_DISTRACTION.svg";
-// import DASHBOARD_CARD_DRINKING from "../../img/DASHBOARD_CARD_DRINKING.svg";
-// import DASHBOARD_CARD_N0_FACE from "../../img/DASHBOARD_CARD_NO_FACE.svg";
+import DASHBOARD_CARD_DRINKING from "../../img/DASHBOARD_CARD_DRINKING.svg";
+import DASHBOARD_CARD_N0_FACE from "../../img/DASHBOARD_CARD_NO_FACE.svg";
 import DASHBOARD_CARD_VEHICLE_SQUARE from "../../img/DASHBOARD_CARD_VEHICLE_SQUARE.svg";
 import DASHBOARD_CARD_DEFAULTER_DRIVER from "../../img/DASHBOARD_CARD_DEFAULTER_DRIVER.svg";
 import DASHBOARD_CARD_TAMPERED_DEVICE from "../../img/DASHBOARD_CARD_TAMPERED_DEVICE.svg";
@@ -116,312 +116,6 @@ const getCommonStylingForDashboardCards = (primaryColor) => {
   };
 };
 
-const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
-  return (
-    <Paper
-      // elevation={2}
-      sx={getCommonStylingForDashboardCards("hsla(174, 52%, 56%, 1)")}
-    >
-      <Box
-        sx={{
-          backgroundColor: "hsla(180, 91%, 92%, 1)",
-          display: "flex",
-          alignItems: "center",
-          px: 2,
-          pb: 1,
-          pt: 2,
-          gap: 2,
-        }}
-      >
-        <img src={DASHBOARD_CARD_CAMERA} alt="Camera" />
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            Camera Events
-          </Typography>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            {cameraEventsCardData?.totalEventCount || 0}
-          </Typography>
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          p: 1,
-        }}
-      >
-        <Grid container>
-          {/* <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}
-            >
-              <Tooltip title="Drinking" arrow>
-                <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
-              </Tooltip>
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                {cameraEventsCardData?.drinkingCount || 0}
-              </Typography>
-            </Box>
-          </Grid> */}
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-              }}
-            >
-              <Tooltip
-                title="Low head"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -15],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img
-                  src={DASHBOARD_CARD_LOW_HEAD}
-                  alt="Low Head"
-                  // style={{
-                  //   filter: "hue-rotate(185deg) brightness(1) saturate(4.5)",
-                  // }}
-                />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.lowHeadCount > 0) && "red",
-                }}
-              >
-                {cameraEventsCardData?.lowHeadCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-              }}
-            >
-              <Tooltip
-                title="Yawning"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -15],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.yawningCount > 0) && "red",
-                }}
-              >
-                {cameraEventsCardData?.yawningCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-              }}
-            >
-              <Tooltip
-                title="Phone Calling"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -15],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
-                    "red",
-                }}
-              >
-                {cameraEventsCardData?.mobileUsageCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-              }}
-            >
-              <Tooltip
-                title="Smoking"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -10],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img
-                  src={DASHBOARD_CARD_SMOKING}
-                  alt="Smoking"
-                  style={{ paddingLeft: 7, paddingRight: 7 }}
-                />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  color:
-                    Boolean(cameraEventsCardData?.smokingCount > 0) && "red",
-                }}
-              >
-                {cameraEventsCardData?.smokingCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-                position: "relative",
-              }}
-            >
-              <Tooltip
-                title="Close eyes"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -15],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img
-                  src={DASHBOARD_CARD_SLEEPING}
-                  alt="Sleeping"
-                  style={{ position: "absolute", left: -0.2, top: -6 }}
-                />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  position: "absolute",
-                  left: 60,
-                  top: 7,
-                  color:
-                    Boolean(cameraEventsCardData?.closeEyesCount > 0) && "red",
-                }}
-              >
-                {cameraEventsCardData?.closeEyesCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                // gap: 1,
-                position: "relative",
-              }}
-            >
-              <Tooltip
-                title="Distraction"
-                arrow
-                PopperProps={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, -15],
-                      },
-                    },
-                  ],
-                }}
-              >
-                <img
-                  src={DASHBOARD_CARD_DISTRACTION}
-                  alt="Distraction"
-                  style={{ position: "absolute", left: -1, top: -6 }}
-                />
-              </Tooltip>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  position: "absolute",
-                  left: 60,
-                  top: 7,
-                  color:
-                    Boolean(cameraEventsCardData?.distractionCount > 0) &&
-                    "red",
-                }}
-              >
-                {cameraEventsCardData?.distractionCount || 0}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-    </Paper>
-  );
-});
-
 // const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //   return (
 //     <Paper
@@ -473,7 +167,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid> */}
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
@@ -516,7 +210,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid>
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
@@ -553,7 +247,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid>
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
@@ -591,7 +285,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid>
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
@@ -616,7 +310,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //                 <img
 //                   src={DASHBOARD_CARD_SMOKING}
 //                   alt="Smoking"
-//                   style={{ paddingLeft: 7, paddingRight: 7, paddingTop: 6 }}
+//                   style={{ paddingLeft: 7, paddingRight: 7 }}
 //                 />
 //               </Tooltip>
 //               <Typography
@@ -632,12 +326,12 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid>
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
 //                 alignItems: "center",
-//                 gap: 1,
+//                 // gap: 1,
 //                 position: "relative",
 //               }}
 //             >
@@ -677,12 +371,12 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //             </Box>
 //           </Grid>
 
-//           <Grid item xs={3}>
+//           <Grid item xs={4}>
 //             <Box
 //               sx={{
 //                 display: "flex",
 //                 alignItems: "center",
-//                 gap: 1,
+//                 // gap: 1,
 //                 position: "relative",
 //               }}
 //             >
@@ -722,101 +416,407 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
 //               </Typography>
 //             </Box>
 //           </Grid>
-
-//           <Grid item xs={3}>
-//             <Box
-//               sx={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 gap: 1,
-//                 position: "relative",
-//               }}
-//             >
-//               <Tooltip
-//                 title="Drinking"
-//                 arrow
-//                 PopperProps={{
-//                   modifiers: [
-//                     {
-//                       name: "offset",
-//                       options: {
-//                         offset: [0, -15],
-//                       },
-//                     },
-//                   ],
-//                 }}
-//               >
-//                 <img
-//                   src={DASHBOARD_CARD_DRINKING}
-//                   alt="Drinking"
-//                   style={{ position: "absolute", left: -1, top: -6 }}
-//                 />
-//               </Tooltip>
-//               <Typography
-//                 variant="h6"
-//                 sx={{
-//                   fontWeight: "bold",
-//                   position: "absolute",
-//                   left: 60,
-//                   top: 7,
-//                   color:
-//                     Boolean(cameraEventsCardData?.drinkingCount > 0) && "red",
-//                 }}
-//               >
-//                 {cameraEventsCardData?.drinkingCount || 0}
-//               </Typography>
-//             </Box>
-//           </Grid>
-
-//           <Grid item xs={3}>
-//             <Box
-//               sx={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 gap: 1,
-//                 position: "relative",
-//               }}
-//             >
-//               <Tooltip
-//                 title="No Face"
-//                 arrow
-//                 PopperProps={{
-//                   modifiers: [
-//                     {
-//                       name: "offset",
-//                       options: {
-//                         offset: [0, -15],
-//                       },
-//                     },
-//                   ],
-//                 }}
-//               >
-//                 <img
-//                   src={DASHBOARD_CARD_N0_FACE}
-//                   alt="No Face"
-//                   style={{ position: "absolute", left: -1, top: -6 }}
-//                 />
-//               </Tooltip>
-//               <Typography
-//                 variant="h6"
-//                 sx={{
-//                   fontWeight: "bold",
-//                   position: "absolute",
-//                   left: 60,
-//                   top: 7,
-//                   color:
-//                     Boolean(cameraEventsCardData?.noFaceCount > 0) && "red",
-//                 }}
-//               >
-//                 {cameraEventsCardData?.noFaceCount || 0}
-//               </Typography>
-//             </Box>
-//           </Grid>
 //         </Grid>
 //       </Box>
 //     </Paper>
 //   );
 // });
+
+const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
+  return (
+    <Paper
+      // elevation={2}
+      sx={getCommonStylingForDashboardCards("hsla(174, 52%, 56%, 1)")}
+    >
+      <Box
+        sx={{
+          backgroundColor: "hsla(180, 91%, 92%, 1)",
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          pb: 1,
+          pt: 2,
+          gap: 2,
+        }}
+      >
+        <img src={DASHBOARD_CARD_CAMERA} alt="Camera" />
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Camera Events
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            {cameraEventsCardData?.totalEventCount || 0}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          p: 1,
+        }}
+      >
+        <Grid container>
+          {/* <Grid item xs={4}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Tooltip title="Drinking" arrow>
+                <img src={DASHBOARD_CARD_DRINKING} alt="Drinking" />
+              </Tooltip>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                {cameraEventsCardData?.drinkingCount || 0}
+              </Typography>
+            </Box>
+          </Grid> */}
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // gap: 1,
+              }}
+            >
+              <Tooltip
+                title="Low head"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_LOW_HEAD}
+                  alt="Low Head"
+                  // style={{
+                  //   filter: "hue-rotate(185deg) brightness(1) saturate(4.5)",
+                  // }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.lowHeadCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.lowHeadCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // gap: 1,
+              }}
+            >
+              <Tooltip
+                title="Yawning"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.yawningCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.yawningCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // gap: 1,
+              }}
+            >
+              <Tooltip
+                title="Phone Calling"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.mobileUsageCount > 0) &&
+                    "red",
+                }}
+              >
+                {cameraEventsCardData?.mobileUsageCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // gap: 1,
+              }}
+            >
+              <Tooltip
+                title="Smoking"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -10],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_SMOKING}
+                  alt="Smoking"
+                  style={{ paddingLeft: 7, paddingRight: 7, paddingTop: 6 }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    Boolean(cameraEventsCardData?.smokingCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.smokingCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                position: "relative",
+              }}
+            >
+              <Tooltip
+                title="Close eyes"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_SLEEPING}
+                  alt="Sleeping"
+                  style={{ position: "absolute", left: -0.2, top: -6 }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  position: "absolute",
+                  left: 60,
+                  top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.closeEyesCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.closeEyesCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                position: "relative",
+              }}
+            >
+              <Tooltip
+                title="Distraction"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_DISTRACTION}
+                  alt="Distraction"
+                  style={{ position: "absolute", left: -1, top: -6 }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  position: "absolute",
+                  left: 60,
+                  top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.distractionCount > 0) &&
+                    "red",
+                }}
+              >
+                {cameraEventsCardData?.distractionCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                position: "relative",
+              }}
+            >
+              <Tooltip
+                title="Drinking"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_DRINKING}
+                  alt="Drinking"
+                  style={{ position: "absolute", left: -1, top: -6 }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  position: "absolute",
+                  left: 60,
+                  top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.drinkingCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.drinkingCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                position: "relative",
+              }}
+            >
+              <Tooltip
+                title="No Face"
+                arrow
+                PopperProps={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, -15],
+                      },
+                    },
+                  ],
+                }}
+              >
+                <img
+                  src={DASHBOARD_CARD_N0_FACE}
+                  alt="No Face"
+                  style={{ position: "absolute", left: -1, top: -6 }}
+                />
+              </Tooltip>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  position: "absolute",
+                  left: 60,
+                  top: 7,
+                  color:
+                    Boolean(cameraEventsCardData?.noFaceCount > 0) && "red",
+                }}
+              >
+                {cameraEventsCardData?.noFaceCount || 0}
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Paper>
+  );
+});
 
 const VehiclesCard = React.memo(function ({ vehiclesCardData }) {
   const totalActiveVehicle = vehiclesCardData?.totalActiveVehicle || 0;
@@ -1115,6 +1115,7 @@ const EventsStatusCard = React.memo(function ({ eventsStatusCardData }) {
 // custom component for chart labels
 const CustomChartLabels = React.memo(
   ({ box, index, isNotLastElement, getAllEventCount, calculatePercentage }) => {
+    // console.log("donut data: ", box?.key, getAllEventCount?.data);
     return (
       <>
         <Box
@@ -1543,6 +1544,14 @@ const Dashboard = () => {
               prevData.toDate && dateValue.isAfter(prevData.toDate)
                 ? null
                 : prevData.toDate;
+            if (Boolean(prevData?.toDate) && !Boolean(updatedToDate)) {
+              setSnack({
+                open: true,
+                severity: "warning",
+                message:
+                  "TO DATE & TIME can't be earlier than FROM DATE & TIME !",
+              });
+            }
             return {
               ...prevData,
               fromDate: dateValue,
@@ -1556,7 +1565,7 @@ const Dashboard = () => {
             dateValue.isBefore(prevData.fromDate)
               ? null
               : prevData.fromDate;
-          if (!Boolean(updatedFromDate)) {
+          if (Boolean(prevData?.fromDate) && !Boolean(updatedFromDate)) {
             setSnack({
               open: true,
               severity: "warning",
@@ -1607,7 +1616,8 @@ const Dashboard = () => {
               return {
                 ...item,
                 selectedRemarkOption: selectedRemarkOption,
-                ...(selectedRemarkOption?.id === 3 && item?.remarkId !== 3
+                // ...(selectedRemarkOption?.id === 3 && item?.remarkId !== 3
+                ...(selectedRemarkOption?.id !== 1 && item?.remarkId === 1
                   ? { manualRemark: "" }
                   : {}),
               };
@@ -1807,29 +1817,29 @@ const Dashboard = () => {
             {/* CARD GRID ITEM*/}
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Grid container columnSpacing={1} rowSpacing={1}>
-                {/* <Grid item xs={12} sm={12} md={7} lg={6} xl={4}> */}
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={3}>
+                <Grid item xs={12} sm={12} md={7} lg={6} xl={4}>
+                  {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={3}> */}
                   <CameraEventsCard
                     cameraEventsCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
 
-                {/* <Grid item xs={12} sm={12} md={5} lg={6} xl={2.5}> */}
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={2.5}>
+                <Grid item xs={12} sm={12} md={5} lg={6} xl={2.5}>
+                  {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={2.5}> */}
                   <VehiclesCard
                     vehiclesCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
 
-                {/* <Grid item xs={12} sm={12} md={5} lg={6} xl={2.8}> */}
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={3.3}>
+                <Grid item xs={12} sm={12} md={5} lg={6} xl={2.8}>
+                  {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={3.3}> */}
                   <ComplaintsCard
                     complaintsCardData={getAllData?.data?.eventTypeCountDto}
                   />
                 </Grid>
 
-                {/* <Grid item xs={12} sm={12} md={7} lg={6} xl={2.7}> */}
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={3.2}>
+                <Grid item xs={12} sm={12} md={7} lg={6} xl={2.7}>
+                  {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={3.2}> */}
                   <EventsStatusCard
                     eventsStatusCardData={getAllData?.data?.eventTypeCountDto}
                   />
@@ -2841,17 +2851,19 @@ const Dashboard = () => {
                                 wordBreak: "break-word",
                               }}
                             >
-                              Previous{" "}
+                              {/* Previous{" "} */}
                               {selectedDriverPerformanceFilterOption ===
                               driverPerformanceFilterOptionArray[0]
-                                ? "Month"
+                                ? "Last Month's Performance"
                                 : selectedDriverPerformanceFilterOption ===
                                   driverPerformanceFilterOptionArray[1]
-                                ? "Week"
+                                ? "Last Week's Performance"
                                 : selectedDriverPerformanceFilterOption ===
-                                    driverPerformanceFilterOptionArray[2] &&
-                                  "Day"}{" "}
-                              Performance
+                                  // driverPerformanceFilterOptionArray[2] &&
+                                  driverPerformanceFilterOptionArray[2]
+                                ? "Yesterday's Performance"
+                                : "Previous Performance"}
+                              {/* {" "}Performance */}
                             </Typography>
                           </Box>
                           <Box
@@ -2877,17 +2889,19 @@ const Dashboard = () => {
                                 // whiteSpace: "nowrap",
                               }}
                             >
-                              Current{" "}
+                              {/* Current{" "} */}
                               {selectedDriverPerformanceFilterOption ===
                               driverPerformanceFilterOptionArray[0]
-                                ? "Month"
+                                ? "This Month's Performance"
                                 : selectedDriverPerformanceFilterOption ===
                                   driverPerformanceFilterOptionArray[1]
-                                ? "Week"
+                                ? "This Week's Performance"
                                 : selectedDriverPerformanceFilterOption ===
-                                    driverPerformanceFilterOptionArray[2] &&
-                                  "Day"}{" "}
-                              Performance
+                                  // driverPerformanceFilterOptionArray[2] &&
+                                  driverPerformanceFilterOptionArray[2]
+                                ? "Today's Performance"
+                                : "Current Performance"}
+                              {/* {" "}Performance */}
                             </Typography>
                           </Box>
                         </Box>

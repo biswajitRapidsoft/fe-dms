@@ -22,7 +22,7 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
       hover
       key={row?.id}
       sx={{
-        cursor: "pointer",
+        // cursor: "pointer",
         height: 80,
         // backgroundColor: Boolean(row?.categoryDto?.name)
         //   ? `#${row?.categoryDto?.colorCode}4d`
@@ -125,7 +125,7 @@ const CustomRow = React.memo(({ index, theme, row, categoryData }) => {
               ? customChartColors.noFaceCount
               : row?.eventType === MOBILE_USE
               ? customChartColors.mobileUsageCount
-              : row?.eventType === SMOKING_ALERT
+              : row?.eventType === SMOKING
               ? customChartColors.smokingCount
               : row?.eventType === YAWNING && customChartColors.yawningCount,
 

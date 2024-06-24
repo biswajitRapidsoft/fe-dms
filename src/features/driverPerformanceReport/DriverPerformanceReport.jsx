@@ -227,6 +227,15 @@ const DriverPerformanceReport = () => {
               prevData.toDate && dateValue.isAfter(prevData.toDate)
                 ? null
                 : prevData.toDate;
+
+            if (Boolean(prevData?.toDate) && !Boolean(updatedToDate)) {
+              setSnack({
+                open: true,
+                severity: "warning",
+                message:
+                  "TO DATE & TIME can't be earlier than FROM DATE & TIME !",
+              });
+            }
             return {
               ...prevData,
               fromDate: dateValue,
@@ -240,7 +249,7 @@ const DriverPerformanceReport = () => {
             dateValue.isBefore(prevData.fromDate)
               ? null
               : prevData.fromDate;
-          if (!Boolean(updatedFromDate)) {
+          if (Boolean(prevData?.fromDate) && !Boolean(updatedFromDate)) {
             setSnack({
               open: true,
               severity: "warning",

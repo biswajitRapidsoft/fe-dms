@@ -1289,6 +1289,10 @@ const CommandConfiguration = () => {
                       // paddingX: "10px",
                       border: "2px solid",
                       fontWeight: "550",
+                      "&:hover": {
+                        border: "2px solid",
+                        backgroundColor: "customBlue.light",
+                      },
                     }}
                     size="small"
                   >

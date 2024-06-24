@@ -41,7 +41,7 @@ import {
   LOW_HEAD,
   NO_FACE,
   MOBILE_USE,
-  SMOKING_ALERT,
+  SMOKING,
   YAWNING,
   customChartColors,
 } from "../../helper/constants";
@@ -263,9 +263,9 @@ const DriverActionDetailsDialog = React.memo(function ({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    bgcolor: showImageGallery
-                      ? "customLightBlue.100"
-                      : "inherit",
+                    // bgcolor: showImageGallery
+                    //   ? "customLightBlue.100"
+                    //   : "inherit",
                   }}
                   // onClick={() => handleChangeShowImageGallery()}
                 >
@@ -808,7 +808,7 @@ const CustomRow = React.memo(
                 ? customChartColors.noFaceCount
                 : row?.eventType === MOBILE_USE
                 ? customChartColors.mobileUsageCount
-                : row?.eventType === SMOKING_ALERT
+                : row?.eventType === SMOKING
                 ? customChartColors.smokingCount
                 : row?.eventType === YAWNING && customChartColors.yawningCount,
 
