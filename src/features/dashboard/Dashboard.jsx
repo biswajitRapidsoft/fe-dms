@@ -256,7 +256,7 @@ const getCommonStylingForDashboardCards = (primaryColor) => {
 //               }}
 //             >
 //               <Tooltip
-//                 title="Phone Calling"
+//                 title="Mobile use"
 //                 arrow
 //                 PopperProps={{
 //                   modifiers: [
@@ -562,7 +562,7 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
               }}
             >
               <Tooltip
-                title="Phone Calling"
+                title="Mobile use"
                 arrow
                 PopperProps={{
                   modifiers: [
