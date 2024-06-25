@@ -31,11 +31,3 @@ export const GOOD = "GOOD";
 export const AVARAGE = "AVARAGE";
 export const BAD = "BAD";
 export const WORST = "WORST";
-
-// export const customDriverOverallPerformanceColors = {
-//   excelentColor: "#96FFAD",
-//   goodColor: "#",
-//   avarageColor: "#96E9FF",
-//   badColor: "#",
-//   worstColor: "#FFA196",
-// };
