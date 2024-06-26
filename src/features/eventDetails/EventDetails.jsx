@@ -4,6 +4,7 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  IconButton,
   Paper,
   TextField,
   Typography,
@@ -28,6 +29,7 @@ import CLOSED_EYES_GOOGLE_MAP_LOGO from "../../img/CLOSED_EYES_GOOGLE_MAP_LOGO.s
 import DISTRACTED_GOOGLE_MAP_LOGO from "../../img/DISTRACTED_GOOGLE_MAP_LOGO.svg";
 import LOW_HEAD_GOOGLE_MAP_LOGO from "../../img/LOW_HEAD_GOOGLE_MAP_LOGO.svg";
 import NO_FACE_GOOGLE_MAP_LOGO from "../../img/NO_FACE_GOOGLE_MAP_LOGO.svg";
+import CloseIcon from "@mui/icons-material/Close";
 
 import {
   GoogleMap,
@@ -63,6 +65,9 @@ import {
   MOBILE_USE,
   SMOKING,
   YAWNING,
+  ACTION_TAKEN,
+  NO_ACTION_NEEDED,
+  PENDING,
 } from "../../helper/constants";
 
 import { evidenceImageService } from "../../services/evidenceImageService";
@@ -72,7 +77,11 @@ const breadcrumbs = [
   { name: "Event Details", path: "/eventDetails" },
 ];
 
-const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
+const CustomGradientBoxForPhoto = React.memo(function ({
+  photoUrl,
+  handleChangeExpandedPhotoEvidence,
+  isExpandedPhotoEvidenceCard,
+}) {
   const [imgData, setImgData] = React.useState({});
 
   const fetchImageData = React.useCallback(async () => {
@@ -82,65 +91,73 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
     setImgData(response);
   }, [photoUrl]);
 
+  const handleExpandedPhotoEvidenceOnClick = React.useCallback(
+    (photoUrl) => {
+      handleChangeExpandedPhotoEvidence(photoUrl);
+    },
+    [handleChangeExpandedPhotoEvidence]
+  );
+
   React.useEffect(() => {
     fetchImageData();
   }, [fetchImageData]);
 
   return (
-    <Paper elevation={4}>
-      <Box
-        // key={index}
-        sx={{
-          width: "280px",
-          height: "180px",
-          maxHeight: "180px",
-          // backgroundImage: `linear-gradient(to right bottom, #ffffff, #dbdae0, #b9b6c3, #9793a5, #777289, #676077, #574f65, #483e54, #413748, #3a303d, #322933, #2a2329)`,
-          flexShrink: 0,
-          position: "relative",
-        }}
-      >
-        {imgData.data ? (
-          <img src={imgData.data} alt={"evidence"} width="100%" height="100%" />
-        ) : (
-          imgData.message
-        )}
+    <Paper
+      elevation={4}
+      sx={{
+        width: Boolean(isExpandedPhotoEvidenceCard) ? "60vw" : "280px",
+        height: Boolean(isExpandedPhotoEvidenceCard)
+          ? { xs: "40vh", sm: "50vh", md: "65vh" }
+          : "180px",
+        // backgroundImage: `linear-gradient(to right bottom, #ffffff, #dbdae0, #b9b6c3, #9793a5, #777289, #676077, #574f65, #483e54, #413748, #3a303d, #322933, #2a2329)`,
+        flexShrink: 0,
+        position: Boolean(isExpandedPhotoEvidenceCard) ? "fixed" : "relative",
+        zIndex: Boolean(isExpandedPhotoEvidenceCard) ? 10 : "auto",
+        left: Boolean(isExpandedPhotoEvidenceCard) && "50%",
+        top: Boolean(isExpandedPhotoEvidenceCard) && "50%",
+        transform:
+          Boolean(isExpandedPhotoEvidenceCard) && "translate(-50%, -50%)",
+      }}
+    >
+      {imgData.data ? (
+        <img
+          src={imgData.data}
+          alt={"evidence"}
+          width="100%"
+          height="100%"
+          onClick={() =>
+            !Boolean(isExpandedPhotoEvidenceCard) &&
+            handleExpandedPhotoEvidenceOnClick(photoUrl)
+          }
+          style={{
+            cursor: !Boolean(isExpandedPhotoEvidenceCard) && "pointer",
+          }}
+        />
+      ) : (
+        imgData.message
+      )}
 
-        {/* {loading ? (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "text.primary",
-            }}
-          >
-            <Typography>Loading image...</Typography>
-          </Box>
-        ) : imageLoadError ? (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "text.primary",
-            }}
-          >
-            <Typography>{errorMessage}</Typography>
-          </Box>
-        ) : (
-          <img src={imageSrc} alt="evidence" width="100%" height="100%" />
-        )} */}
+      {Boolean(isExpandedPhotoEvidenceCard) && (
+        <IconButton
+          sx={{
+            position: "absolute",
+            top: 5,
+            right: 7,
+            bgcolor: "#8c8c8c40",
+            "&:hover": {
+              bgcolor: "#8c8c8c80",
+            },
+            zIndex: Boolean(isExpandedPhotoEvidenceCard) ? 12 : "auto",
+            display: Boolean(isExpandedPhotoEvidenceCard) ? "" : "none",
+          }}
+          onClick={() => handleExpandedPhotoEvidenceOnClick()}
+        >
+          <CloseIcon sx={{ fontSize: "20px", color: "customGrey.300" }} />
+        </IconButton>
+      )}
 
+      {!Boolean(isExpandedPhotoEvidenceCard) && (
         <Box
           sx={{
             position: "absolute",
@@ -155,7 +172,7 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
         >
           <Typography>Photo Evidence</Typography>
         </Box>
-      </Box>
+      )}
     </Paper>
   );
 });
@@ -423,6 +440,9 @@ const EventDetails = () => {
     initialEventCoordinates
   );
 
+  const [expandedPhotoEvidence, setExpandedPhotoEvidence] = useState(null);
+  // console.log("expandedPhotoEvidence: ", expandedPhotoEvidence);
+
   // console.log("markerCoordinates: ", markerCoordinates);
 
   // const {
@@ -643,6 +663,10 @@ const EventDetails = () => {
   //   []
   // );
 
+  const handleChangeExpandedPhotoEvidence = React.useCallback((photoUrl) => {
+    setExpandedPhotoEvidence(photoUrl || null);
+  }, []);
+
   const handleChangeIsShowAllEvidencesOnCheckUnCheck = React.useCallback(() => {
     setIsShowAllEvidences((prev) => !prev);
     setSelectedEventType(null);
@@ -787,7 +811,7 @@ const EventDetails = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ width: "calc(100vw - 110px)" }}>
+      <Box sx={{ width: "calc(100vw - 110px)", position: "relative" }}>
         <Box
           sx={{
             width: "100%",
@@ -1747,6 +1771,24 @@ const EventDetails = () => {
                         >
                           {/* {gradientBoxes} */}
 
+                          {Boolean(expandedPhotoEvidence) && (
+                            <Box
+                              sx={{
+                                position: "fixed",
+                                top: 0,
+                                left: 0,
+                                width: "100vw",
+                                height: "100vh",
+                                // backgroundColor: "transparent",
+                                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                                backdropFilter: "blur(20px)",
+                                zIndex: Boolean(expandedPhotoEvidence)
+                                  ? 8
+                                  : "auto",
+                              }}
+                            />
+                          )}
+
                           {/* {Boolean(isShowAllEvidences) ? (
                     <>
                       {Boolean(allVideoEvidencesData?.length > 0) &&
@@ -1791,6 +1833,25 @@ const EventDetails = () => {
                                     <CustomGradientBoxForPhoto
                                       key={`photo-${index}`}
                                       photoUrl={photoItem}
+                                      handleChangeExpandedPhotoEvidence={
+                                        handleChangeExpandedPhotoEvidence
+                                      }
+                                      // isExpandedPhotoEvidenceCard={
+                                      //   Boolean(expandedPhotoEvidence === photoItem)
+                                      //     ? true
+                                      //     : false
+                                      // }
+
+                                      isExpandedPhotoEvidenceCard={Boolean(
+                                        Boolean(photoItem) &&
+                                          Boolean(expandedPhotoEvidence) &&
+                                          Boolean(
+                                            (
+                                              expandedPhotoEvidence || ""
+                                            ).toString() ===
+                                              (photoItem || "").toString()
+                                          )
+                                      )}
                                     />
                                   )
                                 )}
@@ -1867,7 +1928,7 @@ const EventDetails = () => {
                         }}
                       >
                         <Grid container rowGap={1} sx={{ height: "100%" }}>
-                          <Grid item xs={12} sm={12} md={!2} lg={12} xl={12}>
+                          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                             <Grid container textAlign="left">
                               <Grid
                                 item
@@ -1943,6 +2004,7 @@ const EventDetails = () => {
                                     : "NA"}
                                 </Typography>
                               </Grid>
+
                               <Grid
                                 item
                                 xs={4.5}
@@ -1962,6 +2024,7 @@ const EventDetails = () => {
                                   DATE & TIME
                                 </Typography>{" "}
                               </Grid>
+
                               <Grid
                                 item
                                 xs={0.5}
@@ -1980,6 +2043,7 @@ const EventDetails = () => {
                                   :
                                 </Typography>{" "}
                               </Grid>
+
                               <Grid item xs={7} sm={9} md={9} lg={7} xl={7}>
                                 <Typography
                                   sx={{
@@ -2011,9 +2075,129 @@ const EventDetails = () => {
                                   </Typography>
                                 </Typography>
                               </Grid>
+
+                              <Grid
+                                item
+                                xs={4.5}
+                                sm={2.5}
+                                md={2.5}
+                                lg={4.5}
+                                xl={4.5}
+                              >
+                                <Typography
+                                  sx={{
+                                    whiteSpace: "nowrap",
+                                    fontSize: "15.5px",
+                                    fontWeight: "550",
+                                  }}
+                                >
+                                  STATUS
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                xs={0.5}
+                                sm={0.5}
+                                md={0.5}
+                                lg={0.5}
+                                xl={0.5}
+                              >
+                                {" "}
+                                <Typography
+                                  sx={{
+                                    whiteSpace: "nowrap",
+                                    fontSize: "15.5px",
+                                    fontWeight: "550",
+                                  }}
+                                >
+                                  :
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={7} sm={9} md={9} lg={7} xl={7}>
+                                <Typography
+                                  sx={{
+                                    fontSize: "15.5px",
+                                    fontWeight: "550",
+                                    color: Boolean(
+                                      matchedRemarkType?.status === ACTION_TAKEN
+                                    )
+                                      ? "#DF7512"
+                                      : Boolean(
+                                          matchedRemarkType?.status ===
+                                            NO_ACTION_NEEDED
+                                        )
+                                      ? "#C2B811"
+                                      : "customBlue.dark",
+                                  }}
+                                >
+                                  {Boolean(matchedRemarkType)
+                                    ? matchedRemarkType?.status
+                                    : "NA"}
+                                </Typography>
+                              </Grid>
+
+                              {Boolean(matchedRemarkType) &&
+                                Boolean(
+                                  matchedRemarkType?.status !== PENDING
+                                ) && (
+                                  <>
+                                    <Grid
+                                      item
+                                      xs={4.5}
+                                      sm={2.5}
+                                      md={2.5}
+                                      lg={4.5}
+                                      xl={4.5}
+                                    >
+                                      <Typography
+                                        sx={{
+                                          whiteSpace: "nowrap",
+                                          fontSize: "15.5px",
+                                          fontWeight: "550",
+                                        }}
+                                      >
+                                        REMARK
+                                      </Typography>{" "}
+                                    </Grid>
+                                    <Grid
+                                      item
+                                      xs={0.5}
+                                      sm={0.5}
+                                      md={0.5}
+                                      lg={0.5}
+                                      xl={0.5}
+                                    >
+                                      <Typography
+                                        sx={{
+                                          whiteSpace: "nowrap",
+                                          fontSize: "15.5px",
+                                          fontWeight: "550",
+                                        }}
+                                      >
+                                        :
+                                      </Typography>{" "}
+                                    </Grid>
+                                    <Grid
+                                      item
+                                      xs={7}
+                                      sm={9}
+                                      md={9}
+                                      lg={7}
+                                      xl={7}
+                                    >
+                                      <Typography
+                                        sx={{
+                                          fontSize: "15.5px",
+                                        }}
+                                      >
+                                        {selectedEventMarker?.remark}
+                                      </Typography>
+                                    </Grid>
+                                  </>
+                                )}
                             </Grid>
                           </Grid>
-                          <Grid item xs={12} sm={12} md={!2} lg={12} xl={12}>
+                          {/* <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                             <Grid container textAlign="left">
                               <Grid
                                 item
@@ -2085,6 +2269,7 @@ const EventDetails = () => {
                                     : "NA"}
                                 </Typography>
                               </Grid>
+
                               <Grid
                                 item
                                 xs={4.5}
@@ -2131,9 +2316,9 @@ const EventDetails = () => {
                                 </Typography>
                               </Grid>
                             </Grid>
-                          </Grid>
+                          </Grid> */}
 
-                          <Grid item xs={12} sm={12} md={!2} lg={12} xl={12}>
+                          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                             <Grid container textAlign="left">
                               <Grid
                                 item
@@ -2202,7 +2387,7 @@ const EventDetails = () => {
                                 >
                                   {Boolean(selectedEventMarker?.speed)
                                     ? `${selectedEventMarker?.speed} Km/H`
-                                    : "NA"}
+                                    : "0 Km/H"}
                                 </Typography>
                               </Grid>
                               <Grid

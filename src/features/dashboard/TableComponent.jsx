@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -44,13 +44,25 @@ import {
   SMOKING,
   YAWNING,
   customChartColors,
+  ACTION_TAKEN,
+  NO_ACTION_NEEDED,
+  PENDING,
 } from "../../helper/constants";
 import { evidenceImageService } from "../../services/evidenceImageService";
 
 // import VIDEO_GALLERY_LOGO from "../../img/VIDEO_GALLERY_LOGO.svg";
 import PHOTO_GALLERY_LOGO from "../../img/PHOTO_GALLERY_LOGO.svg";
 
-const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
+const CustomGradientBoxForPhoto = React.memo(function ({
+  photoUrl,
+  handleChangeExpandedPhotoEvidence,
+  isExpandedPhotoEvidenceCard,
+}) {
+  // console.log(
+  //   "isExpandedPhotoEvidenceCard: ",
+  //   isExpandedPhotoEvidenceCard,
+  //   typeof photoUrl
+  // );
   const [imgData, setImgData] = React.useState({});
 
   const fetchImageData = React.useCallback(async () => {
@@ -60,12 +72,32 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
     setImgData(response);
   }, [photoUrl]);
 
+  const handleExpandedPhotoEvidenceOnClick = React.useCallback(() => {
+    handleChangeExpandedPhotoEvidence(photoUrl);
+  }, [handleChangeExpandedPhotoEvidence, photoUrl]);
+
+  // const handleCloseExpandedPhotoEvidence = React.useCallback(() => {
+  //   handleChangeExpandedPhotoEvidence();
+  // }, [handleChangeExpandedPhotoEvidence]);
+
   React.useEffect(() => {
     fetchImageData();
   }, [fetchImageData]);
 
   return (
-    <Paper elevation={4} sx={{ width: "280px", height: "180px" }}>
+    <Paper
+      elevation={4}
+      sx={{
+        width: Boolean(isExpandedPhotoEvidenceCard) ? "98.5%" : "280px",
+        height: Boolean(isExpandedPhotoEvidenceCard) ? "98.5%" : "180px",
+        position: Boolean(isExpandedPhotoEvidenceCard) ? "absolute" : "",
+        top: Boolean(isExpandedPhotoEvidenceCard) ? 1 : "auto",
+        right: Boolean(isExpandedPhotoEvidenceCard) ? 2 : "auto",
+        zIndex: Boolean(isExpandedPhotoEvidenceCard) ? 10 : "auto", // Ensure it is above other elements
+        // transition: "all 0.3s ease-in-out",
+        // transformOrigin: "center",
+      }}
+    >
       <Box
         sx={{
           width: "100%",
@@ -73,11 +105,23 @@ const CustomGradientBoxForPhoto = React.memo(function ({ photoUrl }) {
           // maxHeight: "180px",
           // backgroundImage: `linear-gradient(to right bottom, #ffffff, #dbdae0, #b9b6c3, #9793a5, #777289, #676077, #574f65, #483e54, #413748, #3a303d, #322933, #2a2329)`,
           flexShrink: 0,
-          position: "relative",
+          // position: "relative",
         }}
       >
         {imgData.data ? (
-          <img src={imgData.data} alt={"evidence"} width="100%" height="100%" />
+          <img
+            src={imgData.data}
+            alt={"evidence"}
+            width="100%"
+            height="100%"
+            onClick={() =>
+              !Boolean(isExpandedPhotoEvidenceCard) &&
+              handleExpandedPhotoEvidenceOnClick()
+            }
+            style={{
+              cursor: !Boolean(isExpandedPhotoEvidenceCard) && "pointer",
+            }}
+          />
         ) : (
           imgData.message
         )}
@@ -149,14 +193,27 @@ const DriverActionDetailsDialog = React.memo(function ({
   driverActionDetailsDialogOpen,
   selectedEventRowData,
   handleCloseDriverActionDetailsDialog,
+  getRemarkType,
 }) {
+  const matchedRemarkType = React.useMemo(
+    () =>
+      getRemarkType?.find(
+        (item) => item?.id === selectedEventRowData?.remarkId
+      ),
+    [getRemarkType, selectedEventRowData?.remarkId]
+  );
+  // console.log("selectedEventRowData : ", selectedEventRowData);
   const theme = useTheme();
   // const [showVideoGallery, setShowVideoGallery] = React.useState(false);
   const showVideoGallery = false;
   // const [showImageGallery, setShowImageGallery] = React.useState(true);
   const showImageGallery = true;
+  const [expandedPhotoEvidence, setExpandedPhotoEvidence] = useState(null);
+  // console.log("expandedPhotoEvidence: ", expandedPhotoEvidence);
 
-  // console.log("selectedEventRowData : ", selectedEventRowData);
+  const handleChangeExpandedPhotoEvidence = React.useCallback((photoUrl) => {
+    setExpandedPhotoEvidence(photoUrl || null);
+  }, []);
 
   // const handleChangeShowVideoGallery = React.useCallback(() => {
   //   setShowVideoGallery((prev) => !prev);
@@ -166,10 +223,15 @@ const DriverActionDetailsDialog = React.memo(function ({
   //   setShowImageGallery((prev) => !prev);
   //   setShowVideoGallery(false);
   // }, []);
+
+  const handleCloseDriverActionDetailsDialogByDialog = React.useCallback(() => {
+    handleCloseDriverActionDetailsDialog();
+    setExpandedPhotoEvidence(null);
+  }, [handleCloseDriverActionDetailsDialog]);
   return (
     <Dialog
       open={driverActionDetailsDialogOpen}
-      onClose={handleCloseDriverActionDetailsDialog}
+      onClose={handleCloseDriverActionDetailsDialogByDialog}
       sx={{
         "& .MuiDialog-paper": {
           width: "80%",
@@ -199,7 +261,7 @@ const DriverActionDetailsDialog = React.memo(function ({
         >
           Driver Action Details
         </DialogTitle>
-        <IconButton onClick={handleCloseDriverActionDetailsDialog}>
+        <IconButton onClick={handleCloseDriverActionDetailsDialogByDialog}>
           <CloseIcon sx={{ fontSize: "2.05rem" }} />
         </IconButton>
       </Box>
@@ -289,11 +351,14 @@ const DriverActionDetailsDialog = React.memo(function ({
               sx={{
                 // bgcolor: "lavender",
                 height: { xs: "75%", md: "100%" },
+                // padding: Boolean(expandedPhotoEvidence) ? "" : 2,
                 padding: 2,
+                position: "relative",
               }}
             >
               <Box
                 sx={{
+                  // display: Boolean(expandedPhotoEvidence) ? "none" : "flex",
                   display: "flex",
                   flexDirection: "column",
                   width: "100%",
@@ -307,7 +372,8 @@ const DriverActionDetailsDialog = React.memo(function ({
                     width: "100%",
                     border: `1px solid ${theme?.palette?.primary?.main}`,
                     // height: "30%",
-                    height: { xs: "220px", md: "200px", lg: "180px" },
+                    height: { xs: "230px", md: "200px", lg: "180px" },
+                    // overflow: "hidden",
                   }}
                 >
                   <Box
@@ -335,7 +401,7 @@ const DriverActionDetailsDialog = React.memo(function ({
 
                   <Grid
                     container
-                    rowSpacing={2}
+                    rowSpacing={1}
                     sx={{ marginTop: "5px", marginLeft: "10px" }}
                   >
                     <Grid item xs={12} lg={6}>
@@ -475,6 +541,128 @@ const DriverActionDetailsDialog = React.memo(function ({
                         </Grid>
                       </Grid>
                     </Grid>
+                    <Grid item xs={12} lg={6}>
+                      <Grid container>
+                        <Grid item xs={4} sm={2.5} md={2.5} lg={3.5}>
+                          <Typography
+                            sx={{
+                              whiteSpace: "nowrap",
+                              fontSize: "18.5px",
+                              fontWeight: "550",
+                            }}
+                          >
+                            Status
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={8} sm={9.5} md={9.5} lg={8.5}>
+                          {/* <Typography sx={{ wordBreak: "break-word" }}> */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              wordBreak: "break-word",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            <Typography
+                              component="span"
+                              sx={{
+                                marginRight: "10px",
+                                fontSize: "18.5px",
+                                fontWeight: "550",
+                              }}
+                            >
+                              :
+                            </Typography>
+
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                // width: "100%",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: 1,
+                              }}
+                            >
+                              {/* <Box sx={{ flexGrow: 1 }}> */}
+                              <Typography
+                                sx={{
+                                  fontSize: "18px",
+                                  fontWeight: "550",
+                                  // color: "customBlue.dark",
+                                  color: Boolean(
+                                    matchedRemarkType?.status === ACTION_TAKEN
+                                  )
+                                    ? "#DF7512"
+                                    : Boolean(
+                                        matchedRemarkType?.status ===
+                                          NO_ACTION_NEEDED
+                                      )
+                                    ? "#C2B811"
+                                    : "customBlue.dark",
+                                  flexGrow: 1,
+                                }}
+                              >
+                                {matchedRemarkType?.status}
+                              </Typography>
+                              {/* </Box> */}
+
+                              {Boolean(matchedRemarkType) &&
+                                Boolean(
+                                  matchedRemarkType?.status !== PENDING
+                                ) && (
+                                  <Tooltip
+                                    title={
+                                      <Typography
+                                        sx={{
+                                          fontSize: "16px",
+                                          paddingX: "7px",
+                                          paddingY: "5px",
+                                          maxWidth: "220px",
+                                          whiteSpace: "normal",
+                                          wordBreak: "break-word",
+                                        }}
+                                      >
+                                        {selectedEventRowData?.remark}
+                                      </Typography>
+                                    }
+                                    // placement="top"
+                                    arrow
+                                    PopperProps={{
+                                      modifiers: [
+                                        {
+                                          name: "offset",
+                                          options: {
+                                            offset: [0, -3],
+                                          },
+                                        },
+                                      ],
+                                    }}
+                                    sx={{
+                                      [`& .MuiTooltip-tooltip`]: {
+                                        backgroundColor: "black",
+                                        color: "white",
+                                        boxShadow: 1,
+                                        maxWidth: "220px",
+                                        whiteSpace: "normal",
+                                        wordBreak: "break-word",
+                                      },
+                                      [`& .MuiTooltip-arrow`]: {
+                                        color: "black",
+                                      },
+                                    }}
+                                  >
+                                    <InfoIcon />
+                                  </Tooltip>
+                                )}
+                            </Box>
+                          </Box>
+                          {/* </Typography> */}
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Box>
                 <Box
@@ -483,9 +671,9 @@ const DriverActionDetailsDialog = React.memo(function ({
                     border: `1px solid ${theme?.palette?.primary?.main}`,
                     // height: "70%",
                     height: {
-                      xs: "calc(100% - 220px)",
-                      md: "calc(100% - 200px)",
-                      lg: "calc(100% - 180px)",
+                      xs: "calc(100% - 240px)",
+                      md: "calc(100% - 220px)",
+                      lg: "calc(100% - 200px)",
                     },
                     display: "flex",
                     flexDirection: "column",
@@ -555,26 +743,88 @@ const DriverActionDetailsDialog = React.memo(function ({
                               <CustomGradientBoxForPhoto
                                 key={`photo-${index}`}
                                 photoUrl={photoItem}
+                                handleChangeExpandedPhotoEvidence={
+                                  handleChangeExpandedPhotoEvidence
+                                }
+                                // isExpandedPhotoEvidenceCard={
+                                //   Boolean(expandedPhotoEvidence === photoItem)
+                                //     ? true
+                                //     : false
+                                // }
+
+                                isExpandedPhotoEvidenceCard={Boolean(
+                                  Boolean(photoItem) &&
+                                    Boolean(expandedPhotoEvidence) &&
+                                    Boolean(
+                                      (
+                                        expandedPhotoEvidence || ""
+                                      ).toString() ===
+                                        (photoItem || "").toString()
+                                    )
+                                )}
                               />
                             )
                           )}
                       </>
                     )}
-
-                    {/* {Boolean(
-                      selectedEventRowData?.evidencePhotos?.length > 0
-                    ) &&
-                      selectedEventRowData?.evidencePhotos?.map(
-                        (photoItem, index) => (
-                          <CustomGradientBoxForPhoto
-                            key={`photo-${index}`}
-                            photoUrl={photoItem}
-                          />
-                        )
-                      )} */}
                   </Box>
                 </Box>
               </Box>
+
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: 5,
+                  right: 7,
+                  bgcolor: "#8c8c8c40",
+                  "&:hover": {
+                    bgcolor: "#8c8c8c80",
+                  },
+                  zIndex: Boolean(expandedPhotoEvidence) ? 12 : "auto",
+                  display: Boolean(expandedPhotoEvidence) ? "" : "none",
+                }}
+                onClick={() => handleChangeExpandedPhotoEvidence()}
+              >
+                <CloseIcon sx={{ fontSize: "20px", color: "customGrey.300" }} />
+              </IconButton>
+
+              {/* {Boolean(expandedPhotoEvidence) && (
+              
+              )} */}
+
+              {/* <Box
+                sx={{
+                  display: Boolean(expandedPhotoEvidence) ? "flex" : "none",
+                  // flexDirection: "column",
+                  width: "100%",
+                  height: "100%",
+                  // bgcolor: "lavender",
+                  position: "relative",
+                }}
+              >
+                <img
+                  src={expandedPhotoEvidence}
+                  alt={"evidence"}
+                  width="100%"
+                  height="100%"
+                />
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    top: 5,
+                    right: 7,
+                    bgcolor: "#8c8c8c40",
+                    "&:hover": {
+                      bgcolor: "#8c8c8c80",
+                    },
+                  }}
+                  onClick={() => handleChangeExpandedPhotoEvidence()}
+                >
+                  <CloseIcon
+                    sx={{ fontSize: "20px", color: "customGrey.300" }}
+                  />
+                </IconButton>
+              </Box> */}
             </Grid>
           </Grid>
         </Box>
@@ -1355,6 +1605,7 @@ const TableComponent = ({
         handleCloseDriverActionDetailsDialog={
           handleCloseDriverActionDetailsDialog
         }
+        getRemarkType={getRemarkType}
       />
 
       {/* <Dialog

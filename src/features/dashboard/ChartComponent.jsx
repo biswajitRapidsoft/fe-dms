@@ -4,7 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import Chart from "react-apexcharts";
 import { customChartColors } from "../../helper/constants";
 
-const ChartComponent = ({ dataCount }) => {
+const ChartComponent = ({ dataCount, customLabels }) => {
   const theme = useTheme();
   // const [setSelectedChartLabel] = React.useState(null);
   // const [selectedChartLabel, setSelectedChartLabel] = React.useState(null);
@@ -25,16 +25,17 @@ const ChartComponent = ({ dataCount }) => {
 
   const options = React.useMemo(
     () => ({
-      labels: [
-        "yawn events",
-        "mobileUsage events",
-        "distraction events",
-        "smoking events",
-        "closeEyes events",
-        "no face events",
-        "low head events",
-        "drinking events",
-      ],
+      // labels: [
+      //   "yawn events",
+      //   "mobileUsage events",
+      //   "distraction events",
+      //   "smoking events",
+      //   "closeEyes events",
+      //   "no face events",
+      //   "low head events",
+      //   "drinking events",
+      // ],
+      labels: customLabels,
       chart: {
         events: {
           dataPointSelection: (e, chartContext, config) => {
@@ -120,10 +121,17 @@ const ChartComponent = ({ dataCount }) => {
           },
         },
       },
+      tooltip: {
+        enabled: true,
+        style: {
+          fontSize: "15.5px", // Font size for tooltip text
+        },
+      },
     }),
     [
       // setSelectedChartLabel,
       theme.palette.text.light,
+      customLabels,
     ]
   );
 

@@ -60,6 +60,14 @@ import DASHBOARD_CARD_EVENT_SQUARE from "../../img/DASHBOARD_CARD_EVENT_SQUARE.s
 // import { useNavigate } from "react-router";
 import BarChartComponent from "./BarChartComponent";
 import {
+  CLOSE_EYES,
+  DISTRACTION,
+  DRINKING,
+  LOW_HEAD,
+  MOBILE_USE,
+  NO_FACE,
+  SMOKING,
+  YAWNING,
   customBarchartColors,
   customChartColors,
 } from "../../helper/constants";
@@ -422,7 +430,30 @@ const getCommonStylingForDashboardCards = (primaryColor) => {
 //   );
 // });
 
-const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
+const CameraEventsCard = React.memo(function ({
+  cameraEventsCardData,
+  handleChangeTableEventTypeFilterFromCameraEvents,
+  selectedEventIcon,
+  setSelectedEventIcon,
+}) {
+  const handleChangeTableEventTypeFilterFromCameraEventsOnClick =
+    React.useCallback(
+      (eventTypeIcon) => {
+        if (selectedEventIcon === eventTypeIcon) {
+          setSelectedEventIcon(null);
+          handleChangeTableEventTypeFilterFromCameraEvents(null);
+        } else if (selectedEventIcon !== eventTypeIcon) {
+          setSelectedEventIcon(eventTypeIcon);
+          handleChangeTableEventTypeFilterFromCameraEvents(eventTypeIcon);
+        }
+      },
+      [
+        handleChangeTableEventTypeFilterFromCameraEvents,
+        selectedEventIcon,
+        setSelectedEventIcon,
+      ]
+    );
+
   return (
     <Paper
       // elevation={2}
@@ -501,6 +532,18 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                   // style={{
                   //   filter: "hue-rotate(185deg) brightness(1) saturate(4.5)",
                   // }}
+
+                  style={{
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === LOW_HEAD)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      LOW_HEAD
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -538,7 +581,21 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                   ],
                 }}
               >
-                <img src={DASHBOARD_CARD_YAWNING} alt="Yawning" />
+                <img
+                  src={DASHBOARD_CARD_YAWNING}
+                  alt="Yawning"
+                  style={{
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === YAWNING)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      YAWNING
+                    )
+                  }
+                />
               </Tooltip>
               <Typography
                 variant="h6"
@@ -575,7 +632,21 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                   ],
                 }}
               >
-                <img src={DASHBOARD_CARD_PHONE_IN_HAND} alt="Phone in Hand" />
+                <img
+                  src={DASHBOARD_CARD_PHONE_IN_HAND}
+                  alt="Phone in Hand"
+                  style={{
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === MOBILE_USE)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      MOBILE_USE
+                    )
+                  }
+                />
               </Tooltip>
               <Typography
                 variant="h6"
@@ -616,7 +687,20 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 <img
                   src={DASHBOARD_CARD_SMOKING}
                   alt="Smoking"
-                  style={{ paddingLeft: 7, paddingRight: 7, paddingTop: 6 }}
+                  style={{
+                    paddingLeft: 7,
+                    paddingRight: 7,
+                    paddingTop: 6,
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === SMOKING)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      SMOKING
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -658,7 +742,20 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 <img
                   src={DASHBOARD_CARD_SLEEPING}
                   alt="Sleeping"
-                  style={{ position: "absolute", left: -0.2, top: -6 }}
+                  style={{
+                    position: "absolute",
+                    left: -0.2,
+                    top: -6,
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === CLOSE_EYES)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      CLOSE_EYES
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -703,7 +800,20 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 <img
                   src={DASHBOARD_CARD_DISTRACTION}
                   alt="Distraction"
-                  style={{ position: "absolute", left: -1, top: -6 }}
+                  style={{
+                    position: "absolute",
+                    left: -1,
+                    top: -6,
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === DISTRACTION)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      DISTRACTION
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -749,7 +859,20 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 <img
                   src={DASHBOARD_CARD_DRINKING}
                   alt="Drinking"
-                  style={{ position: "absolute", left: -1, top: -6 }}
+                  style={{
+                    position: "absolute",
+                    left: -1,
+                    top: -6,
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === DRINKING)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      DRINKING
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -794,7 +917,20 @@ const CameraEventsCard = React.memo(function ({ cameraEventsCardData }) {
                 <img
                   src={DASHBOARD_CARD_N0_FACE}
                   alt="No Face"
-                  style={{ position: "absolute", left: -1, top: -6 }}
+                  style={{
+                    position: "absolute",
+                    left: -1,
+                    top: -6,
+                    cursor: "pointer",
+                    filter: Boolean(selectedEventIcon === NO_FACE)
+                      ? "hue-rotate(20deg) brightness(0.9) saturate(2)"
+                      : "",
+                  }}
+                  onClick={() =>
+                    handleChangeTableEventTypeFilterFromCameraEventsOnClick(
+                      NO_FACE
+                    )
+                  }
                 />
               </Tooltip>
               <Typography
@@ -1254,6 +1390,7 @@ const Dashboard = () => {
   });
 
   // console.log("tableFilter: ", tableFilter);
+  const [selectedEventIcon, setSelectedEventIcon] = useState(null);
 
   const [
     selectedDlNumberForDriverPerformanceBarchart,
@@ -1444,34 +1581,6 @@ const Dashboard = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const responsiveDonutChartContainer =
-      responsiveDonutChartContainerRef.current;
-    if (responsiveDonutChartContainer) {
-      // Debounced function to handle width changes
-      const handleResize = debounce((entry) => {
-        setResponsiveDonutChartContainerWidth(entry.contentRect.width + "px");
-      }, 500); // Adjust the debounce delay as needed
-
-      // Create a ResizeObserver instance
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          if (entry.target === responsiveDonutChartContainer) {
-            handleResize(entry);
-          }
-        }
-      });
-
-      // Start observing the element
-      resizeObserver.observe(responsiveDonutChartContainer);
-
-      // Cleanup function to stop observing when the component unmounts
-      return () => {
-        resizeObserver.unobserve(responsiveDonutChartContainer);
-      };
-    }
-  }, [debounce]);
-
   const handlePageChange = React.useCallback((event, newpage) => {
     setPageNo(newpage);
   }, []);
@@ -1513,8 +1622,22 @@ const Dashboard = () => {
   const handleTableFilterChange = React.useCallback(
     (name, value) => {
       setTableFilter({ ...tableFilter, [name]: value });
+
+      if (Boolean(name === "selectedEventType") && !Boolean(value)) {
+        setSelectedEventIcon(null);
+      }
     },
     [tableFilter]
+  );
+
+  const handleChangeTableEventTypeFilterFromCameraEvents = React.useCallback(
+    (eventName) => {
+      setTableFilter((prevData) => ({
+        ...prevData,
+        selectedEventType: eventName || null,
+      }));
+    },
+    []
   );
 
   // const handleChangeEventDetailsFilterationDate = React.useCallback(
@@ -1736,6 +1859,34 @@ const Dashboard = () => {
     [updateEvent]
   );
 
+  useEffect(() => {
+    const responsiveDonutChartContainer =
+      responsiveDonutChartContainerRef.current;
+    if (responsiveDonutChartContainer) {
+      // Debounced function to handle width changes
+      const handleResize = debounce((entry) => {
+        setResponsiveDonutChartContainerWidth(entry.contentRect.width + "px");
+      }, 500); // Adjust the debounce delay as needed
+
+      // Create a ResizeObserver instance
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          if (entry.target === responsiveDonutChartContainer) {
+            handleResize(entry);
+          }
+        }
+      });
+
+      // Start observing the element
+      resizeObserver.observe(responsiveDonutChartContainer);
+
+      // Cleanup function to stop observing when the component unmounts
+      return () => {
+        resizeObserver.unobserve(responsiveDonutChartContainer);
+      };
+    }
+  }, [debounce]);
+
   React.useEffect(() => {
     if (Cookies.getCookie("loginSuccess")) {
       setSnack({
@@ -1821,6 +1972,11 @@ const Dashboard = () => {
                   {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={3}> */}
                   <CameraEventsCard
                     cameraEventsCardData={getAllData?.data?.eventTypeCountDto}
+                    selectedEventIcon={selectedEventIcon}
+                    setSelectedEventIcon={setSelectedEventIcon}
+                    handleChangeTableEventTypeFilterFromCameraEvents={
+                      handleChangeTableEventTypeFilterFromCameraEvents
+                    }
                   />
                 </Grid>
 
@@ -1875,6 +2031,16 @@ const Dashboard = () => {
                           size="small"
                           options={getEventType?.data || []}
                           getOptionLabel={(option) => option.replace(/_/g, " ")}
+                          value={
+                            tableFilter?.selectedEventType &&
+                            Boolean(getEventType?.data?.length > 0) &&
+                            getEventType?.data?.some(
+                              (eventType) =>
+                                eventType === tableFilter?.selectedEventType
+                            )
+                              ? tableFilter?.selectedEventType
+                              : null
+                          }
                           popupIcon={
                             <KeyboardArrowDownIcon
                               sx={{ color: "customBlue.dark" }}
@@ -1911,7 +2077,11 @@ const Dashboard = () => {
                             />
                           )}
                           renderInput={(params) => (
-                            <TextField {...params} label="Select Event Type" />
+                            <TextField
+                              {...params}
+                              label="Select Event Type"
+                              value={tableFilter?.selectedEventType || ""}
+                            />
                           )}
                         />
                       </Grid>
@@ -2023,7 +2193,10 @@ const Dashboard = () => {
                             />
                           )}
                           renderInput={(params) => (
-                            <TextField {...params} label="Select Status" />
+                            <TextField
+                              {...params}
+                              label="Select Event Status"
+                            />
                           )}
                         />
                       </Grid>
@@ -2234,7 +2407,7 @@ const Dashboard = () => {
                   </Box>
                   <TableComponent
                     getAllData={tableComponentData}
-                    getRemarkType={getStatusType?.data}
+                    getRemarkType={getStatusType?.data || []}
                     pageNo={pageNo}
                     pageSize={pageSize}
                     handlePageChange={handlePageChange}
@@ -2474,6 +2647,9 @@ const Dashboard = () => {
                           <Box sx={{ width: "60%" }}>
                             <ChartComponent
                               dataCount={getAllEventCount?.data}
+                              customLabels={boxesData?.map(
+                                (boxItem) => boxItem?.title
+                              )}
                             />
                           </Box>
                           <Box

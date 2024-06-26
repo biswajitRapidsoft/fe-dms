@@ -31,3 +31,7 @@ export const GOOD = "GOOD";
 export const AVARAGE = "AVARAGE";
 export const BAD = "BAD";
 export const WORST = "WORST";
+
+export const PENDING = "PENDING";
+export const ACTION_TAKEN = "ACTION TAKEN";
+export const NO_ACTION_NEEDED = "NO ACTION NEEDED";
